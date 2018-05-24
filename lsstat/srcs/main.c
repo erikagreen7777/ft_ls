@@ -6,30 +6,65 @@ int main(int argc, char **argv)
         return 1;
  
     struct stat fileStat;
-    if(stat(argv[1],&fileStat) < 0)    
+    struct passwd *pwd;
+    struct group *grp;
+    char    *foo;
+    char    **timearray;
+    char    *hourmin;
+
+    hourmin = (char *)malloc(sizeof(char));
+
+    if(stat(argv[1],&fileStat) < 0)  
         return 1;
+    ft_printf("Information for %s\n",argv[1]);
+    ft_printf("---------------------------\n");
+    ft_printf("Number of Links: \t%d\n",fileStat.st_nlink);
+    
+    //print %s of userid. else, print numerical version
+    if ((pwd = getpwuid(fileStat.st_uid)) != NULL)
+        printf("UserID: \t\t%s\n", pwd->pw_name);
+    else
+        printf("UserID (numerical): \t\t%d\n", fileStat.st_uid);
+    
+    //print %s of groupid. else, print numerical version
+    if ((grp = getgrgid(fileStat.st_gid)) != NULL)
+        printf("GroupID: \t\t%s\n", grp->gr_name);
+    else
+        printf("GroupID (numerical): \t\t%d\n", fileStat.st_gid);
+
+    //file size
+    ft_printf("File Size: \t\t%llu bytes\n",fileStat.st_size);
+
+    //last modification date
+    foo = ctime(&(fileStat.st_mtime));
+    timearray = ft_strsplit(foo, ' ');
+    ft_strncpy(hourmin, timearray[3], 5);
+    printf("Last modification date: %s %s %s\n", timearray[1], timearray[2], hourmin);
+    free(hourmin);
+
+    //file permissions
+    ft_printf("File Permissions: \t");
+    ft_printf( (S_ISDIR(fileStat.st_mode)) ? "d" : "-");
+    ft_printf( (fileStat.st_mode & S_IRUSR) ? "r" : "-");
+    ft_printf( (fileStat.st_mode & S_IWUSR) ? "w" : "-");
+    ft_printf( (fileStat.st_mode & S_IXUSR) ? "x" : "-");
+    ft_printf( (fileStat.st_mode & S_IRGRP) ? "r" : "-");
+    ft_printf( (fileStat.st_mode & S_IWGRP) ? "w" : "-");
+    ft_printf( (fileStat.st_mode & S_IXGRP) ? "x" : "-");
+    ft_printf( (fileStat.st_mode & S_IROTH) ? "r" : "-");
+    ft_printf( (fileStat.st_mode & S_IWOTH) ? "w" : "-");
+    ft_printf( (fileStat.st_mode & S_IXOTH) ? "x" : "-");
+    ft_printf("\n\n");
  
-    printf("Information for %s\n",argv[1]);
-    printf("---------------------------\n");
-    printf("File Size: \t\t%llu bytes\n",fileStat.st_size);
-    printf("Number of Links: \t%d\n",fileStat.st_nlink);
-    printf("File inode: \t\t%lld\n",fileStat.st_ino);
- 
-    printf("File Permissions: \t");
-    printf( (S_ISDIR(fileStat.st_mode)) ? "d" : "-");
-    printf( (fileStat.st_mode & S_IRUSR) ? "r" : "-");
-    printf( (fileStat.st_mode & S_IWUSR) ? "w" : "-");
-    printf( (fileStat.st_mode & S_IXUSR) ? "x" : "-");
-    printf( (fileStat.st_mode & S_IRGRP) ? "r" : "-");
-    printf( (fileStat.st_mode & S_IWGRP) ? "w" : "-");
-    printf( (fileStat.st_mode & S_IXGRP) ? "x" : "-");
-    printf( (fileStat.st_mode & S_IROTH) ? "r" : "-");
-    printf( (fileStat.st_mode & S_IWOTH) ? "w" : "-");
-    printf( (fileStat.st_mode & S_IXOTH) ? "x" : "-");
-    printf("\n\n");
- 
-    printf("The file %s a symbolic link\n", (S_ISLNK(fileStat.st_mode)) ? "is" : "is not");
+    //symbolic link?
+    ft_printf("The file %s a symbolic link\n", (S_ISLNK(fileStat.st_mode)) ? "is" : "is not");
  
     return 0;
 }
+
+    // ft_printf("File inode: \t\t%lld\n",fileStat.st_ino);
+    // ft_printf("UserID: \t\t%d\n", getpwuid(fileStat.st_uid));
+    // ft_printf("GroupID: \t\t%u\n", fileStat.st_gid);
+
+
 
