@@ -56,6 +56,27 @@ int main(int argc, char **argv)
     ft_printf( (fileStat.st_mode & S_IXOTH) ? "x" : "-");
     ft_printf("\n\n");
  
+    //device type?
+    printf("device type: \t\t%d\n", fileStat.st_rdev);
+
+    //file type
+    if (S_ISDIR(fileStat.st_mode) == 1)
+        printf("File type: \t\tDirectory\n");
+    else if ((fileStat.st_mode & S_IFMT) == S_IFIFO)
+        printf("File type: \t\tNamed Pipe (FIFO)\n");
+    else if ((fileStat.st_mode & S_IFMT) == S_IFCHR)
+        printf("File type: \t\tCharacter Device\n");
+    else if ((fileStat.st_mode & S_IFMT) == S_IFBLK)
+        printf("File type: \t\tBlock Device\n");
+    else if ((fileStat.st_mode & S_IFMT) == S_IFSOCK)
+        printf("File type: \t\tSocket\n");
+    else if ((fileStat.st_mode & S_IFMT) == S_IFREG)
+        printf("File type: \t\tRegular File\n");
+    else if ((fileStat.st_mode & S_IFMT) == S_IFLNK)
+        printf("File type: \t\tSymbolic Link\n");
+    else
+        printf("Some sort of file type error\n");
+
     //symbolic link?
     ft_printf("The file %s a symbolic link\n", (S_ISLNK(fileStat.st_mode)) ? "is" : "is not");
  
