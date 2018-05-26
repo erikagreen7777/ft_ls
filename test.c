@@ -21,7 +21,7 @@ list_dir (const char * dir_name)
 
     /* Check it was opened. */
     if (! d) {
-        fprintf (stderr, "Cannot open directory '%s': %s\n",
+        fprintf (stderr, "mehCannot open directory '%s': %s\n",
                  dir_name, strerror (errno));
         exit (EXIT_FAILURE);
     }
@@ -40,6 +40,9 @@ list_dir (const char * dir_name)
         /* Print the name of the file and directory. */
     if (d_name[0] != '.')
 	   printf("%s\n", d_name);
+    if (! (entry->d_type & DT_DIR)) {
+        printf ("lets see: %s/%s\n", dir_name, d_name);
+    }
 
 #if 0
 	/* If you don't want to print the directories, use the
@@ -49,7 +52,7 @@ list_dir (const char * dir_name)
 	    printf ("%s/%s\n", dir_name, d_name);
 	}
 
-#endif /* 0 */
+#endif
 
 
         if (entry->d_type & DT_DIR) {
