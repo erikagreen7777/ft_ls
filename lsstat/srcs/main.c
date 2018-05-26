@@ -14,10 +14,14 @@ int main(int argc, char **argv)
 
     hourmin = (char *)malloc(sizeof(char));
 
+    //check that it exists
     if(stat(argv[1],&fileStat) < 0)  
-        return 1;
+        return (1);
+
     ft_printf("Information for %s\n",argv[1]);
     ft_printf("---------------------------\n");
+
+    //number of links
     ft_printf("Number of Links: \t%d\n",fileStat.st_nlink);
     
     //print %s of userid. else, print numerical version
@@ -77,7 +81,7 @@ int main(int argc, char **argv)
     else
         printf("Some sort of file type error\n");
 
-    //symbolic link?
+    //symbolic link?ø
     ft_printf("The file %s a symbolic link\n", (S_ISLNK(fileStat.st_mode)) ? "is" : "is not");
  
     return 0;
@@ -89,3 +93,12 @@ int main(int argc, char **argv)
 
 
 
+// recursivelyList(directory) {
+//     files[] = listDirectory(directory)              // Get all files in the directory
+//     print(directory.name + ":\n" + files.join(" ")) // Print the "ls" output
+//     for (file : files) {                            // Go through all the files in the directory
+//         if (file.isDirectory()) {                   // Check if the current file being looked at is a directory
+//             recursivelyList(directory)              // If so, recursively list that directory
+//         }
+//     }
+// }
