@@ -47,7 +47,7 @@ list_dir (const char * dir_name)
             /* Check that the directory is not "d" or d's parent. */
 
 
-            //STRLCAT INTO BUFFER AND PRINT BUFFER AT THE END
+            //STRJOIN INTO BUFFER AND PRINT BUFFER AT THE END
             
             if (ft_strcmp (d_name, "..") != 0 && ft_strcmp (d_name, ".") != 0) {
                 int path_length = 0;
