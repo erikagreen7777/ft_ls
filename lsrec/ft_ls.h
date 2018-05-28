@@ -13,12 +13,11 @@
 # include <grp.h>
 # include <time.h>
 # include <errno.h>
-// # include <limits.h>
 # include "libft/libft.h"
 # include "libft/printf.h"
 
 # define BUFF_SIZE 256
-# define PATH_MAX 1000
+# define PATH_MAX 4096
 
 typedef struct		s_node
 {

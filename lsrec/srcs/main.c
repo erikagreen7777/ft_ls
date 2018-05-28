@@ -18,13 +18,11 @@ static void list_dir(const char *dir_name)
 
         if (!entry)
         {
-            /* There are no more entries in this directory, so break
-               out of the while loop. */
             break;
         }
         d_name = entry->d_name;
         if (d_name[0] != '.')
-	       printf("d_name: %s\n", d_name);
+	       ft_printf("%s\n", d_name);
         if (entry->d_type & DT_DIR) 
         {
             /* Check that the directory is not "d" or d's parent. */
@@ -37,7 +35,7 @@ static void list_dir(const char *dir_name)
                 ft_strcpy(newpath, dir_name);
                 ft_strcat(newpath, "/");
                 ft_strcat(newpath, d_name);
-                printf("final newpath: %s\n", newpath);
+                ft_printf("%s\n", newpath);
                 if (newpath_length >= PATH_MAX)
                 {
                     ft_printf ("Path length too long.\n");
