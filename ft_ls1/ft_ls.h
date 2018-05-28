@@ -18,6 +18,8 @@
 # define BUFF_SIZE 256
 # define PATH_MAX 4096
 
-int					list_dir(int argc, char **argv);
+void					list_dir(int argc, char **argv);
+void					list_dira(int argc, char **argv);
+
 
 #endif

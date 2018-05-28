@@ -11,7 +11,14 @@ int main(int argc, char **argv)
 	//just ./ft_ls <directory>
 	if (ft_strcmp(argv[0], "./ft_ls") == 0)
 	{
-		list_dir(argc, argv);
+		if (ft_strcmp(argv[1], "-a") == 0)
+		{
+			list_dira(argc, argv);
+		}
+		else
+		{
+			list_dir(argc, argv);
+		}
 	}
 	else
 		printf("Nope\n");

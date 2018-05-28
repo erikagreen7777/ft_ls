@@ -1,51 +1,58 @@
-//how is the j going to work for parsing arguments like -a and -l? 
-
-
-
 #include "../ft_ls.h"
 
-int	list_dir(int argc, char **argv)
+void	list_dir(int argc, char **argv)
 {
 	DIR				*dip;
 	struct dirent	*dit;
 	int 			i;
 	int				j;
-
 	i = 0;
 	j = 1;
-
-	//to account for multiple directory lses
 	while (j < argc)
 	{
 		if (j > 1 && j < argc)
 			write(1, "\n", 1);
-		//open directory (argv[1])
+		//check for whether it's a directory or file here
+		// you're going to need another function to do that
 		dip = opendir(argv[j]);
 		if (dip == NULL)
-		{
-			perror("opendir");
-			return (1);
-		}
-
-		//read directories and print
+			ft_error("opendir");
 		while ((dit = readdir(dip)) != NULL)
 		{
 			if (dit->d_name[0] != '.')
 				ft_printf("%s\n", dit->d_name);
 			i++;
 		}
-
-		//total number of files
-		// ft_printf("readdir() found a total of %i files\n", i);
-
-		//close directories
 		if (closedir(dip) == -1)
-		{
-			perror("closedir");
-			return (1);
-		}
+			ft_error("closedir");
 		j++;
 	}
-	return (0);
 }
 
+void	list_dira(int argc, char **argv)
+{
+	DIR				*dip;
+	struct dirent	*dit;
+	int 			i;
+	int				j;
+	i = 0;
+	j = 2;
+	while (j < argc)
+	{
+		if (j > 2 && j < argc)
+			write(1, "\n", 1);
+		//check for whether it's a directory or file here
+		// you're going to need another function to do that
+		dip = opendir(argv[j]);
+		if (dip == NULL)
+			ft_error("opendir");
+		while ((dit = readdir(dip)) != NULL)
+		{
+			ft_printf("%s\n", dit->d_name);
+			i++;
+		}
+		if (closedir(dip) == -1)
+			ft_error("closedir");
+		j++;
+	}
+}
