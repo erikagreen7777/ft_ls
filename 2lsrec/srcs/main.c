@@ -43,16 +43,14 @@ list_dir (const char *dir_name)
 
                 newpath_length = ft_strlen(newpath);
                 ft_strcpy(newpath, dir_name);
-                // printf("original newpath: %s\n", newpath);
                 ft_strcat(newpath, "/");
-                // printf("strcat newpath: %s\n", newpath);
                 ft_strcat(newpath, d_name);
                 printf("final newpath: %s\n", newpath);
 
-                int path_length = 0;
-                char path[PATH_MAX];
+                // int path_length = 0;
+                // char path[PATH_MAX];
                 // printf("(dir_name: %s\t\td_name: %s)\n", dir_name, d_name);
-                path_length = snprintf (path, PATH_MAX, "%s/%s", dir_name, d_name);
+                // path_length = snprintf (path, PATH_MAX, "%s/%s", dir_name, d_name);
 //DOES SNPRINTF AUTOMATICALLY FREE THE BUFFER?
     //just allocate on the stack for char[PATH_NAME] to avoid allocating memory
                 // printf ("snprintf: %s\n", path);
@@ -60,10 +58,10 @@ list_dir (const char *dir_name)
                 if (newpath_length >= PATH_MAX)
                 {
                     ft_printf ("Path length too long.\n");
-                    exit (EXIT_FAILURE);
+                    exit(EXIT_FAILURE);
                 }
                     /* Recursively call "list_dir" with the new path. */
-                list_dir (path);
+                list_dir (newpath);
             }
     	}
     }
