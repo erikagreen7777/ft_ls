@@ -10,13 +10,24 @@ char	*extract_path(char *str)
 	ft_strncpy(newstr, str, len);
 	// printf("newstr: %s\n", newstr);
 	return (newstr);
-
 }
+
+// SEE IF THERE'S A / IN THE ARGV[1]
+// SPLIT THE STRING
+// CHECK IF EACH DIRECTORY IS VALID IN A WHILE LOOP
+
+// SEE IF THERE'S A / IN ARGV[1]
+// SPLIT THE STRING
+// SEE IF YOU CAN IT. IF IT'S A FILE, PRINT ARGV[1]
+
+
+
 
 void	list_dir(int argc, char **argv)
 {
 	DIR				*dip;
 	struct dirent	*dit;
+	struct stat 	fileStat;
 	int 			i;
 	int				j;
 	i = 0;
@@ -28,15 +39,26 @@ void	list_dir(int argc, char **argv)
 		//check for whether it's a directory or file here
 		// you're going to need another function to do that
 		dip = opendir(argv[j]);
+		// if(stat(argv[j],&fileStat) < 0)  
+  //       	ft_error("stat error");
+  //       else
+  //       	ft_error("cool");
 		if (dip == NULL)
 		{
 			// extract_path(argv[j]);
-			if ((dip = opendir(extract_path(argv[j]))) != NULL)
-				{
-					printf("%s\n", argv[j]);
-					exit(0);
-				}
-			else
+
+			while ((dip = opendir(extract_path(argv[j]))) != NULL)
+			{
+				if(stat(argv[j],&fileStat) < 0)  
+        			ft_error("stat error");
+				// if (!dip)
+				// {
+				// 	ft_error("annot open dir\n");
+				// }
+				printf("%s\n", argv[j]);
+				exit(0);
+			}
+			// else
 				ft_error("opendir");
 		}
 		while ((dit = readdir(dip)) != NULL)
