@@ -21,6 +21,6 @@
 
 void					list_dir(int argc, char **argv);
 void					list_dira(int argc, char **argv);
-
+int 					ls_stat(char **argv);
 
 #endif

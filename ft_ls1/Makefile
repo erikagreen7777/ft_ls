@@ -5,7 +5,8 @@ CC = gcc
 FLAG += -Wall -Werror -Wextra -g 
 
 SRC = srcs/main.c \
-	srcs/list_dir.c
+	srcs/list_dir.c \
+	srcs/stat.c
 	  
 OBJ = $(SRC:.c=.o)
 

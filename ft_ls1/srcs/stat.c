@@ -1,10 +1,7 @@
 #include "../ft_ls.h"
 
-int main(int argc, char **argv)
+int ls_stat(char **argv)
 {
-    if(argc != 2)    
-        return 1;
- 
     struct stat fileStat;
     struct passwd *pwd;
     struct group *grp;
@@ -15,10 +12,10 @@ int main(int argc, char **argv)
     hourmin = (char *)malloc(sizeof(char));
 
     //check that it exists
-    if(stat(argv[1],&fileStat) < 0)  
+    if(stat(argv[2],&fileStat) < 0)  
         return (1);
 
-    ft_printf("Information for %s\n",argv[1]);
+    ft_printf("Information for %s\n",argv[2]);
     ft_printf("---------------------------\n");
 
     //number of links
@@ -83,22 +80,6 @@ int main(int argc, char **argv)
 
     //symbolic link?ø
     ft_printf("The file %s a symbolic link\n", (S_ISLNK(fileStat.st_mode)) ? "is" : "is not");
- 
-    return 0;
+    // free(hourmin) at some point
+    return (0);
 }
-
-    // ft_printf("File inode: \t\t%lld\n",fileStat.st_ino);
-    // ft_printf("UserID: \t\t%d\n", getpwuid(fileStat.st_uid));
-    // ft_printf("GroupID: \t\t%u\n", fileStat.st_gid);
-
-
-
-// recursivelyList(directory) {
-//     files[] = listDirectory(directory)              // Get all files in the directory
-//     print(directory.name + ":\n" + files.join(" ")) // Print the "ls" output
-//     for (file : files) {                            // Go through all the files in the directory
-//         if (file.isDirectory()) {                   // Check if the current file being looked at is a directory
-//             recursivelyList(directory)              // If so, recursively list that directory
-//         }
-//     }
-// }
