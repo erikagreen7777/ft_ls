@@ -5,8 +5,8 @@ void	lex_sort(DIR *dip)
 	int		filecount;
 	int		i;
 	int		j;
-	struct dirent *dit;
-	char	tmp[D_NAME_MAX][WORD_MAX];
+	struct 	dirent *dit;
+	char	str[D_NAME_MAX][WORD_MAX];
 	filecount = 0;
 	i = 0;
 	j = 0;
@@ -15,47 +15,20 @@ void	lex_sort(DIR *dip)
 	{
 		if (dit->d_name[0] != '.')
 		{
-			ft_strcpy(tmp[i], dit->d_name);
+			ft_strcpy(str[i], dit->d_name);
 			filecount++;
 			i++;
 		}
 	}
-	i = 0;
-	// dip = opendir(argv[j]);
-	while (i < filecount)
+	// printf("filecount: %d\n", filecount);
+	//print out strcopy of dirent
+	while (--filecount > -1)
 	{
-		printf("temp[i]: %s[%d]\n", tmp[i], i);
-		i++;
+		printf("%s\n", str[filecount]);
+		// filecount--;
 	}
-	// if (closedir(dip) == -1)
-	// 	ft_error("closedir");
-	printf("filecount: %d\n", filecount);
-
-	// while ((dit = readdir(dip)) != NULL)
-	// {
-	// 	if (dit->d_name[0] != '.')
-	// 	{
-	// 		// if (ft_strcmp(dit->d_name) > dit->d_name)
-	// 		ft_printf("%s\n", dit->d_name[0]);			
-	// 		i++;
-	// 	}
-	// }
-	// exit(0);
-	// while (dit->d_name[i])
-	// {
-	// 	while (dit->d_name[i][j])
-	// 	{
-	// 		if(ft_strcmp(str[i], str[j])>0)
-	//             {
-	//                 ft_strcpy(temp, str[i]);
-	//                 ft_strcpy(str[i], str[j]);
-	//                 ft_strcpy(str[j], temp);
-	//             }
-	// 		j++;
-	// 	}
-	// 	i++;
-	// }
 }
+
 void	list_dir(int argc, char **argv)
 {
 	DIR				*dip;
