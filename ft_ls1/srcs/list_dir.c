@@ -16,8 +16,6 @@ void	list_dir(int argc, char **argv)
 		{
 				if(stat(argv[j],&fileStat) < 0) 
         			ft_error(": No such file or directory");
-				// printf("%s\n", argv[j]);
-				// exit(1);
 		}
 		while ((dit = readdir(dip)) != NULL)
 		{
