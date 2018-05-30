@@ -30,15 +30,13 @@ void list_dirbigr(const char *dir_name)
                 char newpath[PATH_MAX];
                 int  newpath_length;
                 newpath_length = ft_strlen(newpath);
-
                 ft_strcpy(newpath, dir_name);
                 ft_strcat(newpath, "/");
                 ft_strcat(newpath, d_name);
                 ft_printf("%s\n", newpath);
                 if (newpath_length >= PATH_MAX)
                 {
-                    ft_printf ("Path length too long.\n");
-                    exit(EXIT_FAILURE);
+                    ft_error("Path length too long");
                 }
                     /* Recursively call "list_dir" with the new path. */
                 list_dirbigr(newpath);
