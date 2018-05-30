@@ -1,27 +1,5 @@
 #include "../ft_ls.h"
 
-static void	lex_sort(DIR *dip)
-{
-	int		filecount;
-	int		i;
-	struct 	dirent *dit;
-	char	str[D_NAME_MAX][WORD_MAX];
-	filecount = 0;
-	i = 0;
-
-	while ((dit = readdir(dip)) != NULL)
-	{
-		if (dit->d_name[0] != '.')
-		{
-			ft_strcpy(str[i], dit->d_name);
-			filecount++;
-			i++;
-		}
-	}
-	while (--filecount > -1)
-		printf("%s\n", str[filecount]);
-}
-
 void	list_dir(int argc, char **argv)
 {
 	DIR				*dip;
@@ -37,9 +15,9 @@ void	list_dir(int argc, char **argv)
 		if (dip == NULL)
 		{
 				if(stat(argv[j],&fileStat) < 0) 
-        			ft_error("stat error");
-				printf("%s\n", argv[j]);
-				exit(1);
+        			ft_error(": No such file or directory");
+				// printf("%s\n", argv[j]);
+				// exit(1);
 		}
 		while ((dit = readdir(dip)) != NULL)
 		{
@@ -67,7 +45,7 @@ void	list_dira(int argc, char **argv)
 		if (dip == NULL)
 		{
 				if(stat(argv[j],&fileStat) < 0)  
-        			ft_error("stat error");
+        			ft_error(": No such file or directory");
 				printf("%s\n", argv[j]);
 				exit(1);
 		}
@@ -77,6 +55,28 @@ void	list_dira(int argc, char **argv)
 			ft_error("closedir");
 		j++;
 	}
+}
+
+static void	lex_sort(DIR *dip)
+{
+	int		filecount;
+	int		i;
+	struct 	dirent *dit;
+	char	str[D_NAME_MAX][WORD_MAX];
+	filecount = 0;
+	i = 0;
+
+	while ((dit = readdir(dip)) != NULL)
+	{
+		if (dit->d_name[0] != '.')
+		{
+			ft_strcpy(str[i], dit->d_name);
+			filecount++;
+			i++;
+		}
+	}
+	while (--filecount > -1)
+		printf("%s\n", str[filecount]);
 }
 
 void	list_dirr(int argc, char **argv)
@@ -93,7 +93,7 @@ void	list_dirr(int argc, char **argv)
 		if (dip == NULL)
 		{
 				if(stat(argv[j],&fileStat) < 0)  
-        			ft_error("stat error");
+        			ft_error(": No such file or directory");
 				printf("%s\n", argv[j]);
 				exit(1);
 		}
