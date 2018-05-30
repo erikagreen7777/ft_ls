@@ -6,7 +6,8 @@ FLAG += -Wall -Werror -Wextra -g
 
 SRC = srcs/main.c \
 	srcs/list_dir.c \
-	srcs/stat.c
+	srcs/stat.c \
+	srcs/recursion.c
 	  
 OBJ = $(SRC:.c=.o)
 

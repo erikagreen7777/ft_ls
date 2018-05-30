@@ -1,14 +1,13 @@
 #include "../ft_ls.h"
 
-static void list_dir(const char *dir_name)
+void list_dirbigr(const char *dir_name)
 {
     DIR *d;
     d = opendir (dir_name);
 
     if (!d)
     {
-        printf("Cannot open directory '%s': %s\n", dir_name, strerror(errno));
-        exit(EXIT_FAILURE);
+        ft_error(": No such file or directory");
     }
     while (1) 
     {
@@ -42,25 +41,14 @@ static void list_dir(const char *dir_name)
                     exit(EXIT_FAILURE);
                 }
                     /* Recursively call "list_dir" with the new path. */
-                list_dir (newpath);
+                list_dirbigr(newpath);
             }
     	}
     }
     /* After going through all the entries, close the directory. */
     if (closedir (d)) {
-        fprintf (stderr, "Could not close '%s': %s\n",
-                 dir_name, strerror (errno));
+            ft_error("closedir");
         exit (EXIT_FAILURE);
     }
 }
 
-int main (int argc, char **argv)
-{
-    if (argc < 2)
-    {
-        printf("usage: <directory>");
-        return (1);
-    }
-    list_dir (argv[1]);
-    return 0;
-}

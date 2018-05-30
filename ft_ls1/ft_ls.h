@@ -22,8 +22,10 @@
 
 void					list_dir(int argc, char **argv);
 void					list_dira(int argc, char **argv);
-int 					ls_stat(char **argv);
+int 					ls_stat(int argc, char **argv);
 void					list_dirr(int argc, char **argv);
+void 					list_dirbigr(const char *dir_name);
+
 
 
 #endif
