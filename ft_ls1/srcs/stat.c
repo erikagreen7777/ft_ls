@@ -8,12 +8,27 @@ int ls_stat(char **argv)
     char    *foo;
     char    **timearray;
     char    *hourmin;
-
     hourmin = (char *)malloc(sizeof(char));
+
 
     //check that it exists
     if(stat(argv[2],&fileStat) < 0)  
-        return (1);
+    {
+        ft_error(": no such file or directory");
+    }
+
+
+    //open directory and read each file in directory
+    // if (S_ISDIR(fileStat.st_mode) == 1)
+    // {
+    //     printf("File type: \t\tDirectory\n");
+    //     dip = opendir(argv[2]);
+    //     if ((dit = readdir(dip)) != NULL)
+    //     {
+
+    
+
+
 
     // ft_printf("Information for %s\n",argv[2]);
     // ft_printf("---------------------------\n");
@@ -93,5 +108,7 @@ int ls_stat(char **argv)
     //symbolic link?ø
     // ft_printf("The file %s a symbolic link\n", (S_ISLNK(fileStat.st_mode)) ? "is" : "is not");
     // free(hourmin) at some point
+    //     }
+    // }
     return (0);
 }
