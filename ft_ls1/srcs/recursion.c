@@ -6,9 +6,7 @@ void list_dirbigr(const char *dir_name)
     d = opendir (dir_name);
 
     if (!d)
-    {
         ft_error(": No such file or directory");
-    }
     while (1) 
     {
         struct dirent *entry;
@@ -35,9 +33,7 @@ void list_dirbigr(const char *dir_name)
                 ft_strcat(newpath, d_name);
                 ft_printf("%s\n", newpath);
                 if (newpath_length >= PATH_MAX)
-                {
                     ft_error("Path length too long");
-                }
                     /* Recursively call "list_dir" with the new path. */
                 list_dirbigr(newpath);
             }
