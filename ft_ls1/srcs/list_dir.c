@@ -4,12 +4,10 @@ void	lex_sort(DIR *dip)
 {
 	int		filecount;
 	int		i;
-	int		j;
 	struct 	dirent *dit;
 	char	str[D_NAME_MAX][WORD_MAX];
 	filecount = 0;
 	i = 0;
-	j = 0;
 
 	while ((dit = readdir(dip)) != NULL)
 	{
@@ -20,7 +18,6 @@ void	lex_sort(DIR *dip)
 			i++;
 		}
 	}
-	// printf("filecount: %d\n", filecount);
 	//print out strcopy of dirent
 	while (--filecount > -1)
 	{
@@ -97,7 +94,6 @@ void	list_dira(int argc, char **argv)
 void	list_dirr(int argc, char **argv)
 {
 	DIR				*dip;
-	// struct dirent	*dit;
 	struct stat 	fileStat;
 	int 			i;
 	int				j;
@@ -116,13 +112,6 @@ void	list_dirr(int argc, char **argv)
 				exit(1);
 		}
 		lex_sort(dip);
-		// dip = opendir(argv[j]);
-		// while ((dit = readdir(dip)) != NULL)
-		// {
-		// 	if (dit->d_name[0] != '.')
-		// 		ft_printf("%s\n", dit->d_name);
-		// 	i++;
-		// }
 		if (closedir(dip) == -1)
 			ft_error("closedir");
 		j++;
