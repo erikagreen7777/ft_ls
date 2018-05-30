@@ -2,11 +2,11 @@
 
 void	lex_sort(DIR *dip)
 {
-	unsigned int	filecount;
+	int		filecount;
 	int		i;
 	int		j;
 	struct dirent *dit;
-	// char	tmp[D_NAME_MAX];
+	char	tmp[D_NAME_MAX][WORD_MAX];
 	filecount = 0;
 	i = 0;
 	j = 0;
@@ -15,10 +15,17 @@ void	lex_sort(DIR *dip)
 	{
 		if (dit->d_name[0] != '.')
 		{
-			// if (ft_strcmp(dit->d_name) > dit->d_name)
+			ft_strcpy(tmp[i], dit->d_name);
 			filecount++;
-			// ft_printf("%c\n", ft_toupper(dit->d_name[0]));			i++;
+			i++;
 		}
+	}
+	i = 0;
+	// dip = opendir(argv[j]);
+	while (i < filecount)
+	{
+		printf("temp[i]: %s[%d]\n", tmp[i], i);
+		i++;
 	}
 	// if (closedir(dip) == -1)
 	// 	ft_error("closedir");
@@ -117,7 +124,7 @@ void	list_dira(int argc, char **argv)
 void	list_dirr(int argc, char **argv)
 {
 	DIR				*dip;
-	struct dirent	*dit;
+	// struct dirent	*dit;
 	struct stat 	fileStat;
 	int 			i;
 	int				j;
@@ -136,13 +143,13 @@ void	list_dirr(int argc, char **argv)
 				exit(1);
 		}
 		lex_sort(dip);
-		dip = opendir(argv[j]);
-		while ((dit = readdir(dip)) != NULL)
-		{
-			if (dit->d_name[0] != '.')
-				ft_printf("%s\n", dit->d_name);
-			i++;
-		}
+		// dip = opendir(argv[j]);
+		// while ((dit = readdir(dip)) != NULL)
+		// {
+		// 	if (dit->d_name[0] != '.')
+		// 		ft_printf("%s\n", dit->d_name);
+		// 	i++;
+		// }
 		if (closedir(dip) == -1)
 			ft_error("closedir");
 		j++;
