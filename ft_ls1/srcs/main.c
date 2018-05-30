@@ -20,6 +20,12 @@ int main(int argc, char **argv)
 				ft_error("Usage: ./ft_ls -l <directory>");
 			ls_stat(argv);
 		}
+		else if (ft_strcmp(argv[1], "-r") == 0)
+		{
+			if (argc < 3)
+				ft_error("Usage: ./ft_ls -r <directory>");
+			list_dirr(argc, argv);
+		}
 		else
 		{
 			list_dir(argc, argv);
