@@ -1,6 +1,6 @@
 #include "../ft_ls.h"
 
-void	lex_sort(DIR *dip)
+static void	lex_sort(DIR *dip)
 {
 	int		filecount;
 	int		i;
@@ -18,12 +18,8 @@ void	lex_sort(DIR *dip)
 			i++;
 		}
 	}
-	//print out strcopy of dirent
 	while (--filecount > -1)
-	{
 		printf("%s\n", str[filecount]);
-		// filecount--;
-	}
 }
 
 void	list_dir(int argc, char **argv)
@@ -31,9 +27,7 @@ void	list_dir(int argc, char **argv)
 	DIR				*dip;
 	struct dirent	*dit;
 	struct stat 	fileStat;
-	int 			i;
 	int				j;
-	i = 0;
 	j = 1;
 	while (j < argc)
 	{
@@ -51,7 +45,6 @@ void	list_dir(int argc, char **argv)
 		{
 			if (dit->d_name[0] != '.')
 				ft_printf("%s\n", dit->d_name);
-			i++;
 		}
 		if (closedir(dip) == -1)
 			ft_error("closedir");
@@ -64,9 +57,7 @@ void	list_dira(int argc, char **argv)
 	DIR				*dip;
 	struct dirent	*dit;
 	struct stat 	fileStat;
-	int 			i;
 	int				j;
-	i = 0;
 	j = 2;
 	while (j < argc)
 	{
@@ -81,10 +72,7 @@ void	list_dira(int argc, char **argv)
 				exit(1);
 		}
 		while ((dit = readdir(dip)) != NULL)
-		{
 			ft_printf("%s\n", dit->d_name);
-			i++;
-		}
 		if (closedir(dip) == -1)
 			ft_error("closedir");
 		j++;
@@ -95,9 +83,7 @@ void	list_dirr(int argc, char **argv)
 {
 	DIR				*dip;
 	struct stat 	fileStat;
-	int 			i;
 	int				j;
-	i = 0;
 	j = 2;
 	while (j < argc)
 	{
