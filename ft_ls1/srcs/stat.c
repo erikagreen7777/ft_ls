@@ -1,5 +1,19 @@
 #include "../ft_ls.h"
 
+
+char    *extract_path(char *str)
+{
+    int             len;
+    char            *newstr;
+
+    newstr = (char *)malloc(sizeof(char));
+    len = ft_strlen(str) - ft_strlen(ft_strstr(str, "/"));
+    ft_strncpy(newstr, str, len);
+    printf("newstr: %s\n", newstr);
+    return (newstr);
+}
+
+
 void ls_stat(char *str)
 {
     struct stat     fileStat;

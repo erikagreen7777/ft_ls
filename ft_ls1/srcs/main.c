@@ -35,7 +35,6 @@ int main(int argc, char **argv)
 		}
 		else
 		{
-			printf("list_dir\n");
 			list_dir(argc, argv);
 		}
 	}

@@ -6,6 +6,7 @@ void	list_dirl(int argc, char **argv)
 	struct dirent	*dit;
 	struct stat 	fileStat;
 	int				j;
+	// char			*str;
 	j = 2;
 	while (j < argc)
 	{
@@ -14,10 +15,15 @@ void	list_dirl(int argc, char **argv)
 		dip = opendir(argv[j]);
 		if (dip == NULL)
 		{
-				if(stat(argv[j],&fileStat) < 0)  
-        			ft_error(": No such file or directory");
-				printf("%s\n", argv[j]);
-				exit(1);
+			// str = extract_path(argv[j]);
+			if(stat(argv[j],&fileStat) < 0)  
+        		ft_error(": No such file or directory");
+        	ls_stat(argv[j]);
+   //      	//just printing out the file name
+   //      	//not going to work for the stat function
+   //      	//separate the argv by / and open from there. 
+			// printf("%s\n", argv[j]);
+			exit(1);
 		}
 		while ((dit = readdir(dip)) != NULL)
 		{
