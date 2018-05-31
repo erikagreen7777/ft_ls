@@ -18,7 +18,8 @@ int main(int argc, char **argv)
 		{
 			if (argc < 3)
 				ft_error("Usage: ./ft_ls -l <directory>");
-			ls_stat(argc, argv);
+			list_dirl(argc, argv);
+			// ls_stat(argv[2]);
 		}
 		else if (ft_strcmp(argv[1], "-r") == 0)
 		{
@@ -32,9 +33,9 @@ int main(int argc, char **argv)
 				ft_error("Usage: ./ft_ls -R <directory>");
 			list_dirbigr(argv[2]);
 		}
-
 		else
 		{
+			printf("list_dir\n");
 			list_dir(argc, argv);
 		}
 	}

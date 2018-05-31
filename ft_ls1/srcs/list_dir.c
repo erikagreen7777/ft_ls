@@ -1,5 +1,36 @@
 #include "../ft_ls.h"
 
+void	list_dirl(int argc, char **argv)
+{
+	DIR				*dip;
+	struct dirent	*dit;
+	struct stat 	fileStat;
+	int				j;
+	j = 2;
+	while (j < argc)
+	{
+		if (j > 2 && j < argc)
+			write(1, "\n", 1);
+		dip = opendir(argv[j]);
+		if (dip == NULL)
+		{
+				if(stat(argv[j],&fileStat) < 0)  
+        			ft_error(": No such file or directory");
+				printf("%s\n", argv[j]);
+				exit(1);
+		}
+		while ((dit = readdir(dip)) != NULL)
+		{
+			if (dit->d_name[0] != '.')
+				ls_stat(dit->d_name);
+				// ft_printf("%s\n", dit->d_name);
+		}
+		if (closedir(dip) == -1)
+			ft_error("closedir");
+		j++;
+	}
+}
+
 void	list_dir(int argc, char **argv)
 {
 	DIR				*dip;
@@ -14,8 +45,10 @@ void	list_dir(int argc, char **argv)
 		dip = opendir(argv[j]);
 		if (dip == NULL)
 		{
-				if(stat(argv[j],&fileStat) < 0) 
+				if(stat(argv[j],&fileStat) < 0)  
         			ft_error(": No such file or directory");
+				printf("%s\n", argv[j]);
+				exit(1);
 		}
 		while ((dit = readdir(dip)) != NULL)
 		{
