@@ -4,7 +4,7 @@ void	list_dirl(int argc, char **argv)
 {
 	DIR				*dip;
 	struct dirent	*dit;
-	struct stat 	fileStat;
+	// struct stat 	fileStat;
 	int				j;
 	// char			*str;
 	j = 2;
@@ -16,8 +16,8 @@ void	list_dirl(int argc, char **argv)
 		if (dip == NULL)
 		{
 			// str = extract_path(argv[j]);
-			if(stat(argv[j],&fileStat) < 0)  
-        		ft_error(": No such file or directory");
+			// if(stat(argv[j],&fileStat) < 0)  
+   //      		ft_error(": No such file or directory");
         	ls_stat(argv[j]);
    //      	//just printing out the file name
    //      	//not going to work for the stat function
