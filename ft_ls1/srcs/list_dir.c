@@ -5,8 +5,13 @@ void	list_dirl(int argc, char **argv)
 	int				j;
 	DIR				*dip;
 	struct dirent	*dit;
+	char			**splitstr;
+	int				i;
+	int				linecount;
+	linecount = 0;
+	i = 0;
 	j = 2;
-
+	splitstr = NULL;
 	while (j < argc)
 	{
 		if (ls_stat(argv[j]) != 0)
@@ -18,14 +23,30 @@ void	list_dirl(int argc, char **argv)
 			}
 			while ((dit = readdir(dip)) != NULL)
 			{
+				printf("hello!\n");
 				if (dit->d_name[0] != '.')
+				{
+					splitstr[i] = ft_strdup(dit->d_name);
+					i++;
+					printf("i: %d\n", i);
 					ft_printf("here: %s\n", dit->d_name);
+				}
 			}
 			if (closedir(dip) == -1)
 				ft_error("closedir");
 		}
 		j++;
 	}
+	linecount = i;
+	printf("linecount: %d\n", linecount);
+	i = 0;
+	while (splitstr[i] != NULL)
+	{
+		printf("splitstr: %s\n", splitstr[i]);
+		i++;
+	}
+
+
 }
 
 void	list_dir(int argc, char **argv)
