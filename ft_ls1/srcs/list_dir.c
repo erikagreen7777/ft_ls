@@ -1,5 +1,25 @@
 #include "../ft_ls.h"
 
+static int		directory_count(DIR *dip, char *str)
+{
+	int		filecount;
+	struct 	dirent *dit;
+	filecount = 0;
+
+	while ((dit = readdir(dip)) != NULL)
+	{
+		if (dit->d_name[0] != '.')
+		{
+			filecount++;
+		}
+	}
+	if (closedir(dip) == -1)
+		ft_error("closedir");
+
+	dip = opendir(str);
+	return (filecount);
+}
+
 void	list_dirl(int argc, char **argv)
 {
 	int				j;
@@ -8,28 +28,39 @@ void	list_dirl(int argc, char **argv)
 	char			**splitstr;
 	int				i;
 	int				linecount;
+	struct stat 	fileStat;
+	int				filecount;
+
 	linecount = 0;
 	i = 0;
 	j = 2;
-	splitstr = NULL;
 	while (j < argc)
 	{
-		if (ls_stat(argv[j]) != 0)
+		if(stat(argv[j], &fileStat) < 0) 
+    	{
+        	ft_error("Yo: No such file or directory");
+    	}
+		if ((fileStat.st_mode & S_IFMT) == S_IFREG)
+		{
+			ls_stat(argv[j]);
+		}
+		else if (S_ISDIR(fileStat.st_mode) == 1)
 		{
 			dip = opendir(argv[j]);
+			filecount = directory_count(dip, argv[j]);
+			splitstr = (char **)malloc(sizeof(filecount));
 			if (dip == NULL)
 			{
 				ft_error(": No file or directory");
 			}
 			while ((dit = readdir(dip)) != NULL)
 			{
-				printf("hello!\n");
 				if (dit->d_name[0] != '.')
-				{
+				{			
+					// printf("i: %d\n", i);
+					// printf("here: %s\n", dit->d_name);
 					splitstr[i] = ft_strdup(dit->d_name);
 					i++;
-					printf("i: %d\n", i);
-					ft_printf("here: %s\n", dit->d_name);
 				}
 			}
 			if (closedir(dip) == -1)
@@ -37,8 +68,7 @@ void	list_dirl(int argc, char **argv)
 		}
 		j++;
 	}
-	linecount = i;
-	printf("linecount: %d\n", linecount);
+	// printf("linecount: %d\n", linecount);
 	i = 0;
 	while (splitstr[i] != NULL)
 	{
