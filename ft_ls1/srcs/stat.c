@@ -14,7 +14,7 @@ char    *extract_path(char *str)
 }
 
 
-void ls_stat(char *str)
+int ls_stat(char *str)
 {
     struct stat     fileStat;
     struct passwd   *pwd;
@@ -107,5 +107,5 @@ void ls_stat(char *str)
     // ft_printf("The file %s a symbolic link\n", (S_ISLNK(fileStat.st_mode)) ? "is" : "is not");
 
 
-    // return (0);
+    return (0);
 }

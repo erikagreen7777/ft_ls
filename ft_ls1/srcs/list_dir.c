@@ -2,35 +2,28 @@
 
 void	list_dirl(int argc, char **argv)
 {
-	// DIR				*dip;
-	// struct dirent	*dit;
-	// struct stat 	fileStat;
 	int				j;
-	// char			*str;
+	DIR				*dip;
+	struct dirent	*dit;
 	j = 2;
-	// char			**str;
-
-	printf("argc: %d\targv[2]: %s\n", argc, argv[2]);
 
 	while (j < argc)
 	{
-		ls_stat(argv[j]);
-	// 	if (j > 2 && j < argc)
-	// 		write(1, "\n", 1);
-	// 	dip = opendir(argv[j]);
-	// 	if (dip == NULL)
-	// 	{
- //        	ls_stat(argv[j]);
-	// 		exit(1);
-	// 	}
-	// 	while ((dit = readdir(dip)) != NULL)
-	// 	{
-	// 		if (dit->d_name[0] != '.')
-	// 			ls_stat(dit->d_name);
-	// 			ft_printf("here: %s\n", dit->d_name);
-	// 	}
-	// 	if (closedir(dip) == -1)
-	// 		ft_error("closedir");
+		if (ls_stat(argv[j]) != 0)
+		{
+			dip = opendir(argv[j]);
+			if (dip == NULL)
+			{
+				ft_error(": No file or directory");
+			}
+			while ((dit = readdir(dip)) != NULL)
+			{
+				if (dit->d_name[0] != '.')
+					ft_printf("here: %s\n", dit->d_name);
+			}
+			if (closedir(dip) == -1)
+				ft_error("closedir");
+		}
 		j++;
 	}
 }
