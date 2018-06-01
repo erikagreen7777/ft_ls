@@ -2,37 +2,35 @@
 
 void	list_dirl(int argc, char **argv)
 {
-	DIR				*dip;
-	struct dirent	*dit;
+	// DIR				*dip;
+	// struct dirent	*dit;
 	// struct stat 	fileStat;
 	int				j;
 	// char			*str;
 	j = 2;
+	// char			**str;
+
+	printf("argc: %d\targv[2]: %s\n", argc, argv[2]);
+
 	while (j < argc)
 	{
-		if (j > 2 && j < argc)
-			write(1, "\n", 1);
-		dip = opendir(argv[j]);
-		if (dip == NULL)
-		{
-			// str = extract_path(argv[j]);
-			// if(stat(argv[j],&fileStat) < 0)  
-   //      		ft_error(": No such file or directory");
-        	ls_stat(argv[j]);
-   //      	//just printing out the file name
-   //      	//not going to work for the stat function
-   //      	//separate the argv by / and open from there. 
-			// printf("%s\n", argv[j]);
-			exit(1);
-		}
-		while ((dit = readdir(dip)) != NULL)
-		{
-			if (dit->d_name[0] != '.')
-				ls_stat(dit->d_name);
-				// ft_printf("%s\n", dit->d_name);
-		}
-		if (closedir(dip) == -1)
-			ft_error("closedir");
+		ls_stat(argv[j]);
+	// 	if (j > 2 && j < argc)
+	// 		write(1, "\n", 1);
+	// 	dip = opendir(argv[j]);
+	// 	if (dip == NULL)
+	// 	{
+ //        	ls_stat(argv[j]);
+	// 		exit(1);
+	// 	}
+	// 	while ((dit = readdir(dip)) != NULL)
+	// 	{
+	// 		if (dit->d_name[0] != '.')
+	// 			ls_stat(dit->d_name);
+	// 			ft_printf("here: %s\n", dit->d_name);
+	// 	}
+	// 	if (closedir(dip) == -1)
+	// 		ft_error("closedir");
 		j++;
 	}
 }
@@ -140,3 +138,12 @@ void	list_dirr(int argc, char **argv)
 		j++;
 	}
 }
+
+
+  //      	//just printing out the file name
+   //      	//not going to work for the stat function
+   //      	//separate the argv by / and open from there. 
+			// printf("%s\n", argv[j]);
+			// str = extract_path(argv[j]);
+			// if(stat(argv[j],&fileStat) < 0)  
+   //      		ft_error(": No such file or directory");
