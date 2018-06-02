@@ -3,7 +3,6 @@
 
 int main(int argc, char **argv)
 {
-
 	if (ft_strcmp(argv[0], "./ft_ls") == 0)
 	{
 		if (argc < 2)

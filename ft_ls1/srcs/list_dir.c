@@ -58,6 +58,7 @@ void	list_dirl(int argc, char **argv)
 			filecount = directory_count(dip, argv[j]);
 			//malloc memory for the 2D array (include extra + 1 for null at end)
 			splitstr = (char **)ft_memalloc(sizeof(char *) * filecount + 1);
+			dest = (char **)ft_memalloc(sizeof(char *) * filecount + 1);
 			if (dip == NULL)
 			{
 				ft_error(": No file or directory");
@@ -68,8 +69,10 @@ void	list_dirl(int argc, char **argv)
 				{			
 					//save filenames into separate 2D array
 					splitstr[i] = ft_strdup(dit->d_name);
+					dest[i] = ft_strdup(arg);
+					ft_strcat(dest[i], splitstr[i]);
+					printf("dest[%d]: %s\n", i, dest[i]);
 					// printf("splitstr[%d]: %s\n", i, splitstr[i]);
-					size += fileStat.st_blocks;
 					i++;
 				}
 			}
@@ -79,28 +82,18 @@ void	list_dirl(int argc, char **argv)
 		}
 		j++;
 	}
-	dest = (char **)ft_memalloc(sizeof(char *) * filecount + 1);
-	// //set linecount to how many files there are in the directory
-	linecount = i;
-	// //reset i to 0 to iterate through the 2D array
 	i = 0;
-	printf("size: %d\n", size);
-	while (i < linecount)
+	while (i < filecount)
 	{
-	// 	//copy the directory name to arg in order to ls_stat
-		dest[i] = ft_strdup(arg);
-		//append the file names to the directory name in order to ls_stat
-		ft_strcat(dest[i], splitstr[i]);
-		//get the -l information for each file in the directory
-		ls_stat(dest[i]);
+		printf("dest2: %s\n", dest[i]);
 		i++;
 	}
-	i = 0;
-	// //free the malloc'ed 2D arrays
+	// // //free the malloc'ed 2D arrays
 	// while (i < linecount)
 	// {
-	// 	free(dest[i]);
-	// 	free(splitstr[i]);
+	// // 	free(dest[i]);
+	// // 	free(splitstr[i]);
+	// 	ls_stat(dest[i]);
 	// 	i++;
 	// }
 	//figure out how to free the pointers to the 2D arrays?
@@ -220,3 +213,20 @@ void	list_dirr(int argc, char **argv)
 			// str = extract_path(argv[j]);
 			// if(stat(argv[j],&fileStat) < 0)  
    //      		ft_error(": No such file or directory");
+
+	// dest = (char **)ft_memalloc(sizeof(char *) * filecount + 1);
+	// //set linecount to how many files there are in the directory
+	// linecount = i;
+	// // //reset i to 0 to iterate through the 2D array
+	// i = 0;
+	// while (i < linecount)
+	// {
+	// // 	//copy the directory name to arg in order to ls_stat
+	// 	dest[i] = ft_strdup(arg);
+	// 	//append the file names to the directory name in order to ls_stat
+	// 	ft_strcat(dest[i], splitstr[i]);
+	// 	// free(dest[i]);
+	// 	//get the -l information for each file in the directory
+	// 	// ls_stat(dest[i]);
+	// 	i++;
+	// }
