@@ -75,14 +75,23 @@ void	list_dirl(int argc, char **argv)
 			{
 				if (dit->d_name[0] != '.')
 				{		
+					/*
+					** add directory name into empty string
+					*/
 					dest[i] = ft_strdup(arg);
+					/*
+					** add file name into other emptry string
+					*/
 					splitstr[i] = ft_strdup(dit->d_name);
+					/*
+					** combine them together to create a filepath ls_stat can read
+					*/
 					ft_strcat(dest[i], splitstr[i]);
 					i++;
 				}
 			}
 			/*
-			** close dir
+			** close dir stream
 			*/
 			if (closedir(dip) == -1)
 				ft_error("closedir");
@@ -103,18 +112,9 @@ void	list_dirl(int argc, char **argv)
 	while (++i < filecount)
 		ls_stat(dest[i]);
 
-
-	// // //free the malloc'ed 2D arrays
-	// while (i < linecount)
-	// {
-	// // 	free(dest[i]);
-	// // 	free(splitstr[i]);
-	// 	ls_stat(dest[i]);
-	// 	i++;
-	// }
-	//figure out how to free the pointers to the 2D arrays?
-	// free(dest);
-	// free(splitstr);
+	/*
+	** TODO: free memory
+	*/
 }
 
 void	list_dir(int argc, char **argv)

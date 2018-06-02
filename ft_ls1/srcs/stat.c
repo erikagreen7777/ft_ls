@@ -42,7 +42,9 @@ int ls_stat(char *str)
     {
         ft_error("Yo: No such file or directory");
     }
-    //file permissions
+    /*
+    ** file permissions
+    */
     ft_printf( (S_ISDIR(fileStat.st_mode)) ? "d" : "-");
     ft_printf( (fileStat.st_mode & S_IRUSR) ? "r" : "-");
     ft_printf( (fileStat.st_mode & S_IWUSR) ? "w" : "-");
@@ -55,37 +57,45 @@ int ls_stat(char *str)
     ft_printf( (fileStat.st_mode & S_IXOTH) ? "x" : "-");
     ft_printf("\t");
 
-//number of links
-    ft_printf("%d\t",fileStat.st_nlink);
-
-            
-    //print userid. else, print numerical version
+    /*
+    ** number of links
+    */
+    ft_printf("%d\t",fileStat.st_nlink);      
+    /*
+    ** print userid. else, print numerical version
+    */
     if ((pwd = getpwuid(fileStat.st_uid)) != NULL)
         ft_printf("%s\t", pwd->pw_name);
     else
         ft_printf("%d\t", fileStat.st_uid);
-
-            
-    //print %s of groupid. else, print numerical version
+    /*       
+    ** print %s of groupid. else, print numerical version
+    */
     if ((grp = getgrgid(fileStat.st_gid)) != NULL)
         ft_printf("%s\t", grp->gr_name);
     else
         ft_printf("%d\t", fileStat.st_gid);
-
-
-    //file size
+    /*
+    ** file size
+    */
     ft_printf("%llu\t",fileStat.st_size);
-
-
-    //last modification date
-    //split up ctime array into format present on ls -l (month date hour:min)
+    /*
+    ** last modification date
+    ** split up ctime array into format present on ls -l (month date hour:min)
+    */
     foo = ctime(&(fileStat.st_mtime));
     timearray = ft_strsplit(foo, ' ');
     ft_strncpy(hourmin, timearray[3], 5);
     ft_printf("%s %s %s\t", timearray[1], timearray[2], hourmin);
-    // free(hourmin);
     ft_printf("%s\n", str);
-         
+    
+    /*
+    ** TODO: free hourmin
+    ** TODO: extra attributes like @
+    ** TODO: symbolic link stuff
+    */
+
+
     //device type?
     // printf("device type: \t\t%d\n", fileStat.st_rdev);
 
@@ -107,7 +117,7 @@ int ls_stat(char *str)
     // else
     //     printf("Some sort of file type error\n");
 
-//symbolic link?ø
+//symbolic link?
     // ft_printf("The file %s a symbolic link\n", (S_ISLNK(fileStat.st_mode)) ? "is" : "is not");
 
 
