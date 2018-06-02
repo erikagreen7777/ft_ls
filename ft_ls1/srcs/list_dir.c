@@ -41,10 +41,14 @@ void	list_dirl(int argc, char **argv)
 	dest = NULL;
 	while (j < argc)
 	{
-		//if the file/folder isn't valid
+		/*
+		** if the file/folder isn't valid
+		*/
 		if(stat(argv[j], &fileStat) < 0) 
         	ft_error(": No such file or directory");
-    	//if it's a regular file
+    	/*
+    	** if it's a regular file
+		*/
 		if ((fileStat.st_mode & S_IFMT) == S_IFREG)
 			ls_stat(argv[j]);
 		else if (S_ISDIR(fileStat.st_mode) == 1)
@@ -52,11 +56,15 @@ void	list_dirl(int argc, char **argv)
 
 			dip = opendir(argv[j]);
 			ft_strcpy(arg, argv[j]);
-			//if the last character of argv[j] isn't a "/", add one
+	        /*
+	        ** if the last character of argv[j] isn't a "/", add one
+	        */
 			if (ft_strcmp(&arg[ft_strlen(arg) - 1], "/") != 0)
 				ft_strcat(arg, "/");
 			filecount = directory_count(dip, argv[j]);
-			//malloc memory for the 2D array (include extra + 1 for null at end)
+			/*
+			** malloc memory for the 2D array (include extra + 1 for null at end)
+			*/
 			splitstr = (char **)ft_memalloc(sizeof(char *) * filecount + 1);
 			dest = (char **)ft_memalloc(sizeof(char *) * filecount + 1);
 			if (dip == NULL)
@@ -66,17 +74,17 @@ void	list_dirl(int argc, char **argv)
 			while ((dit = readdir(dip)) != NULL)
 			{
 				if (dit->d_name[0] != '.')
-				{			
-					//save filenames into separate 2D array
-					splitstr[i] = ft_strdup(dit->d_name);
+				{		
 					dest[i] = ft_strdup(arg);
+					splitstr[i] = ft_strdup(dit->d_name);
 					ft_strcat(dest[i], splitstr[i]);
-					printf("dest[%d]: %s\n", i, dest[i]);
-					// printf("splitstr[%d]: %s\n", i, splitstr[i]);
+					// ls_stat(dest[i]);
 					i++;
 				}
 			}
-			//close dir
+			/*
+			** close dir
+			*/
 			if (closedir(dip) == -1)
 				ft_error("closedir");
 		}
@@ -85,9 +93,11 @@ void	list_dirl(int argc, char **argv)
 	i = 0;
 	while (i < filecount)
 	{
+
 		printf("dest2: %s\n", dest[i]);
 		i++;
 	}
+
 	// // //free the malloc'ed 2D arrays
 	// while (i < linecount)
 	// {
