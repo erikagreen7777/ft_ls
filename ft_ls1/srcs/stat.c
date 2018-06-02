@@ -80,7 +80,7 @@ int ls_stat(char *str)
     // ft_printf("Last modification date: %s %s %s\n", timearray[1], timearray[2], hourmin);
     ft_printf("%s %s %s\t", timearray[1], timearray[2], hourmin);
     ft_printf("filename: %s\n", str);
-    free(hourmin);
+    // free(hourmin);
          
     //device type?
     // printf("device type: \t\t%d\n", fileStat.st_rdev);

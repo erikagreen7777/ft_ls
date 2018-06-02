@@ -30,27 +30,29 @@ void	list_dirl(int argc, char **argv)
 	int				linecount;
 	struct stat 	fileStat;
 	int				filecount;
+	char			**dest;
+	char			arg[WORD_MAX];
 
 	linecount = 0;
 	i = 0;
 	j = 2;
+	dest = NULL;
 	while (j < argc)
 	{
 		//if the file/folder isn't valid
 		if(stat(argv[j], &fileStat) < 0) 
-    	{
         	ft_error(": No such file or directory");
-    	}
-    	//if it's a regular folder
+    	//if it's a regular file
 		if ((fileStat.st_mode & S_IFMT) == S_IFREG)
-		{
 			ls_stat(argv[j]);
-		}
 		else if (S_ISDIR(fileStat.st_mode) == 1)
 		{
+
 			dip = opendir(argv[j]);
+			ft_strcpy(arg, argv[j]);
+			if (ft_strcmp(&arg[ft_strlen(arg) - 1], "/") != 0)
+				ft_strcat(arg, "/");
 			filecount = directory_count(dip, argv[j]);
-			// start->piece = (char **)ft_memalloc(sizeof(char *) * (start->piece_x + 1));
 			//malloc memory for the 2D array (include extra + 1 for null at end)
 			splitstr = (char **)ft_memalloc(sizeof(char *) * filecount + 1);
 			if (dip == NULL)
@@ -63,7 +65,7 @@ void	list_dirl(int argc, char **argv)
 				{			
 					//save filenames into separate 2D array
 					splitstr[i] = ft_strdup(dit->d_name);
-					printf("splitstr[%d]: %s\n", i, splitstr[i]);
+					// printf("splitstr[%d]: %s\n", i, splitstr[i]);
 					i++;
 				}
 			}
@@ -73,18 +75,30 @@ void	list_dirl(int argc, char **argv)
 		}
 		j++;
 	}
-	//set linecount to how many files there are in the directory
+	dest = (char **)ft_memalloc(sizeof(char *) * filecount + 1);
+	// //set linecount to how many files there are in the directory
 	linecount = i;
-	//reset i to 0 to iterate through the 2D array
+	// //reset i to 0 to iterate through the 2D array
 	i = 0;
-	//print 2D array
 	while (i < linecount)
 	{
-		printf("splitstr: %s\n", splitstr[i]);
+	// 	//copy the directory name to arg in order to ls_stat
+		dest[i] = ft_strdup(arg);
+		//append the file names to the directory name in order to ls_stat
+		ft_strcat(dest[i], splitstr[i]);
+		//get the -l information for each file in the directory
+		ls_stat(dest[i]);
 		i++;
 	}
-
-
+	i = 0;
+	while (i < linecount)
+	{
+		free(dest[i]);
+		free(splitstr[i]);
+		i++;
+	}
+	free(dest);
+	free(splitstr);
 }
 
 void	list_dir(int argc, char **argv)

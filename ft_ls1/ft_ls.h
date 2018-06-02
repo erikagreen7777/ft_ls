@@ -17,7 +17,7 @@
 
 # define BUFF_SIZE 256
 # define PATH_MAX 4096
-# define WORD_MAX 1000
+# define WORD_MAX 1016
 # define D_NAME_MAX 257
 
 void					list_dir(int argc, char **argv);
