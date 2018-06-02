@@ -78,7 +78,6 @@ void	list_dirl(int argc, char **argv)
 					dest[i] = ft_strdup(arg);
 					splitstr[i] = ft_strdup(dit->d_name);
 					ft_strcat(dest[i], splitstr[i]);
-					// ls_stat(dest[i]);
 					i++;
 				}
 			}
@@ -90,12 +89,20 @@ void	list_dirl(int argc, char **argv)
 		}
 		j++;
 	}
-	i = 0;
-	while (i < filecount)
-	{
-		printf("dest2: %s\n", dest[i]);
-		i++;
-	}
+	/*
+	** print total 512 block-byte size
+	*/
+	i = -1;
+	while (++i < filecount)
+		size += add_stat(dest[i]);
+	ft_printf("total %d\n", size);
+	/*
+	** print actual ls_stat()
+	*/
+	i = -1;
+	while (++i < filecount)
+		ls_stat(dest[i]);
+
 
 	// // //free the malloc'ed 2D arrays
 	// while (i < linecount)

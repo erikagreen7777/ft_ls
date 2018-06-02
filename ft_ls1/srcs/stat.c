@@ -13,6 +13,20 @@ char    *extract_path(char *str)
     return (newstr);
 }
 
+int    add_stat(char *str)
+{
+    struct stat     fileStat;
+    int             count;
+
+    count = 0;
+    if(stat(str, &fileStat) < 0) 
+    {
+        ft_error("add_stat(): No such file or directory");
+    }
+    return (fileStat.st_blocks);
+
+}
+
 
 int ls_stat(char *str)
 {
@@ -70,7 +84,7 @@ int ls_stat(char *str)
     ft_strncpy(hourmin, timearray[3], 5);
     ft_printf("%s %s %s\t", timearray[1], timearray[2], hourmin);
     // free(hourmin);
-    ft_printf("filename: %s\n", str);
+    ft_printf("%s\n", str);
          
     //device type?
     // printf("device type: \t\t%d\n", fileStat.st_rdev);

@@ -27,6 +27,8 @@ void					list_dirr(int argc, char **argv);
 void 					list_dirbigr(const char *dir_name);
 void					list_dirl(int argc, char **argv);
 char				    *extract_path(char *str);
+int					    add_stat(char *str);
+
 
 
 
