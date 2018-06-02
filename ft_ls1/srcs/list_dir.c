@@ -93,7 +93,6 @@ void	list_dirl(int argc, char **argv)
 	i = 0;
 	while (i < filecount)
 	{
-
 		printf("dest2: %s\n", dest[i]);
 		i++;
 	}
