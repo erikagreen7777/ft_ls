@@ -50,6 +50,7 @@ void	list_dirl(int argc, char **argv)
 
 			dip = opendir(argv[j]);
 			ft_strcpy(arg, argv[j]);
+			//if the last character of argv[j] isn't a "/", add one
 			if (ft_strcmp(&arg[ft_strlen(arg) - 1], "/") != 0)
 				ft_strcat(arg, "/");
 			filecount = directory_count(dip, argv[j]);
@@ -91,14 +92,16 @@ void	list_dirl(int argc, char **argv)
 		i++;
 	}
 	i = 0;
+	// //free the malloc'ed 2D arrays
 	while (i < linecount)
 	{
 		free(dest[i]);
 		free(splitstr[i]);
 		i++;
 	}
-	free(dest);
-	free(splitstr);
+	//figure out how to free the pointers to the 2D arrays?
+	// free(dest);
+	// free(splitstr);
 }
 
 void	list_dir(int argc, char **argv)
