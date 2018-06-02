@@ -36,10 +36,12 @@ void	list_dirl(int argc, char **argv)
 	j = 2;
 	while (j < argc)
 	{
+		//if the file/folder isn't valid
 		if(stat(argv[j], &fileStat) < 0) 
     	{
-        	ft_error("Yo: No such file or directory");
+        	ft_error(": No such file or directory");
     	}
+    	//if it's a regular folder
 		if ((fileStat.st_mode & S_IFMT) == S_IFREG)
 		{
 			ls_stat(argv[j]);
@@ -48,7 +50,9 @@ void	list_dirl(int argc, char **argv)
 		{
 			dip = opendir(argv[j]);
 			filecount = directory_count(dip, argv[j]);
-			splitstr = (char **)malloc(sizeof(filecount));
+			// start->piece = (char **)ft_memalloc(sizeof(char *) * (start->piece_x + 1));
+			//malloc memory for the 2D array (include extra + 1 for null at end)
+			splitstr = (char **)ft_memalloc(sizeof(char *) * filecount + 1);
 			if (dip == NULL)
 			{
 				ft_error(": No file or directory");
@@ -57,20 +61,24 @@ void	list_dirl(int argc, char **argv)
 			{
 				if (dit->d_name[0] != '.')
 				{			
-					// printf("i: %d\n", i);
-					// printf("here: %s\n", dit->d_name);
+					//save filenames into separate 2D array
 					splitstr[i] = ft_strdup(dit->d_name);
+					printf("splitstr[%d]: %s\n", i, splitstr[i]);
 					i++;
 				}
 			}
+			//close dir
 			if (closedir(dip) == -1)
 				ft_error("closedir");
 		}
 		j++;
 	}
-	// printf("linecount: %d\n", linecount);
+	//set linecount to how many files there are in the directory
+	linecount = i;
+	//reset i to 0 to iterate through the 2D array
 	i = 0;
-	while (splitstr[i] != NULL)
+	//print 2D array
+	while (i < linecount)
 	{
 		printf("splitstr: %s\n", splitstr[i]);
 		i++;
