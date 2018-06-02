@@ -69,8 +69,8 @@ int ls_stat(char *str)
     timearray = ft_strsplit(foo, ' ');
     ft_strncpy(hourmin, timearray[3], 5);
     ft_printf("%s %s %s\t", timearray[1], timearray[2], hourmin);
+    free(hourmin);
     ft_printf("filename: %s\n", str);
-    // free(hourmin);
          
     //device type?
     // printf("device type: \t\t%d\n", fileStat.st_rdev);

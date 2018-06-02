@@ -32,7 +32,9 @@ void	list_dirl(int argc, char **argv)
 	int				filecount;
 	char			**dest;
 	char			arg[WORD_MAX];
+	int 			size;
 
+	size = 0;
 	linecount = 0;
 	i = 0;
 	j = 2;
@@ -67,6 +69,7 @@ void	list_dirl(int argc, char **argv)
 					//save filenames into separate 2D array
 					splitstr[i] = ft_strdup(dit->d_name);
 					// printf("splitstr[%d]: %s\n", i, splitstr[i]);
+					size += fileStat.st_blocks;
 					i++;
 				}
 			}
@@ -81,6 +84,7 @@ void	list_dirl(int argc, char **argv)
 	linecount = i;
 	// //reset i to 0 to iterate through the 2D array
 	i = 0;
+	printf("size: %d\n", size);
 	while (i < linecount)
 	{
 	// 	//copy the directory name to arg in order to ls_stat
