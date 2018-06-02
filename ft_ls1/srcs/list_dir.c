@@ -93,12 +93,12 @@ void	list_dirl(int argc, char **argv)
 	}
 	i = 0;
 	// //free the malloc'ed 2D arrays
-	while (i < linecount)
-	{
-		free(dest[i]);
-		free(splitstr[i]);
-		i++;
-	}
+	// while (i < linecount)
+	// {
+	// 	free(dest[i]);
+	// 	free(splitstr[i]);
+	// 	i++;
+	// }
 	//figure out how to free the pointers to the 2D arrays?
 	// free(dest);
 	// free(splitstr);

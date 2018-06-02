@@ -22,9 +22,6 @@ int ls_stat(char *str)
     char            *foo;
     char            **timearray;
     char            *hourmin;
-    // DIR             *dip = NULL;
-    // struct dirent   *dit;
-
     hourmin = (char *)malloc(sizeof(char));
 
     if(stat(str, &fileStat) < 0) 
@@ -32,7 +29,6 @@ int ls_stat(char *str)
         ft_error("Yo: No such file or directory");
     }
     //file permissions
-    // ft_printf("File Permissions: \t");
     ft_printf( (S_ISDIR(fileStat.st_mode)) ? "d" : "-");
     ft_printf( (fileStat.st_mode & S_IRUSR) ? "r" : "-");
     ft_printf( (fileStat.st_mode & S_IWUSR) ? "w" : "-");
@@ -46,38 +42,32 @@ int ls_stat(char *str)
     ft_printf("\t");
 
 //number of links
-    // ft_printf("Number of Links: \t%d\n",fileStat.st_nlink);
     ft_printf("%d\t",fileStat.st_nlink);
 
             
-    //print %s of userid. else, print numerical version
+    //print userid. else, print numerical version
     if ((pwd = getpwuid(fileStat.st_uid)) != NULL)
-        // ft_printf("UserID: \t\t%s\n", pwd->pw_name);
         ft_printf("%s\t", pwd->pw_name);
     else
-        // ft_printf("UserID (numerical): \t\t%d\n", fileStat.st_uid);
         ft_printf("%d\t", fileStat.st_uid);
 
             
     //print %s of groupid. else, print numerical version
     if ((grp = getgrgid(fileStat.st_gid)) != NULL)
-        // ft_printf("GroupID: \t\t%s\n", grp->gr_name);
         ft_printf("%s\t", grp->gr_name);
     else
-        // ft_printf("GroupID (numerical): \t\t%d\n", fileStat.st_gid);
         ft_printf("%d\t", fileStat.st_gid);
 
 
     //file size
-    // ft_printf("File Size: \t\t%llu bytes\n",fileStat.st_size);
     ft_printf("%llu\t",fileStat.st_size);
 
 
     //last modification date
+    //split up ctime array into format present on ls -l (month date hour:min)
     foo = ctime(&(fileStat.st_mtime));
     timearray = ft_strsplit(foo, ' ');
     ft_strncpy(hourmin, timearray[3], 5);
-    // ft_printf("Last modification date: %s %s %s\n", timearray[1], timearray[2], hourmin);
     ft_printf("%s %s %s\t", timearray[1], timearray[2], hourmin);
     ft_printf("filename: %s\n", str);
     // free(hourmin);
