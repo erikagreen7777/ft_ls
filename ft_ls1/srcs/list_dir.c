@@ -123,7 +123,13 @@ void	list_dir(int argc, char **argv)
 	struct dirent	*dit;
 	struct stat 	fileStat;
 	int				j;
+
 	j = 1;
+	if (argc == 1)
+	{
+		argv[1] = ft_strdup(".");
+		argc = 2;
+	}
 	while (j < argc)
 	{
 		if (j > 1 && j < argc)
@@ -131,10 +137,13 @@ void	list_dir(int argc, char **argv)
 		dip = opendir(argv[j]);
 		if (dip == NULL)
 		{
-				if(stat(argv[j],&fileStat) < 0)  
-        			ft_error(": No such file or directory");
+				if(stat(argv[j],&fileStat) < 0) 
+				{
+					ft_printf("./ft_ls: %s: No such file or directory\n", argv[j]);
+					exit (-1);
+				} 
 				printf("%s\n", argv[j]);
-				exit(1);
+				exit(0);
 		}
 		while ((dit = readdir(dip)) != NULL)
 		{
@@ -154,6 +163,11 @@ void	list_dira(int argc, char **argv)
 	struct stat 	fileStat;
 	int				j;
 	j = 2;
+	if (argc == 2)
+	{
+		argv[3] = ft_strdup(".");
+		argc = 3;
+	}
 	while (j < argc)
 	{
 		if (j > 2 && j < argc)
@@ -202,6 +216,11 @@ void	list_dirr(int argc, char **argv)
 	struct stat 	fileStat;
 	int				j;
 	j = 2;
+	if (argc == 2)
+	{
+		argv[3] = ft_strdup(".");
+		argc = 3;
+	}
 	while (j < argc)
 	{
 		if (j > 2 && j < argc)
