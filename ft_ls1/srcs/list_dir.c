@@ -39,6 +39,11 @@ void	list_dirl(int argc, char **argv)
 	i = 0;
 	j = 2;
 	dest = NULL;
+	if (argc == 2)
+	{
+		argv[j] = ".";
+		argc = 3;
+	}
 	while (j < argc)
 	{
 		/*
@@ -127,7 +132,7 @@ void	list_dir(int argc, char **argv)
 	j = 1;
 	if (argc == 1)
 	{
-		argv[1] = ft_strdup(".");
+		argv[j] = ".";
 		argc = 2;
 	}
 	while (j < argc)
@@ -165,7 +170,7 @@ void	list_dira(int argc, char **argv)
 	j = 2;
 	if (argc == 2)
 	{
-		argv[3] = ft_strdup(".");
+		argv[j] = ".";
 		argc = 3;
 	}
 	while (j < argc)
@@ -176,7 +181,10 @@ void	list_dira(int argc, char **argv)
 		if (dip == NULL)
 		{
 				if(stat(argv[j],&fileStat) < 0)  
-        			ft_error(": No such file or directory");
+				{
+					ft_printf("./ft_ls: %s: No such file or directory\n", argv[j]);
+					exit (-1);
+				} 
 				printf("%s\n", argv[j]);
 				exit(1);
 		}
@@ -218,7 +226,7 @@ void	list_dirr(int argc, char **argv)
 	j = 2;
 	if (argc == 2)
 	{
-		argv[3] = ft_strdup(".");
+		argv[j] = ".";
 		argc = 3;
 	}
 	while (j < argc)
