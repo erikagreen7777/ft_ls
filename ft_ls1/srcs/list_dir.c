@@ -20,25 +20,27 @@ static int		directory_count(DIR *dip, char *str)
 	return (filecount);
 }
 
-void	list_dirt(int argc, char **argv)
+/*
+** ls -t
+*/
+void	list_dirt(int argc, char **argv, t_lists *lists)
 {
-		int				j;
+	int				j;
 	DIR				*dip;
 	struct dirent	*dit;
 	char			**splitstr;
 	int				i;
 	int				linecount;
 	struct stat 	fileStat;
-	int				filecount;
-	char			**dest;
 	char			arg[WORD_MAX];
 	int 			size;
+	char 			**timearray;
 
+	timearray = NULL;
 	size = 0;
 	linecount = 0;
 	i = 0;
 	j = 2;
-	dest = NULL;
 	if (argc == 2)
 	{
 		argv[j] = ".";
@@ -66,12 +68,13 @@ void	list_dirt(int argc, char **argv)
 	        */
 			if (ft_strcmp(&arg[ft_strlen(arg) - 1], "/") != 0)
 				ft_strcat(arg, "/");
-			filecount = directory_count(dip, argv[j]);
+			lists->filecount = directory_count(dip, argv[j]);
 			/*
 			** malloc memory for the 2D array (include extra + 1 for null at end)
 			*/
-			splitstr = (char **)ft_memalloc(sizeof(char *) * filecount + 1);
-			dest = (char **)ft_memalloc(sizeof(char *) * filecount + 1);
+			splitstr = (char **)ft_memalloc(sizeof(char *) * lists->filecount + 1);
+			lists->dest = (char **)ft_memalloc(sizeof(char *) * lists->filecount + 1);
+			lists->timearray = (char **)ft_memalloc(sizeof(char *) * lists->filecount + 1);
 			if (dip == NULL)
 			{
 				ft_error(": No file or directory");
@@ -83,7 +86,7 @@ void	list_dirt(int argc, char **argv)
 					/*
 					** add directory name into empty string
 					*/
-					dest[i] = ft_strdup(arg);
+					lists->dest[i] = ft_strdup(arg);
 					/*
 					** add file name into other emptry string
 					*/
@@ -91,14 +94,27 @@ void	list_dirt(int argc, char **argv)
 					/*
 					** combine them together to create a filepath ls_stat can read
 					*/
-					ft_strcat(dest[i], splitstr[i]);
+					ft_strcat(lists->dest[i], splitstr[i]);
 					/*
-					** do actual ls_stat()
+					** do actual time_stat()
+					** sort array function
+					** print returned array with corresponding files
 					*/
-					time_stat(dest[i]);
+					lists->timearray[i] = ft_strdup(ft_itoa(time_stat(lists->dest[i])));
 					i++;
 				}
 			}
+
+			/*
+			** print off timearray/dest
+			*/
+			i = -1;
+			while (++i < lists->filecount)
+				printf("before[%d]: %s    %s\n", i, lists->timearray[i], lists->dest[i]);
+			/*
+			** sort array based on st_mtime
+			*/
+			ft_switch_time(lists);
 			/*
 			** close dir stream
 			*/
@@ -112,6 +128,9 @@ void	list_dirt(int argc, char **argv)
 	*/
 }
 
+/*
+** ls -l
+*/
 void	list_dirl(int argc, char **argv)
 {
 	int				j;
@@ -306,6 +325,9 @@ static void	lex_sort(DIR *dip)
 			i++;
 		}
 	}
+	/*
+	** TODO: sort lexicographically, not alphabetically
+	*/
 	while (--filecount > -1)
 		printf("%s\n", str[filecount]);
 }
@@ -333,35 +355,12 @@ void	list_dirr(int argc, char **argv)
 				printf("%s\n", argv[j]);
 				exit(1);
 		}
+		/*
+		** TODO: sort lexicographically, not alphabetically
+		*/
 		lex_sort(dip);
 		if (closedir(dip) == -1)
 			ft_error("closedir");
 		j++;
 	}
 }
-
-
-  //      	//just printing out the file name
-   //      	//not going to work for the stat function
-   //      	//separate the argv by / and open from there. 
-			// printf("%s\n", argv[j]);
-			// str = extract_path(argv[j]);
-			// if(stat(argv[j],&fileStat) < 0)  
-   //      		ft_error(": No such file or directory");
-
-	// dest = (char **)ft_memalloc(sizeof(char *) * filecount + 1);
-	// //set linecount to how many files there are in the directory
-	// linecount = i;
-	// // //reset i to 0 to iterate through the 2D array
-	// i = 0;
-	// while (i < linecount)
-	// {
-	// // 	//copy the directory name to arg in order to ls_stat
-	// 	dest[i] = ft_strdup(arg);
-	// 	//append the file names to the directory name in order to ls_stat
-	// 	ft_strcat(dest[i], splitstr[i]);
-	// 	// free(dest[i]);
-	// 	//get the -l information for each file in the directory
-	// 	// ls_stat(dest[i]);
-	// 	i++;
-	// }
