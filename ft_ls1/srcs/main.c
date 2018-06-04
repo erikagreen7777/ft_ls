@@ -35,6 +35,10 @@ int main(int argc, char **argv)
 			// 	ft_error("Usage: ./ft_ls -R <directory>");
 			list_dirbigr(argv[2]);
 		}
+		else if (ft_strcmp(argv[1], "-t") == 0)
+		{
+			list_dirt(argc, argv);
+		}
 		else
 			ft_error("./ft_ls error");
 	}

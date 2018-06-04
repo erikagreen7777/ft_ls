@@ -1,17 +1,13 @@
-./ft_ls -l .
+./ft_ls -t
 **********************
-the filename prints off "./*" instead of "*"
+PRIORITY TO WRITE
+-t      Sort by time modified (most recently modified first) before sorting the
+             operands by lexicographical order.
 
 ./ft_ls -r // ./ft_ls -r .
 ******************************
-makefile is in alphabetical order. However for original ls -r it's at the bottom. 
+makefile is in alphabetical order. However for original ls -r it's at the bottom.
 Could this be because of ascii order?
-
-./ft_ls -R
-************************
-error: no such file or directory
-
-**Check that symbolic link display is accurate** that's on correction sheet
 
 ./ft_ls Makefile
 *******************
@@ -21,4 +17,17 @@ error: no such file or directory
 **********************
 ./ft_ls error
 
+./ft_ls srcs
+***********************
+./ft_ls error
+
+./ft_ls -l .
+**********************
+the filename prints off "./*" instead of "*"
+
+./ft_ls -R
+************************
+error: no such file or directory
+
+**Check that symbolic link display is accurate**
 
