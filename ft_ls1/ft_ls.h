@@ -17,8 +17,8 @@
 
 # define BUFF_SIZE 256
 # define PATH_MAX 4096
-# define WORD_MAX 1016
-# define D_NAME_MAX 257
+# define WORD_MAX 256
+# define D_NAME_MAX 32000
 # define LONG_MAX 2147483647
 
 typedef struct	s_lists
@@ -43,7 +43,7 @@ void					init_struct(t_lists **lists);
 void					list_dir(int argc, char **argv);
 void					list_dira(int argc, char **argv);
 int 					ls_stat(char *str);
-void					list_dirr(int argc, char **argv);
+void					list_dirr(int argc, char **argv, t_lists *lists);
 void					list_dirt(int argc, char **argv, t_lists *lists);
 void 					list_dirbigr(const char *dir_name);
 void					list_dirl(int argc, char **argv);

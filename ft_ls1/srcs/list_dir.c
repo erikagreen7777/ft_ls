@@ -60,7 +60,9 @@ void	list_dirt(int argc, char **argv, t_lists *lists)
 			ls_stat(argv[j]);
 		else if (S_ISDIR(fileStat.st_mode) == 1)
 		{
-
+			/*
+			** TODO: split function here?
+			*/
 			dip = opendir(argv[j]);
 			ft_strcpy(arg, argv[j]);
 	        /*
@@ -79,6 +81,9 @@ void	list_dirt(int argc, char **argv, t_lists *lists)
 			{
 				ft_error(": No file or directory");
 			}
+			/*
+			** TODO: end split function here?
+			*/
 			while ((dit = readdir(dip)) != NULL)
 			{
 				if (dit->d_name[0] != '.')
@@ -108,13 +113,19 @@ void	list_dirt(int argc, char **argv, t_lists *lists)
 			/*
 			** print off timearray/dest
 			*/
-			i = -1;
-			while (++i < lists->filecount)
-				printf("before[%d]: %s    %s\n", i, lists->timearray[i], lists->dest[i]);
+			// i = -1;
+			// while (++i < lists->filecount)
+			// 	printf("before[%d]: %s    %s\n", i, lists->timearray[i], lists->dest[i]);
 			/*
 			** sort array based on st_mtime
 			*/
 			ft_switch_time(lists);
+			/*
+			** print off new array
+			*/
+			lists->i = -1;
+			while (++lists->i < lists->filecount)
+			printf("%s\n", lists->dest[lists->i]);
 			/*
 			** close dir stream
 			*/
@@ -232,7 +243,9 @@ void	list_dirl(int argc, char **argv)
 	** TODO: free memory
 	*/
 }
-
+/*
+** ls 
+*/
 void	list_dir(int argc, char **argv)
 {
 	DIR				*dip;
@@ -272,6 +285,9 @@ void	list_dir(int argc, char **argv)
 	}
 }
 
+/*
+** ls -a
+*/
 void	list_dira(int argc, char **argv)
 {
 	DIR				*dip;
@@ -307,32 +323,65 @@ void	list_dira(int argc, char **argv)
 	}
 }
 
-static void	lex_sort(DIR *dip)
+/*
+** lexicographically sort for ls -r
+*/
+static void	lex_sort(DIR *dip, t_lists *lists)
 {
 	int		filecount;
-	int		i;
+	// int		i;
+	// int 	j;
 	struct 	dirent *dit;
 	char	str[D_NAME_MAX][WORD_MAX];
+	char 	temp[WORD_MAX];
 	filecount = 0;
-	i = 0;
+	// i = 0;
+	lists->i = 0;
 
 	while ((dit = readdir(dip)) != NULL)
 	{
 		if (dit->d_name[0] != '.')
 		{
-			ft_strcpy(str[i], dit->d_name);
+			ft_strcpy(str[lists->i], dit->d_name);
 			filecount++;
-			i++;
+			lists->i++;
+			// i++;
 		}
 	}
+	// lists->i = -1;
+	// while (++lists->i < filecount)
+	// 	printf("str[i]: %s\n", str[lists->i]);
 	/*
 	** TODO: sort lexicographically, not alphabetically
 	*/
-	while (--filecount > -1)
-		printf("%s\n", str[filecount]);
+	lists->i = 0;
+	while (lists->i < filecount)
+	{
+		lists->j = 0;
+		while (lists->j <= filecount)
+		{
+			if (ft_strcmp(str[lists->i], str[lists->j]) > 0)
+			{
+				ft_strcpy(temp, str[lists->i]);
+				ft_bzero(str[lists->i], ft_strlen(str[lists->i]));
+				ft_strcpy(str[lists->i], str[lists->j]);
+				ft_bzero(str[lists->j], ft_strlen(str[lists->j]));
+				ft_strcpy(str[lists->j], temp);
+				ft_bzero(temp, WORD_MAX);
+			}
+			lists->j++;
+		}
+		lists->i++;
+	}
+	lists->i = -1;
+	while (++lists->i < filecount)
+		printf("[%d] %s\n", lists->i, str[lists->i]);
 }
 
-void	list_dirr(int argc, char **argv)
+/*
+** ls -r
+*/
+void	list_dirr(int argc, char **argv, t_lists *lists)
 {
 	DIR				*dip;
 	struct stat 	fileStat;
@@ -358,7 +407,7 @@ void	list_dirr(int argc, char **argv)
 		/*
 		** TODO: sort lexicographically, not alphabetically
 		*/
-		lex_sort(dip);
+		lex_sort(dip, lists);
 		if (closedir(dip) == -1)
 			ft_error("closedir");
 		j++;
