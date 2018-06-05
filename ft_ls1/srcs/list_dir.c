@@ -266,6 +266,10 @@ void	list_dir(int argc, char **argv)
 		dip = opendir(argv[j]);
 		if (dip == NULL)
 		{
+			/*
+			** TODO: create own function for this because it happens often?
+			*/
+	
 				if(stat(argv[j],&fileStat) < 0) 
 				{
 					ft_printf("./ft_ls: %s: No such file or directory\n", argv[j]);
@@ -273,6 +277,9 @@ void	list_dir(int argc, char **argv)
 				} 
 				printf("%s\n", argv[j]);
 				exit(0);
+			/*
+			** end function here?
+			*/
 		}
 		while ((dit = readdir(dip)) != NULL)
 		{
@@ -294,19 +301,22 @@ void	list_dira(int argc, char **argv)
 	struct dirent	*dit;
 	struct stat 	fileStat;
 	int				j;
-	j = 2;
+	j = 1;
 	if (argc == 2)
 	{
-		argv[j] = ".";
+		argv[j + 1] = ".";
 		argc = 3;
 	}
-	while (j < argc)
+	while (++j < argc)
 	{
 		if (j > 2 && j < argc)
 			write(1, "\n", 1);
 		dip = opendir(argv[j]);
 		if (dip == NULL)
 		{
+			/*
+			** TODO: create own function for this because it happens often?
+			*/
 				if(stat(argv[j],&fileStat) < 0)  
 				{
 					ft_printf("./ft_ls: %s: No such file or directory\n", argv[j]);
@@ -314,12 +324,15 @@ void	list_dira(int argc, char **argv)
 				} 
 				printf("%s\n", argv[j]);
 				exit(1);
+			/*
+			** end function here?
+			*/
 		}
 		while ((dit = readdir(dip)) != NULL)
 			ft_printf("%s\n", dit->d_name);
 		if (closedir(dip) == -1)
 			ft_error("closedir");
-		j++;
+		// j++;
 	}
 }
 
@@ -329,13 +342,10 @@ void	list_dira(int argc, char **argv)
 static void	lex_sort(DIR *dip, t_lists *lists)
 {
 	int		filecount;
-	// int		i;
-	// int 	j;
 	struct 	dirent *dit;
 	char	str[D_NAME_MAX][WORD_MAX];
 	char 	temp[WORD_MAX];
 	filecount = 0;
-	// i = 0;
 	lists->i = 0;
 
 	while ((dit = readdir(dip)) != NULL)
@@ -345,14 +355,10 @@ static void	lex_sort(DIR *dip, t_lists *lists)
 			ft_strcpy(str[lists->i], dit->d_name);
 			filecount++;
 			lists->i++;
-			// i++;
 		}
 	}
-	// lists->i = -1;
-	// while (++lists->i < filecount)
-	// 	printf("str[i]: %s\n", str[lists->i]);
 	/*
-	** TODO: sort lexicographically, not alphabetically
+	** TODO: split function here?
 	*/
 	lists->i = 0;
 	while (lists->i < filecount)
@@ -370,6 +376,9 @@ static void	lex_sort(DIR *dip, t_lists *lists)
 		}
 		lists->i++;
 	}
+	/*
+	** TODO: end split function here?
+	*/
 	lists->i = -1;
 	while (++lists->i < filecount)
 		printf("%s\n", str[lists->i]);
@@ -383,13 +392,13 @@ void	list_dirr(int argc, char **argv, t_lists *lists)
 	DIR				*dip;
 	struct stat 	fileStat;
 	int				j;
-	j = 2;
+	j = 1;
 	if (argc == 2)
 	{
-		argv[j] = ".";
+		argv[j + 1] = ".";
 		argc = 3;
 	}
-	while (j < argc)
+	while (++j < argc)
 	{
 		if (j > 2 && j < argc)
 			write(1, "\n", 1);
@@ -401,12 +410,9 @@ void	list_dirr(int argc, char **argv, t_lists *lists)
 				printf("%s\n", argv[j]);
 				exit(1);
 		}
-		/*
-		** TODO: sort lexicographically, not alphabetically
-		*/
 		lex_sort(dip, lists);
 		if (closedir(dip) == -1)
 			ft_error("closedir");
-		j++;
+		// j++;
 	}
 }
