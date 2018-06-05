@@ -17,7 +17,7 @@ int main(int argc, char **argv)
 	{
 		t_lists *lists;
 		init_struct(&lists);
-		if (argc < 2 || (ft_strcmp(argv[1], ".") == 0))
+		if ((argc == 2 && ft_strcmp(argv[1], ".") == 0) || (argc == 1) || (argc == 2))
 		{
 			list_dir(argc, argv);
 			return (0);
@@ -52,7 +52,7 @@ int main(int argc, char **argv)
 			list_dirt(argc, argv, lists);
 		}
 		else
-			ft_error("./ft_ls error");
+			ft_error("main: ./ft_ls error");
 	}
 	return (0);
 }
