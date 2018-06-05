@@ -1,19 +1,3 @@
-./ft_ls Makefile
-*******************
-./ft_ls error
-
-./ft_ls srcs/main.c
-**********************
-./ft_ls error
-
-./ft_ls srcs
-***********************
-./ft_ls error
-
-./ft_ls -l .
-**********************
-the filename prints off "./*" instead of "*"
-
 ./ft_ls -R
 ************************
 error: no such file or directory
