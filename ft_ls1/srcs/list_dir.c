@@ -357,17 +357,14 @@ static void	lex_sort(DIR *dip, t_lists *lists)
 	lists->i = 0;
 	while (lists->i < filecount)
 	{
-		lists->j = 0;
-		while (lists->j <= filecount)
+		lists->j = lists->i + 1;
+		while (lists->j < filecount)
 		{
-			if (ft_strcmp(str[lists->i], str[lists->j]) > 0)
+			if (ft_strcmp(str[lists->i], str[lists->j]) < 0)
 			{
 				ft_strcpy(temp, str[lists->i]);
-				ft_bzero(str[lists->i], ft_strlen(str[lists->i]));
 				ft_strcpy(str[lists->i], str[lists->j]);
-				ft_bzero(str[lists->j], ft_strlen(str[lists->j]));
 				ft_strcpy(str[lists->j], temp);
-				ft_bzero(temp, WORD_MAX);
 			}
 			lists->j++;
 		}
@@ -375,7 +372,7 @@ static void	lex_sort(DIR *dip, t_lists *lists)
 	}
 	lists->i = -1;
 	while (++lists->i < filecount)
-		printf("[%d] %s\n", lists->i, str[lists->i]);
+		printf("%s\n", str[lists->i]);
 }
 
 /*
