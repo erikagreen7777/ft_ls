@@ -30,15 +30,15 @@ void	list_dirt(int argc, char **argv, t_lists *lists)
 	struct dirent	*dit;
 	char			**splitstr;
 	int				i;
-	int				linecount;
+	// int				linecount;
 	struct stat 	fileStat;
 	char			arg[WORD_MAX];
-	int 			size;
-	char 			**timearray;
+	// int 			size;
+	// char 			**timearray;
 
-	timearray = NULL;
-	size = 0;
-	linecount = 0;
+	// timearray = NULL;
+	// size = 0;
+	// linecount = 0;
 	i = 0;
 	j = 2;
 	if (argc == 2)
@@ -149,7 +149,7 @@ void	list_dirl(int argc, char **argv)
 	struct dirent	*dit;
 	char			**splitstr;
 	int				i;
-	int				linecount;
+	// int				linecount;
 	struct stat 	fileStat;
 	int				filecount;
 	char			**dest;
@@ -157,7 +157,7 @@ void	list_dirl(int argc, char **argv)
 	int 			size;
 
 	size = 0;
-	linecount = 0;
+	// linecount = 0;
 	i = 0;
 	j = 2;
 	dest = NULL;
