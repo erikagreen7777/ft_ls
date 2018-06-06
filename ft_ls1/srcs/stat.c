@@ -16,9 +16,6 @@ char    *extract_path(char *str)
 int    add_stat(char *str)
 {
     struct stat     fileStat;
-    // int             count;
-
-    // count = 0;
     if(stat(str, &fileStat) < 0) 
     {
         ft_error("add_stat(): No such file or directory");
