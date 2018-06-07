@@ -118,6 +118,16 @@ int ls_stat(char *str)
     ft_printf("%s\n", str);
     
     /*
+    ** TODO: free timearray
+    */
+    int k = 0;
+    while (timearray[k])
+    {
+        free(timearray[k]);
+        k++;
+    }
+    free(timearray);
+    /*
     ** TODO: free hourmin
     ** TODO: extra attributes like @
     ** TODO: symbolic link stuff
@@ -147,6 +157,7 @@ int ls_stat(char *str)
 
 //symbolic link?
     // ft_printf("The file %s a symbolic link\n", (S_ISLNK(fileStat.st_mode)) ? "is" : "is not");
+
 
 
     return (0);

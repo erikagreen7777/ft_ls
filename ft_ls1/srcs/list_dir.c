@@ -203,6 +203,8 @@ void	list_dirl(int argc, char **argv)
 	i = -1;
 	while (++i < filecount)
 		ls_stat(dest[i]);
+	free(dip);
+
 }
 
 
