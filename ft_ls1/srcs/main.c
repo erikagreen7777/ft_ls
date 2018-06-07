@@ -11,12 +11,19 @@ void		init_struct(t_lists **lists)
 
 }
 
+static void	free_stuff(t_lists **lists)
+{
+	// ft_memdel((void*)&lists->timearray);
+	// ft_memdel((void*)&lists->dest);
+	ft_memdel((void*)&lists);
+}
+
 int main(int argc, char **argv)
 {
 	if (ft_strcmp(argv[0], "./ft_ls") == 0)
 	{
 		t_lists *lists;
-		init_struct(&lists);
+		lists = NULL;
 		if ((argc == 2 && ft_strcmp(argv[1], ".") == 0) || (argc == 1) || (argc == 2))
 		{
 			list_dir(argc, argv);
@@ -32,7 +39,9 @@ int main(int argc, char **argv)
 		{
 			// if (argc < 3)
 			// 	ft_error("Usage: ./ft_ls -l <directory>");
-			list_dirl(argc, argv);
+			init_struct(&lists);
+			list_dirl(argc, argv, lists);
+			free_stuff(&lists);
 			// ls_stat(argv[2]);
 		}
 		else if (ft_strcmp(argv[1], "-r") == 0)
@@ -49,7 +58,9 @@ int main(int argc, char **argv)
 		}
 		else if (ft_strcmp(argv[1], "-t") == 0)
 		{
+			init_struct(&lists);
 			list_dirt(argc, argv, lists);
+			free_stuff(&lists);
 		}
 		else
 			ft_error("main: ./ft_ls error");

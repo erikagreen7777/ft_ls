@@ -127,6 +127,7 @@ int ls_stat(char *str)
         k++;
     }
     free(timearray);
+    free(hourmin);
     /*
     ** TODO: free hourmin
     ** TODO: extra attributes like @

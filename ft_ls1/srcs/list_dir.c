@@ -28,127 +28,23 @@ static int		directory_count(DIR *dip, char *str)
 /*
 ** ls -l
 */
-// void	list_dirl(int argc, char **argv)
-// {
-// 	int				j;
-// 	DIR				*dip;
-// 	struct dirent	*dit;
-// 	char			**splitstr;
-// 	int				i;
-// 	struct stat 	fileStat;
-// 	int				filecount;
-// 	char			**dest;
-// 	char			arg[WORD_MAX];
-// 	int 			size;
-
-// 	size = 0;
-// 	// linecount = 0;
-// 	i = 0;
-// 	j = 2;
-// 	dest = NULL;
-// 	if (argc == 2)
-// 	{
-// 		argv[j] = ".";
-// 		argc = 3;
-// 	}
-// 	while (j < argc)
-// 	{
-// 		/*
-// 		** if the file/folder isn't valid
-// 		*/
-// 		if(stat(argv[j], &fileStat) < 0) 
-//         	ft_error(": No such file or directory");
-//     	/*
-//     	** if it's a regular file
-// 		*/
-// 		if ((fileStat.st_mode & S_IFMT) == S_IFREG)
-// 			ls_stat(argv[j]);
-// 		else if (S_ISDIR(fileStat.st_mode) == 1)
-// 		{
-
-// 			dip = opendir(argv[j]);
-// 			ft_strcpy(arg, argv[j]);
-// 	        /*
-// 	        ** if the last character of argv[j] isn't a "/", add one
-// 	        */
-// 			if (ft_strcmp(&arg[ft_strlen(arg) - 1], "/") != 0)
-// 				ft_strcat(arg, "/");
-// 			filecount = directory_count(dip, argv[j]);
-// 			/*
-// 			** malloc memory for the 2D array (include extra + 1 for null at end)
-// 			*/
-// 			splitstr = (char **)ft_memalloc(sizeof(char *) * filecount + 1);
-// 			dest = (char **)ft_memalloc(sizeof(char *) * filecount + 1);
-// 			if (dip == NULL)
-// 			{
-// 				ft_error(": No file or directory");
-// 			}
-// 			while ((dit = readdir(dip)) != NULL)
-// 			{
-// 				if (dit->d_name[0] != '.')
-// 				{		
-// 					/*
-// 					** add directory name into empty string
-// 					*/
-// 					dest[i] = ft_strdup(arg);
-// 					/*
-// 					** add file name into other emptry string
-// 					*/
-// 					splitstr[i] = ft_strdup(dit->d_name);
-// 					/*
-// 					** combine them together to create a filepath ls_stat can read
-// 					*/
-// 					ft_strcat(dest[i], splitstr[i]);
-// 					// free(splitstr[i]);
-// 					i++;
-// 				}
-// 			}
-// 			/*
-// 			** close dir stream
-// 			*/
-// 			if (closedir(dip) == -1)
-// 				ft_error("closedir");
-// 		}
-// 		j++;
-// 	}
-// 	/*
-// 	** print total 512 block-byte size
-// 	*/
-// 	i = -1;
-// 	while (++i < filecount)
-// 		size += add_stat(dest[i]);
-// 	ft_printf("total %d\n", size);
-// 	/*
-// 	** print actual ls_stat()
-// 	*/
-// 	i = -1;
-// 	while (++i < filecount)
-// 		ls_stat(dest[i]);
-
-// 	/*
-// 	** TODO: free memory
-// 	*/
-// }
-
-/*
-** ls -l
-*/
-void	list_dirl(int argc, char **argv)
+void	list_dirl(int argc, char **argv, t_lists *lists)
 {
 	int				j;
 	DIR				*dip;
 	struct dirent	*dit;
-	char			splitstr[257];
+	char			splitstr[1000];
 	int				i;
 	struct stat 	fileStat;
 	int				filecount;
-	char			dest[257][10000];
-	char			arg[257];
+	// char			dest[257][10000];
+	char			*arg;
 	int 			size;
 
 	size = 0;
 	i = 0;
 	j = 2;
+	arg = (char *)malloc(sizeof(ft_strlen(argv[j]) + 1));
 	if (argc == 2)
 	{
 		argv[j] = ".";
@@ -164,10 +60,11 @@ void	list_dirl(int argc, char **argv)
 			ls_stat(argv[j]);
 		else if (S_ISDIR(fileStat.st_mode) == 1)
 		{
-
 			dip = opendir(argv[j]);
 			ft_strcpy(arg, argv[j]);
-
+			/*
+			** if the last character isn't a /, then attach a slash to the end of the arg
+			*/
 			if (ft_strcmp(&arg[ft_strlen(arg) - 1], "/") != 0)
 				ft_strcat(arg, "/");
 			if (dip == NULL)
@@ -178,15 +75,12 @@ void	list_dirl(int argc, char **argv)
 			{
 				if (dit->d_name[0] != '.')
 				{	
-					// ft_strcpy(dest[i], arg);
-					// ft_strcpy(splitstr[i], dit->d_name);
-					// ft_strcat(dest[i], splitstr[i]);
-					
-					ft_strcpy(dest[i], arg);
+					ft_strcpy(lists->dest[i], arg);
+					// splitstr = (char *)malloc(sizeof(ft_strlen(dit->d_name)));
 					ft_strcpy(splitstr, dit->d_name);
-					ft_strcat(dest[i], splitstr);
+					ft_strcat(lists->dest[i], splitstr);
 					ft_bzero(splitstr, ft_strlen(splitstr));
-
+					// free(splitstr);
 					i++;
 				}
 			}
@@ -198,12 +92,13 @@ void	list_dirl(int argc, char **argv)
 	filecount = i;
 	i = -1;
 	while (++i < filecount)
-		size += add_stat(dest[i]);
+		size += add_stat(lists->dest[i]);
 	ft_printf("total %d\n", size);
 	i = -1;
 	while (++i < filecount)
-		ls_stat(dest[i]);
+		ls_stat(lists->dest[i]);
 	free(dip);
+	free(arg);
 
 }
 
@@ -241,9 +136,6 @@ void	list_dirt(int argc, char **argv, t_lists *lists)
 			ls_stat(argv[j]);
 		else if (S_ISDIR(fileStat.st_mode) == 1)
 		{
-			/*
-			** TODO: split function here?
-			*/
 			dip = opendir(argv[j]);
 			ft_strcpy(arg, argv[j]);
 	        /*
