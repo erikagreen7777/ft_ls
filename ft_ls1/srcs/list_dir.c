@@ -10,6 +10,8 @@ static int		directory_count(DIR *dip, char *str)
 	filecount = 0;
 	// str = NULL;
 
+	dip = opendir(str);
+
 	while ((dit = readdir(dip)) != NULL)
 	{
 		if (dit->d_name[0] != '.')
@@ -20,7 +22,7 @@ static int		directory_count(DIR *dip, char *str)
 	if (closedir(dip) == -1)
 		ft_error("closedir");
 
-	dip = opendir(str);
+	// dip = opendir(str);
 	return (filecount);
 }
 
@@ -33,18 +35,14 @@ void	list_dirl(int argc, char **argv, t_lists *lists)
 	int				j;
 	DIR				*dip;
 	struct dirent	*dit;
-	char			splitstr[1000];
-	int				i;
+	char			**splitstr;
 	struct stat 	fileStat;
-	int				filecount;
-	// char			dest[257][10000];
-	char			*arg;
+	char			arg[WORD_MAX];
 	int 			size;
 
 	size = 0;
-	i = 0;
+	lists->i = 0;
 	j = 2;
-	arg = (char *)malloc(sizeof(ft_strlen(argv[j]) + 1));
 	if (argc == 2)
 	{
 		argv[j] = ".";
@@ -52,21 +50,35 @@ void	list_dirl(int argc, char **argv, t_lists *lists)
 	}
 	while (j < argc)
 	{
-
+		/*
+		** if the file/folder isn't valid
+		*/
 		if(stat(argv[j], &fileStat) < 0) 
         	ft_error(": No such file or directory");
-
+    	/*
+    	** if it's a regular file
+		*/
 		if ((fileStat.st_mode & S_IFMT) == S_IFREG)
 			ls_stat(argv[j]);
 		else if (S_ISDIR(fileStat.st_mode) == 1)
 		{
+
 			dip = opendir(argv[j]);
 			ft_strcpy(arg, argv[j]);
-			/*
-			** if the last character isn't a /, then attach a slash to the end of the arg
-			*/
+	        /*
+	        ** if the last character of argv[j] isn't a "/", add one
+	        */
 			if (ft_strcmp(&arg[ft_strlen(arg) - 1], "/") != 0)
 				ft_strcat(arg, "/");
+			if (closedir(dip) == -1)
+				ft_error("closedir");
+			lists->filecount = directory_count(dip, argv[j]);
+			dip = opendir(argv[j]);
+			/*
+			** malloc memory for the 2D array (include extra + 1 for null at end)
+			*/
+			splitstr = (char **)ft_memalloc(sizeof(char *) * lists->filecount + 1);
+			lists->dest = (char **)ft_memalloc(sizeof(char *) * lists->filecount + 1);
 			if (dip == NULL)
 			{
 				ft_error(": No file or directory");
@@ -74,33 +86,120 @@ void	list_dirl(int argc, char **argv, t_lists *lists)
 			while ((dit = readdir(dip)) != NULL)
 			{
 				if (dit->d_name[0] != '.')
-				{	
-					ft_strcpy(lists->dest[i], arg);
-					// splitstr = (char *)malloc(sizeof(ft_strlen(dit->d_name)));
-					ft_strcpy(splitstr, dit->d_name);
-					ft_strcat(lists->dest[i], splitstr);
-					ft_bzero(splitstr, ft_strlen(splitstr));
-					// free(splitstr);
-					i++;
+				{		
+					/*
+					** add directory name into empty string
+					*/
+					lists->dest[lists->i] = ft_strdup(arg);
+					/*
+					** add file name into other emptry string
+					*/
+					splitstr[lists->i] = ft_strdup(dit->d_name);
+					/*
+					** combine them together to create a filepath ls_stat can read
+					*/
+					ft_strcat(lists->dest[lists->i], splitstr[lists->i]);
+					lists->i++;
 				}
 			}
+			/*
+			** close dir stream
+			*/
 			if (closedir(dip) == -1)
 				ft_error("closedir");
 		}
 		j++;
 	}
-	filecount = i;
-	i = -1;
-	while (++i < filecount)
-		size += add_stat(lists->dest[i]);
+	/*
+	** print total 512 block-byte size
+	*/
+	lists->i = -1;
+	while (++lists->i < lists->filecount)
+		size += add_stat(lists->dest[lists->i]);
 	ft_printf("total %d\n", size);
-	i = -1;
-	while (++i < filecount)
-		ls_stat(lists->dest[i]);
-	free(dip);
-	free(arg);
-
+	/*
+	** print actual ls_stat()
+	*/
+	lists->i = -1;
+	while (++lists->i < lists->filecount)
+		ls_stat(lists->dest[lists->i]);
+	/*
+	** TODO: free memory
+	*/
 }
+// void	list_dirl(int argc, char **argv, t_lists *lists)
+// {
+// 	int				j;
+// 	DIR				*dip;
+// 	struct dirent	*dit;
+// 	char			splitstr[1000];
+// 	int				i;
+// 	struct stat 	fileStat;
+// 	int				filecount;
+// 	// char			dest[257][10000];
+// 	char			*arg;
+// 	int 			size;
+
+// 	size = 0;
+// 	i = 0;
+// 	j = 2;
+// 	arg = (char *)malloc(sizeof(ft_strlen(argv[j]) + 1));
+// 	if (argc == 2)
+// 	{
+// 		argv[j] = ".";
+// 		argc = 3;
+// 	}
+// 	while (j < argc)
+// 	{
+
+// 		if(stat(argv[j], &fileStat) < 0) 
+//         	ft_error(": No such file or directory");
+
+// 		if ((fileStat.st_mode & S_IFMT) == S_IFREG)
+// 			ls_stat(argv[j]);
+// 		else if (S_ISDIR(fileStat.st_mode) == 1)
+// 		{
+// 			dip = opendir(argv[j]);
+// 			ft_strcpy(arg, argv[j]);
+// 			/*
+// 			** if the last character isn't a /, then attach a slash to the end of the arg
+// 			*/
+// 			if (ft_strcmp(&arg[ft_strlen(arg) - 1], "/") != 0)
+// 				ft_strcat(arg, "/");
+// 			if (dip == NULL)
+// 			{
+// 				ft_error(": No file or directory");
+// 			}
+// 			while ((dit = readdir(dip)) != NULL)
+// 			{
+// 				if (dit->d_name[0] != '.')
+// 				{	
+// 					ft_strcpy(lists->dest[i], arg);
+// 					// splitstr = (char *)malloc(sizeof(ft_strlen(dit->d_name)));
+// 					ft_strcpy(splitstr, dit->d_name);
+// 					ft_strcat(lists->dest[i], splitstr);
+// 					ft_bzero(splitstr, ft_strlen(splitstr));
+// 					// free(splitstr);
+// 					i++;
+// 				}
+// 			}
+// 			if (closedir(dip) == -1)
+// 				ft_error("closedir");
+// 		}
+// 		j++;
+// 	}
+// 	filecount = i;
+// 	i = -1;
+// 	while (++i < filecount)
+// 		size += add_stat(lists->dest[i]);
+// 	ft_printf("total %d\n", size);
+// 	i = -1;
+// 	while (++i < filecount)
+// 		ls_stat(lists->dest[i]);
+// 	free(dip);
+// 	free(arg);
+
+// }
 
 
 /*
@@ -143,7 +242,12 @@ void	list_dirt(int argc, char **argv, t_lists *lists)
 	        */
 			if (ft_strcmp(&arg[ft_strlen(arg) - 1], "/") != 0)
 				ft_strcat(arg, "/");
+			if (closedir(dip) == -1)
+				ft_error("closedir");
+
 			lists->filecount = directory_count(dip, argv[j]);
+			dip = opendir(argv[j]);
+
 			/*
 			** malloc memory for the 2D array (include extra + 1 for null at end)
 			*/

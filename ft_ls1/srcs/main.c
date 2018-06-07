@@ -11,12 +11,12 @@ void		init_struct(t_lists **lists)
 
 }
 
-static void	free_stuff(t_lists **lists)
-{
-	// ft_memdel((void*)&lists->timearray);
-	// ft_memdel((void*)&lists->dest);
-	ft_memdel((void*)&lists);
-}
+// static void	free_stuff(t_lists **lists)
+// {
+// 	// ft_memdel((void*)&lists->timearray);
+// 	// ft_memdel((void*)&lists->dest);
+// 	ft_memdel((void*)&lists);
+// }
 
 int main(int argc, char **argv)
 {
@@ -41,8 +41,10 @@ int main(int argc, char **argv)
 			// 	ft_error("Usage: ./ft_ls -l <directory>");
 			init_struct(&lists);
 			list_dirl(argc, argv, lists);
-			free_stuff(&lists);
-			// ls_stat(argv[2]);
+			/*
+			** TODO: free stuff?
+			** free_stuff(&lists);
+			*/
 		}
 		else if (ft_strcmp(argv[1], "-r") == 0)
 		{
@@ -60,7 +62,10 @@ int main(int argc, char **argv)
 		{
 			init_struct(&lists);
 			list_dirt(argc, argv, lists);
-			free_stuff(&lists);
+			/*
+			** TODO: free stuff?
+			** free_stuff(&lists);
+			*/
 		}
 		else
 			ft_error("main: ./ft_ls error");
