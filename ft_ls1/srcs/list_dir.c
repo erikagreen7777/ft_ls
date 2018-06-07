@@ -35,7 +35,6 @@ void	list_dirl(int argc, char **argv, t_lists *lists)
 	int				j;
 	DIR				*dip;
 	struct dirent	*dit;
-	char			**splitstr;
 	struct stat 	fileStat;
 	char			arg[WORD_MAX];
 	int 			size;
@@ -43,7 +42,6 @@ void	list_dirl(int argc, char **argv, t_lists *lists)
 	size = 0;
 	lists->i = 0;
 	j = 2;
-	splitstr = NULL;
 	if (argc == 2)
 	{
 		argv[j] = ".";
@@ -78,8 +76,8 @@ void	list_dirl(int argc, char **argv, t_lists *lists)
 			/*
 			** malloc memory for the 2D array (include extra + 1 for null at end)
 			*/
-			splitstr = (char **)ft_memalloc(sizeof(char *) * lists->filecount + 1);
-			lists->dest = (char **)ft_memalloc(sizeof(char *) * lists->filecount + 1);
+			lists->strs = (char **)ft_memalloc(sizeof(char *) * lists->filecount) + 1;
+			lists->dest = (char **)ft_memalloc(sizeof(char *) * lists->filecount) + 1;
 			if (dip == NULL)
 			{
 				ft_error(": No file or directory");
@@ -95,16 +93,19 @@ void	list_dirl(int argc, char **argv, t_lists *lists)
 					/*
 					** add file name into other emptry string
 					*/
-					splitstr[lists->i] = ft_strdup(dit->d_name);
+					lists->strs[lists->i] = ft_strdup(dit->d_name);
 					/*
 					** combine them together to create a filepath ls_stat can read
 					*/
-					ft_strcat(lists->dest[lists->i], splitstr[lists->i]);
-					// ft_bzero(splitstr[lists->i], ft_strlen(splitstr));
-					// free(splitstr[lists->i]);
+					ft_strcat(lists->dest[lists->i], lists->strs[lists->i]);
+					printf("first: lists->dest[%d]: %s\n", lists->i, lists->dest[lists->i]);
+					// ft_bzero(lists->splitstr[lists->i], ft_strlen(lists->splitstr));
+					// free(lists->splitstr[lists->i]);
 					lists->i++;
 				}
+				// lists->dest[lists->i] = NULL;
 			}
+			// lists->dest[lists->i] = NULL;
 			/*
 			** close dir stream
 			*/
@@ -113,10 +114,10 @@ void	list_dirl(int argc, char **argv, t_lists *lists)
 		}
 		j++;
 	}
+	lists->dest[lists->i] = NULL;
 	/*
 	** print total 512 block-byte size
 	*/
-	printf("lists->filecount: %d\n", lists->filecount);
 	lists->i = 0;
 	while (lists->i < lists->filecount)
 	{
@@ -124,13 +125,13 @@ void	list_dirl(int argc, char **argv, t_lists *lists)
 		lists->i++;
 	}
 
-	lists->i = 0;
-	while (lists->i < lists->filecount)
-	{
-		size += add_stat(lists->dest[lists->i]);
-		lists->i++;
-	}
-	ft_printf("total %d\n", size);
+	// lists->i = 0;
+	// while (lists->i < lists->filecount)
+	// {
+	// 	size += add_stat(lists->dest[lists->i]);
+	// 	lists->i++;
+	// }
+	// ft_printf("total %d\n", size);
 	/*
 	** print actual ls_stat()
 	*/
@@ -146,7 +147,7 @@ void	list_dirl(int argc, char **argv, t_lists *lists)
 // 	int				j;
 // 	DIR				*dip;
 // 	struct dirent	*dit;
-// 	char			splitstr[1000];
+// 	char			lists->splitstr[1000];
 // 	int				i;
 // 	struct stat 	fileStat;
 // 	int				filecount;
