@@ -43,6 +43,7 @@ void	list_dirl(int argc, char **argv, t_lists *lists)
 	size = 0;
 	lists->i = 0;
 	j = 2;
+	splitstr = NULL;
 	if (argc == 2)
 	{
 		argv[j] = ".";
@@ -99,6 +100,8 @@ void	list_dirl(int argc, char **argv, t_lists *lists)
 					** combine them together to create a filepath ls_stat can read
 					*/
 					ft_strcat(lists->dest[lists->i], splitstr[lists->i]);
+					// ft_bzero(splitstr[lists->i], ft_strlen(splitstr));
+					// free(splitstr[lists->i]);
 					lists->i++;
 				}
 			}
@@ -113,9 +116,20 @@ void	list_dirl(int argc, char **argv, t_lists *lists)
 	/*
 	** print total 512 block-byte size
 	*/
-	lists->i = -1;
-	while (++lists->i < lists->filecount)
+	printf("lists->filecount: %d\n", lists->filecount);
+	lists->i = 0;
+	while (lists->i < lists->filecount)
+	{
+		printf("lists->dest[(%d)] %s\n", lists->i, lists->dest[lists->i]);
+		lists->i++;
+	}
+
+	lists->i = 0;
+	while (lists->i < lists->filecount)
+	{
 		size += add_stat(lists->dest[lists->i]);
+		lists->i++;
+	}
 	ft_printf("total %d\n", size);
 	/*
 	** print actual ls_stat()

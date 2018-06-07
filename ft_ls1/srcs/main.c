@@ -43,8 +43,9 @@ int main(int argc, char **argv)
 			list_dirl(argc, argv, lists);
 			/*
 			** TODO: free stuff?
-			** free_stuff(&lists);
 			*/
+			// free_stuff(&lists);
+
 		}
 		else if (ft_strcmp(argv[1], "-r") == 0)
 		{
