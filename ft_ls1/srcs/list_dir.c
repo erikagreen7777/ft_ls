@@ -130,17 +130,20 @@ static int		directory_count(DIR *dip, char *str)
 // 	*/
 // }
 
+/*
+** ls -l
+*/
 void	list_dirl(int argc, char **argv)
 {
 	int				j;
 	DIR				*dip;
 	struct dirent	*dit;
-	char			splitstr[257][2000];
+	char			splitstr[257];
 	int				i;
 	struct stat 	fileStat;
 	int				filecount;
-	char			dest[257][2000];
-	char			arg[WORD_MAX];
+	char			dest[257][10000];
+	char			arg[257];
 	int 			size;
 
 	size = 0;
@@ -174,29 +177,29 @@ void	list_dirl(int argc, char **argv)
 			while ((dit = readdir(dip)) != NULL)
 			{
 				if (dit->d_name[0] != '.')
-				{		
-
+				{	
+					// ft_strcpy(dest[i], arg);
+					// ft_strcpy(splitstr[i], dit->d_name);
+					// ft_strcat(dest[i], splitstr[i]);
+					
 					ft_strcpy(dest[i], arg);
+					ft_strcpy(splitstr, dit->d_name);
+					ft_strcat(dest[i], splitstr);
+					ft_bzero(splitstr, ft_strlen(splitstr));
 
-					ft_strcpy(splitstr[i], dit->d_name);
-	
-					ft_strcat(dest[i], splitstr[i]);
 					i++;
 				}
 			}
-
 			if (closedir(dip) == -1)
 				ft_error("closedir");
 		}
 		j++;
 	}
 	filecount = i;
-
 	i = -1;
 	while (++i < filecount)
 		size += add_stat(dest[i]);
 	ft_printf("total %d\n", size);
-
 	i = -1;
 	while (++i < filecount)
 		ls_stat(dest[i]);

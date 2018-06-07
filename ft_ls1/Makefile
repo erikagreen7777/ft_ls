@@ -18,7 +18,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	@make re -C libft
-	@gcc $(FLAG) -o $(NAME) $(SRC) $(LIBFT)
+	@gcc $(FLAG) -o $(NAME) $(SRC) $(LIBFT) 
 	@echo "\033[94mReady"
 
 clean:
