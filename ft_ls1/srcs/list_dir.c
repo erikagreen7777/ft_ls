@@ -110,12 +110,6 @@ void	list_dirl(int argc, char **argv, t_lists *lists)
 	/*
 	** print total 512 block-byte size
 	*/
-	// lists->i = 0;
-	// while (lists->i < lists->filecount)
-	// {
-	// 	printf("after lists->dest[%d]: %s\n", lists->i, lists->dest[lists->i]);
-	// 	lists->i++;
-	// }
 	lists->i = 0;
 	while (lists->i < lists->filecount)
 	{
@@ -126,9 +120,9 @@ void	list_dirl(int argc, char **argv, t_lists *lists)
 	/*
 	** print actual ls_stat()
 	*/
-	// lists->i = -1;
-	// while (++lists->i < lists->filecount)
-	// 	ls_stat(array[lists->i]);
+	lists->i = -1;
+	while (++lists->i < lists->filecount)
+		ls_stat(lists->dest[lists->i]);
 	/*
 	** TODO: free memory
 	*/
