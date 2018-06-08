@@ -137,11 +137,11 @@ void	list_dirt(int argc, char **argv, t_lists *lists)
 	int				j;
 	DIR				*dip;
 	struct dirent	*dit;
-	char			**splitstr;
-	int				i;
 	struct stat 	fileStat;
 	char			arg[WORD_MAX];
-	i = 0;
+	char  			temp[WORD_MAX];
+
+	lists->i = 0;
 	j = 2;
 	if (argc == 2)
 	{
@@ -178,7 +178,6 @@ void	list_dirt(int argc, char **argv, t_lists *lists)
 			/*
 			** malloc memory for the 2D array (include extra + 1 for null at end)
 			*/
-			splitstr = (char **)ft_memalloc(sizeof(char *) * lists->filecount + 1);
 			lists->dest = (char **)ft_memalloc(sizeof(char *) * lists->filecount + 1);
 			lists->timearray = (char **)ft_memalloc(sizeof(char *) * lists->filecount + 1);
 			if (dip == NULL)
@@ -188,29 +187,18 @@ void	list_dirt(int argc, char **argv, t_lists *lists)
 			/*
 			** TODO: end split function here?
 			*/
+			ft_strcpy(temp, arg);
 			while ((dit = readdir(dip)) != NULL)
 			{
 				if (dit->d_name[0] != '.')
 				{		
-					/*
-					** add directory name into empty string
-					*/
-					lists->dest[i] = ft_strdup(arg);
-					/*
-					** add file name into other emptry string
-					*/
-					splitstr[i] = ft_strdup(dit->d_name);
-					/*
-					** combine them together to create a filepath ls_stat can read
-					*/
-					ft_strcat(lists->dest[i], splitstr[i]);
-					/*
-					** do actual time_stat()
-					** sort array function
-					** print returned array with corresponding files
-					*/
-					lists->timearray[i] = ft_strdup(ft_itoa(time_stat(lists->dest[i])));
-					i++;
+					if (lists->i > 0)
+						ft_strcpy(arg, temp);
+					ft_strcat(arg, dit->d_name);
+					lists->dest[lists->i] = ft_strdup(arg);
+					ft_bzero(arg, ft_strlen(arg));
+					lists->timearray[lists->i] = ft_strdup(ft_itoa(time_stat(lists->dest[lists->i])));
+					lists->i++;
 				}
 			}
 
@@ -229,7 +217,7 @@ void	list_dirt(int argc, char **argv, t_lists *lists)
 			*/
 			lists->i = -1;
 			while (++lists->i < lists->filecount)
-			printf("%s\n", lists->dest[lists->i]);
+				printf("%s\n", lists->dest[lists->i]);
 			/*
 			** close dir stream
 			*/
