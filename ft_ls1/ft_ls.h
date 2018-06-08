@@ -26,7 +26,7 @@ typedef struct	s_lists
 	char 		**timearray;
 	int 		filecount;
 	char		**dest;
-	char 		*strs;
+	char 		**strs;
 	int 		i;
 	int 		j;
 	char		*temp;

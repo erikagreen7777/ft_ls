@@ -35,13 +35,17 @@ void	list_dirl(int argc, char **argv, t_lists *lists)
 	int				j;
 	DIR				*dip;
 	struct dirent	*dit;
+	char			**splitstr;
 	struct stat 	fileStat;
 	char			arg[WORD_MAX];
 	int 			size;
+	char 			**array;
+	char  			temp[WORD_MAX];
 
 	size = 0;
 	lists->i = 0;
 	j = 2;
+	splitstr = NULL;
 	if (argc == 2)
 	{
 		argv[j] = ".";
@@ -76,32 +80,42 @@ void	list_dirl(int argc, char **argv, t_lists *lists)
 			/*
 			** malloc memory for the 2D array (include extra + 1 for null at end)
 			*/
-			lists->strs = (char **)ft_memalloc(sizeof(char *) * lists->filecount) + 1;
-			lists->dest = (char **)ft_memalloc(sizeof(char *) * lists->filecount) + 1;
+			lists->dest = (char **)ft_memalloc(sizeof(char *) * lists->filecount  + 1);
+			array = (char **)ft_memalloc(sizeof(char *) * lists->filecount  + 1);
 			if (dip == NULL)
 			{
 				ft_error(": No file or directory");
 			}
+			ft_strcpy(temp, arg);
 			while ((dit = readdir(dip)) != NULL)
 			{
 				if (dit->d_name[0] != '.')
-				{		
-					/*
-					** add directory name into empty string
-					*/
+				{	
+					if (lists->i > 0)
+						ft_strcpy(arg, temp);
+					ft_strcat(arg, dit->d_name);
 					lists->dest[lists->i] = ft_strdup(arg);
-					/*
-					** add file name into other emptry string
-					*/
-					lists->strs[lists->i] = ft_strdup(dit->d_name);
-					/*
-					** combine them together to create a filepath ls_stat can read
-					*/
-					ft_strcat(lists->dest[lists->i], lists->strs[lists->i]);
-					printf("first: lists->dest[%d]: %s\n", lists->i, lists->dest[lists->i]);
-					// ft_bzero(lists->splitstr[lists->i], ft_strlen(lists->splitstr));
-					// free(lists->splitstr[lists->i]);
+					// printf("lists->dest[%d]: %s\n", lists->i, lists->dest[lists->i]);
+					ft_bzero(arg, ft_strlen(arg));
+					// lists->tempdest = (char *)ft_memalloc(sizeof(ft_strlen(arg) + 1));
+					// /*
+					// ** add directory name into empty string
+					// */
+					// lists->dest[lists->i] = ft_strdup(arg);
+					// /*
+					// ** add file name into other emptry string
+					// */
+					// lists->tempdest = ft_strdup(dit->d_name);
+					
+					// ** combine them together to create a filepath ls_stat can read
+					
+					// ft_strcat(lists->dest[lists->i], lists->tempdest);
+					// array[lists->i] = ft_strdup(lists->dest[lists->i]);
+					// // ft_bzero(lists->tempdest[lists->i], ft_strlen(lists->tempdest));
 					lists->i++;
+
+					// free(lists->tempdest);
+					// free(lists->dest[lists->i]);
 				}
 				// lists->dest[lists->i] = NULL;
 			}
@@ -114,17 +128,25 @@ void	list_dirl(int argc, char **argv, t_lists *lists)
 		}
 		j++;
 	}
-	lists->dest[lists->i] = NULL;
 	/*
 	** print total 512 block-byte size
 	*/
 	lists->i = 0;
 	while (lists->i < lists->filecount)
 	{
-		printf("lists->dest[(%d)] %s\n", lists->i, lists->dest[lists->i]);
+		printf("after lists->dest[%d]: %s\n", lists->i, lists->dest[lists->i]);
 		lists->i++;
 	}
-
+	lists->i = 0;
+	while (lists->i < lists->filecount)
+	{
+		free(array[lists->i]);
+		// free(lists->tempdest[lists->i]);
+		// free(lists->dest[lists->i]);
+		lists->i++;
+	}
+	// free(lists->tempdest);
+	// free(lists->dest);
 	// lists->i = 0;
 	// while (lists->i < lists->filecount)
 	// {
@@ -135,9 +157,9 @@ void	list_dirl(int argc, char **argv, t_lists *lists)
 	/*
 	** print actual ls_stat()
 	*/
-	lists->i = -1;
-	while (++lists->i < lists->filecount)
-		ls_stat(lists->dest[lists->i]);
+	// lists->i = -1;
+	// while (++lists->i < lists->filecount)
+	// 	ls_stat(array[lists->i]);
 	/*
 	** TODO: free memory
 	*/
@@ -147,7 +169,7 @@ void	list_dirl(int argc, char **argv, t_lists *lists)
 // 	int				j;
 // 	DIR				*dip;
 // 	struct dirent	*dit;
-// 	char			lists->splitstr[1000];
+// 	char			splitstr[1000];
 // 	int				i;
 // 	struct stat 	fileStat;
 // 	int				filecount;
