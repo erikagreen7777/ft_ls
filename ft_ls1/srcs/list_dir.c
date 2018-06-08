@@ -174,7 +174,6 @@ void	list_dirt(int argc, char **argv, t_lists *lists)
 
 			lists->filecount = directory_count(dip, argv[j]);
 			dip = opendir(argv[j]);
-
 			/*
 			** malloc memory for the 2D array (include extra + 1 for null at end)
 			*/
@@ -205,9 +204,9 @@ void	list_dirt(int argc, char **argv, t_lists *lists)
 			/*
 			** print off timearray/dest
 			*/
-			// i = -1;
-			// while (++i < lists->filecount)
-			// 	printf("before[%d]: %s    %s\n", i, lists->timearray[i], lists->dest[i]);
+			// lists->i = -1;
+			// while (++lists->i < lists->filecount)
+			// 	printf("before[%d]: %s    %s\n", lists->i, lists->timearray[lists->i], lists->dest[lists->i]);
 			/*
 			** sort array based on st_mtime
 			*/
@@ -217,7 +216,9 @@ void	list_dirt(int argc, char **argv, t_lists *lists)
 			*/
 			lists->i = -1;
 			while (++lists->i < lists->filecount)
-				printf("%s\n", lists->dest[lists->i]);
+				ft_printf("%s\n", lists->dest[lists->i]);
+
+				// printf("%s\n", lists->dest[lists->i]);
 			/*
 			** close dir stream
 			*/
