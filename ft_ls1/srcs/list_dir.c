@@ -200,13 +200,6 @@ void	list_dirt(int argc, char **argv, t_lists *lists)
 					lists->i++;
 				}
 			}
-
-			/*
-			** print off timearray/dest
-			*/
-			// lists->i = -1;
-			// while (++lists->i < lists->filecount)
-			// 	printf("before[%d]: %s    %s\n", lists->i, lists->timearray[lists->i], lists->dest[lists->i]);
 			/*
 			** sort array based on st_mtime
 			*/
@@ -217,8 +210,6 @@ void	list_dirt(int argc, char **argv, t_lists *lists)
 			lists->i = -1;
 			while (++lists->i < lists->filecount)
 				ft_printf("%s\n", lists->dest[lists->i]);
-
-				// printf("%s\n", lists->dest[lists->i]);
 			/*
 			** close dir stream
 			*/

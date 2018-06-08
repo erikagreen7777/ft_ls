@@ -116,7 +116,7 @@ int ls_stat(char *str)
     ft_strncpy(hourmin, timearray[3], 5);
     ft_printf("%s %s %s\t", timearray[1], timearray[2], hourmin);
     ft_printf("%s\n", str);
-    
+
     /*
     ** TODO: free timearray
     */
@@ -133,6 +133,9 @@ int ls_stat(char *str)
     ** TODO: extra attributes like @
     ** TODO: symbolic link stuff
     */
+    lstat(str, &fileStat);
+    if (S_ISLNK(fileStat.st_mode))
+        printf("it's a link\n");
 
 
     //device type?
@@ -151,8 +154,6 @@ int ls_stat(char *str)
     //     printf("File type: \t\tSocket\n");
     // else if ((fileStat.st_mode & S_IFMT) == S_IFREG)
     //     printf("File type: \t\tRegular File\n");
-    // else if ((fileStat.st_mode & S_IFMT) == S_IFLNK)
-            //     printf("File type: \t\tSymbolic Link\n");
     // else
     //     printf("Some sort of file type error\n");
 
