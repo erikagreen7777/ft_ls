@@ -115,7 +115,18 @@ int ls_stat(char *str)
     timearray = ft_strsplit(foo, ' ');
     ft_strncpy(hourmin, timearray[3], 5);
     ft_printf("%s %s %s\t", timearray[1], timearray[2], hourmin);
-    ft_printf("%s\n", str);
+    lstat(str, &fileStat);
+    if (S_ISLNK(fileStat.st_mode))
+    {
+        int len;
+        char *buf = (char *)malloc(sizeof(ft_strlen(str) + 1));
+        if ((len = readlink(str, buf, sizeof(buf)-1)) != -1)
+                buf[len] = '\0';
+
+        printf("%s -> %s IT'S A LINK: ADD LINK ADDRESS HERE\n", str, buf);
+    }
+    else
+        ft_printf("%s\n", str);
 
     /*
     ** TODO: free timearray
@@ -133,9 +144,9 @@ int ls_stat(char *str)
     ** TODO: extra attributes like @
     ** TODO: symbolic link stuff
     */
-    lstat(str, &fileStat);
-    if (S_ISLNK(fileStat.st_mode))
-        printf("it's a link\n");
+    // lstat(str, &fileStat);
+    // if (S_ISLNK(fileStat.st_mode))
+    //     printf("it's a link\n");
 
 
     //device type?
