@@ -9,7 +9,6 @@ void	list_dir(int argc, char **argv)
 	struct dirent	*dit;
 	struct stat 	fileStat;
 	int				j;
-
 	j = 1;
 	if (argc == 1)
 	{
@@ -59,9 +58,10 @@ void	list_dira(int argc, char **argv)
 	struct stat 	fileStat;
 	int				j;
 	j = 1;
+
 	if (argc == 2)
 	{
-		argv[j + 1] = ".";
+		argv[2] = ".";
 		argc = 3;
 	}
 	while (++j < argc)
@@ -76,7 +76,7 @@ void	list_dira(int argc, char **argv)
 			*/
 				if(stat(argv[j],&fileStat) < 0)  
 				{
-					ft_printf("./ft_ls: %s: No such file or directory\n", argv[j]);
+					ft_printf(".hi /ft_ls: %s: No such file or directory\n", argv[j]);
 					exit (-1);
 				} 
 				printf("%s\n", argv[j]);

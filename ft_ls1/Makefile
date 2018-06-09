@@ -10,7 +10,7 @@ SRC = srcs/main.c \
 	srcs/recursion.c \
 	srcs/switch.c \
 	srcs/list_dir2.c
-	  
+
 OBJ = $(SRC:.c=.o)
 
 LIBFT = libft/libft.a \
