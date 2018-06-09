@@ -5,6 +5,7 @@ void list_dirbigr(int argc, const char *dir_name)
     DIR *d;
     d = opendir (dir_name);
 
+    printf("argc: %d\n", argc);
     if (!d)
         ft_error(": No such file or directory");
     while (1) 
