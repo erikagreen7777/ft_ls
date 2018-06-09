@@ -1,6 +1,6 @@
 #include "../ft_ls.h"
 
-void list_dirbigr(const char *dir_name)
+void list_dirbigr(int argc, const char *dir_name)
 {
     DIR *d;
     d = opendir (dir_name);
@@ -35,7 +35,7 @@ void list_dirbigr(const char *dir_name)
                 if (newpath_length >= PATH_MAX)
                     ft_error("Path length too long");
                     /* Recursively call "list_dir" with the new path. */
-                list_dirbigr(newpath);
+                list_dirbigr(argc, newpath);
             }
     	}
     }
