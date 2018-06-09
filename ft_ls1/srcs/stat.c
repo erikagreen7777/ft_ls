@@ -24,36 +24,42 @@ int    add_stat(char *str)
 
 }
 
+
 int time_stat(char *str)
 {
     struct stat     fileStat;
-    // struct passwd   *pwd;
-    // struct group    *grp;
-    // char            *foo;
-    // char            *hourmin;
-    // hourmin = (char *)malloc(sizeof(char));
-
     if(stat(str, &fileStat) < 0) 
     {
         ft_error("Yo: No such file or directory");
     }
-
-    /*
-    ** last modification date
-    */
-    // printf("st_mtime: %ld    %s\n", fileStat.st_mtime, str);
-    // foo = ctime(&(fileStat.st_mtime));
-    /*
-    ** TODO: free hourmin
-    ** TODO: extra attributes like @
-    ** TODO: symbolic link stuff
-    */
-
-
-
     return (fileStat.st_mtime);
 }
 
+char *readlink_malloc (const char *filename)
+{
+  int size = 32767;
+  char *buffer = NULL;
+  int i;
+  i = 0;
+
+  while (1)
+    {
+      buffer = (char *)malloc(sizeof(char) * size);
+      int nchars = readlink(filename, buffer, size);
+      if (nchars < 0)
+        {
+          free (buffer);
+          return NULL;
+        }
+      if (nchars < size)
+      {
+        buffer[nchars] = '\0';
+        return (buffer);
+      }
+      size *= 2;
+      i++;
+    }
+}
 
 int ls_stat(char *str)
 {
@@ -118,12 +124,8 @@ int ls_stat(char *str)
     lstat(str, &fileStat);
     if (S_ISLNK(fileStat.st_mode))
     {
-        int len;
-        char *buf = (char *)malloc(sizeof(ft_strlen(str) + 1));
-        if ((len = readlink(str, buf, sizeof(buf)-1)) != -1)
-                buf[len] = '\0';
-
-        printf("%s -> %s IT'S A LINK: ADD LINK ADDRESS HERE\n", str, buf);
+        char *buf = readlink_malloc(str);
+        printf("%s -> %s\n", str, buf);
     }
     else
         ft_printf("%s\n", str);
