@@ -228,14 +228,17 @@ void	list_dirt(int argc, char **argv, t_lists *lists)
 /*
 ** lexicographically sort for ls -r
 */
-static void	lex_sort(DIR *dip, t_lists *lists)
+static void	lex_sort(char *strr, t_lists *lists)
 {
 	int		filecount;
 	struct 	dirent *dit;
 	char	str[D_NAME_MAX][WORD_MAX];
 	char 	temp[WORD_MAX];
+	DIR				*dip;
 	filecount = 0;
 	lists->i = 0;
+
+	dip = opendir(strr);
 
 	while ((dit = readdir(dip)) != NULL)
 	{
@@ -246,6 +249,8 @@ static void	lex_sort(DIR *dip, t_lists *lists)
 			lists->i++;
 		}
 	}
+	if (closedir(dip) == -1)
+		ft_error("closedir");
 	/*
 	** TODO: split function here?
 	*/
@@ -271,6 +276,7 @@ static void	lex_sort(DIR *dip, t_lists *lists)
 	lists->i = -1;
 	while (++lists->i < filecount)
 		printf("%s\n", str[lists->i]);
+	exit(1);
 }
 
 /*
@@ -299,9 +305,11 @@ void	list_dirr(int argc, char **argv, t_lists *lists)
 				printf("%s\n", argv[j]);
 				exit(1);
 		}
-		lex_sort(dip, lists);
 		if (closedir(dip) == -1)
 			ft_error("closedir");
+		lex_sort(argv[j], lists);
+		// if (closedir(dip) == -1)
+		// 	ft_error("closedir");
 		// j++;
 	}
 }
