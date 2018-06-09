@@ -65,7 +65,7 @@ int main(int argc, char **argv)
 				}
 				// if (argc < 3)
 				// 	ft_error("Usage: ./ft_ls -R <directory>");
-				list_dirbigr(argc, argv[2]);
+				list_dirbigr(argv[2]);
 			}
 			else if (ft_strcmp(argv[1], "-t") == 0)
 			{
