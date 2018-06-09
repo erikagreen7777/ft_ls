@@ -116,7 +116,8 @@ void	list_dirl(int argc, char **argv, t_lists *lists)
 		size += add_stat(lists->dest[lists->i]);
 		lists->i++;
 	}
-	ft_printf("total %d\n", size);
+	if (size > 0)
+		ft_printf("total %d\n", size);
 	/*
 	** print actual ls_stat()
 	*/
