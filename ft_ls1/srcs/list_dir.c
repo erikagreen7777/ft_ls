@@ -57,7 +57,7 @@ void	list_dirl(int argc, char **argv, t_lists *lists)
 		** if the file/folder isn't valid
 		*/
 		if(stat(argv[j], &fileStat) < 0) 
-        	ft_error(": No such file or directory");
+        	ft_error("ls -l: No such file or directory");
     	/*
     	** if it's a regular file
 		*/
@@ -155,7 +155,7 @@ void	list_dirt(int argc, char **argv, t_lists *lists)
 		** if the file/folder isn't valid
 		*/
 		if(stat(argv[j], &fileStat) < 0) 
-        	ft_error(": No such file or directory");
+        	ft_error("ls -t: No such file or directory");
     	/*
     	** if it's a regular file
 		*/
@@ -283,7 +283,7 @@ void	list_dirr(int argc, char **argv, t_lists *lists)
 		if (dip == NULL)
 		{
 				if(stat(argv[j],&fileStat) < 0)  
-        			ft_error(": No such file or directory");
+        			ft_error("ls -r: No such file or directory");
 				printf("%s\n", argv[j]);
 				exit(1);
 		}

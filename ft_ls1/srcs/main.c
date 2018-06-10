@@ -64,9 +64,11 @@ int main(int argc, char **argv)
 				    argv[2] = ".";
 				    argc = 3;
 				}
+				init_struct(&lists);
+				lists->i = 0;
 				// if (argc < 3)
 				// 	ft_error("Usage: ./ft_ls -R <directory>");
-				list_dirbigr(argv[2]);
+				list_dirbigr(argv, argv[2], lists);
 			}
 			else if (ft_strcmp(argv[1], "-t") == 0)
 			{
