@@ -54,6 +54,7 @@ int main(int argc, char **argv)
 			{
 				// if (argc < 3)
 				// 	ft_error("Usage: ./ft_ls -r <directory>");
+				init_struct(&lists);
 				list_dirr(argc, argv, lists);
 			}
 			else if (ft_strcmp(argv[1], "-R") == 0)

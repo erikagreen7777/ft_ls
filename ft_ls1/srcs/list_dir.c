@@ -163,15 +163,15 @@ void	list_dirt(int argc, char **argv, t_lists *lists)
 			ls_stat(argv[j]);
 		else if (S_ISDIR(fileStat.st_mode) == 1)
 		{
-			dip = opendir(argv[j]);
+			// dip = opendir(argv[j]);
 			ft_strcpy(arg, argv[j]);
 	        /*
 	        ** if the last character of argv[j] isn't a "/", add one
 	        */
 			if (ft_strcmp(&arg[ft_strlen(arg) - 1], "/") != 0)
 				ft_strcat(arg, "/");
-			if (closedir(dip) == -1)
-				ft_error("closedir");
+			// if (closedir(dip) == -1)
+			// 	ft_error("closedir");
 
 			lists->filecount = directory_count(dip, argv[j]);
 			dip = opendir(argv[j]);
@@ -228,45 +228,42 @@ void	list_dirt(int argc, char **argv, t_lists *lists)
 /*
 ** lexicographically sort for ls -r
 */
-static void	lex_sort(char *strr, t_lists *lists)
+static void	lex_sort(t_lists *lists)
 {
-	int		filecount;
-	struct 	dirent *dit;
-	char	str[D_NAME_MAX][WORD_MAX];
-	char 	temp[WORD_MAX];
-	DIR				*dip;
-	filecount = 0;
+	char 	*temp;
 	lists->i = 0;
 
-	dip = opendir(strr);
-
-	while ((dit = readdir(dip)) != NULL)
-	{
-		if (dit->d_name[0] != '.')
-		{
-			ft_strcpy(str[lists->i], dit->d_name);
-			filecount++;
-			lists->i++;
-		}
-	}
-	if (closedir(dip) == -1)
-		ft_error("closedir");
 	/*
 	** TODO: split function here?
 	*/
 	lists->i = 0;
-	while (lists->i < filecount)
+	while (lists->i < lists->filecount)
 	{
 		lists->j = lists->i + 1;
-		while (lists->j < filecount)
+		while (lists->j < lists->filecount)
 		{
-			if (ft_strcmp(str[lists->i], str[lists->j]) < 0)
+			if (ft_strcmp(lists->dest[lists->i], lists->dest[lists->j]) < 0)
 			{
-				ft_strcpy(temp, str[lists->i]);
-				ft_strcpy(str[lists->i], str[lists->j]);
-				ft_strcpy(str[lists->j], temp);
+				temp = ft_strdup(lists->dest[lists->i]);
+				// temp = (char *)malloc(sizeof(ft_strlen(lists->dest[lists->i]) + 1));
+				// ft_strcpy(temp, lists->dest[lists->i]);
+				
+				ft_bzero(lists->dest[lists->i], ft_strlen(lists->dest[lists->i]));
+				
+				
+				lists->dest[lists->i] = ft_strdup(lists->dest[lists->j]);
+				// ft_strcpy(lists->dest[lists->i], lists->dest[lists->j]);
+				
+				ft_bzero(lists->dest[lists->j], ft_strlen(lists->dest[lists->j]));
+				
+				lists->dest[lists->j] = ft_strdup(temp);
+				// ft_strcpy(lists->dest[lists->j], temp);
+				
+				ft_bzero(temp, ft_strlen(temp));
 			}
+			// ft_bzero(temp, ft_strlen(temp));
 			lists->j++;
+
 		}
 		lists->i++;
 	}
@@ -274,8 +271,8 @@ static void	lex_sort(char *strr, t_lists *lists)
 	** TODO: end split function here?
 	*/
 	lists->i = -1;
-	while (++lists->i < filecount)
-		printf("%s\n", str[lists->i]);
+	while (++lists->i < lists->filecount)
+		printf("%s\n", lists->dest[lists->i]);
 	exit(1);
 }
 
@@ -286,6 +283,12 @@ void	list_dirr(int argc, char **argv, t_lists *lists)
 {
 	DIR				*dip;
 	struct stat 	fileStat;
+	char 			**array;
+	struct dirent	*dit;
+
+	char			arg[WORD_MAX];
+	char  			temp[WORD_MAX];
+
 	int				j;
 	j = 1;
 	if (argc == 2)
@@ -307,7 +310,36 @@ void	list_dirr(int argc, char **argv, t_lists *lists)
 		}
 		if (closedir(dip) == -1)
 			ft_error("closedir");
-		lex_sort(argv[j], lists);
+		lists->filecount = directory_count(dip, argv[j]);
+		dip = opendir(argv[j]);
+			/*
+			** malloc memory for the 2D array (include extra + 1 for null at end)
+			*/
+			lists->dest = (char **)ft_memalloc(sizeof(char *) * lists->filecount  + 1);
+			array = (char **)ft_memalloc(sizeof(char *) * lists->filecount  + 1);
+			if (dip == NULL)
+			{
+				ft_error(": No file or directory");
+			}
+			ft_strcpy(temp, arg);
+			while ((dit = readdir(dip)) != NULL)
+			{
+				if (dit->d_name[0] != '.')
+				{	
+					if (lists->i > 0)
+						ft_strcpy(arg, temp);
+					ft_strcat(arg, dit->d_name);
+					lists->dest[lists->i] = ft_strdup(arg);
+					ft_bzero(arg, ft_strlen(arg));
+					lists->i++;
+				}
+			}
+			/*
+			** close dir stream
+			*/
+			if (closedir(dip) == -1)
+				ft_error("closedir");
+			lex_sort(lists);
 		// if (closedir(dip) == -1)
 		// 	ft_error("closedir");
 		// j++;
