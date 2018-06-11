@@ -1,6 +1,51 @@
 #include "../ft_ls.h"
 
 /*
+** ls -R helper
+*/
+
+void	R_helper(int argc, const char *str)
+{
+	DIR				*dip;
+	struct dirent	*dit;
+	struct stat 	fileStat;
+	int				j;
+	j = 0;
+	while (j < argc - 2)
+	{
+		if (j > 1 && j < argc)
+			write(1, "\n", 1);
+		dip = opendir(str);
+		if (dip == NULL)
+		{
+			/*
+			** TODO: create own function for this because it happens often?
+			*/
+	
+				if(stat(str,&fileStat) < 0) 
+				{
+					ft_printf("./ft_ls: %s: No such file or directory\n", str);
+					exit (-1);
+				} 
+				printf("%s\n", str);
+				exit(0);
+			/*
+			** end function here?
+			*/
+		}
+		while ((dit = readdir(dip)) != NULL)
+		{
+			if (dit->d_name[0] != '.')
+				ft_printf("%s\n", dit->d_name);
+		}
+		if (closedir(dip) == -1)
+			ft_error("closedir");
+		j++;
+	}
+}
+
+
+/*
 ** ls 
 */
 void	list_dir(int argc, char **argv)

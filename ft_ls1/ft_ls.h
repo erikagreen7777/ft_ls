@@ -46,12 +46,14 @@ void					list_dira(int argc, char **argv);
 int 					ls_stat(char *str);
 void					list_dirr(int argc, char **argv, t_lists *lists);
 void					list_dirt(int argc, char **argv, t_lists *lists);
-void 					list_dirbigr(char **argv, const char *dir_name, t_lists *lists);
+void 					list_dirbigr(int argc, char **argv, const char *dir_name, t_lists *lists);
 void					list_dirl(int argc, char **argv, t_lists *lists);
 char				    *extract_path(char *str);
 int					    add_stat(char *str);
 int 					time_stat(char *str);
 void					ft_switch_time(t_lists *lists);
+void					R_helper(int argc, const char *str);
+
 
 
 
