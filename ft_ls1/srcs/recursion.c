@@ -1,6 +1,6 @@
 #include "../ft_ls.h"
 
-void list_dirbigr(int argc, char **argv, const char *dir_name, t_lists *lists)
+void list_dirbigr(char **argv, const char *dir_name, t_lists *lists)
 {
     // char    *newpath;
     // int     dir_name_length;
@@ -26,36 +26,26 @@ void list_dirbigr(int argc, char **argv, const char *dir_name, t_lists *lists)
             break;
         }
         d_name = entry->d_name;
-        // if (d_name[0] != '.')
-        //    ft_printf("%s\n", d_name);
+        if (d_name[0] != '.')
+           ft_printf("%s\n", d_name);
         if (entry->d_type & DT_DIR) 
         {
-            if (ft_strcmp(d_name, ".") == 0 && lists->i == 0)
-            {
-                if (closedir(d))
-                    ft_error("eh");
-                R_helper(argc, argv[2]);
-                lists->i++;
-                if (closedir (d))
-                    ft_error("closedir");
-                list_dirbigr(argc, argv, d_name, lists);
-            }
             /* Check that the directory is not "d" or d's parent. */
-            if (ft_strcmp(d_name, "..") != 0 && (ft_strcmp(d_name, ".") != 0 && lists->i > 0)) 
+            if (ft_strcmp(d_name, "..") != 0 && ft_strcmp(d_name, ".") != 0) 
             {
                 char newpath[PATH_MAX];
                 int  newpath_length;
                 newpath_length = ft_strlen(newpath);
                 ft_strcpy(newpath, dir_name);
-                ft_strcat(newpath, "/");
+                if (ft_strcmp(argv[2], "/") != 0){
+                    ft_strcat(newpath, "/");
+                }
                 ft_strcat(newpath, d_name);
                 ft_printf("\n%s\n", newpath);
                 if (newpath_length >= PATH_MAX)
                     ft_error("Path length too long");
                     /* Recursively call "list_dir" with the new path. */
-                lists->i++;
-                list_dirbigr(argc, argv, newpath, lists);
-
+                list_dirbigr(argv, newpath, lists);
             }
         }
     }
@@ -65,4 +55,3 @@ void list_dirbigr(int argc, char **argv, const char *dir_name, t_lists *lists)
         exit (EXIT_FAILURE);
     }
 }
-
