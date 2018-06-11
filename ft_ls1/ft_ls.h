@@ -52,7 +52,7 @@ char				    *extract_path(char *str);
 int					    add_stat(char *str);
 int 					time_stat(char *str);
 void					ft_switch_time(t_lists *lists);
-void					R_helper(int argc, const char *str);
+void					R_helper(int argc, char **argv);
 
 
 

@@ -4,30 +4,35 @@
 ** ls -R helper
 */
 
-void	R_helper(int argc, const char *str)
+void	R_helper(int argc, char **argv)
 {
 	DIR				*dip;
 	struct dirent	*dit;
 	struct stat 	fileStat;
 	int				j;
-	j = 0;
-	while (j < argc - 2)
+	j = 2;
+	if (argc == 2)
+	{
+		argv[j] = ".";
+		argc = 3;
+	}
+	while (j < argc)
 	{
 		if (j > 1 && j < argc)
 			write(1, "\n", 1);
-		dip = opendir(str);
+		dip = opendir(argv[j]);
 		if (dip == NULL)
 		{
 			/*
 			** TODO: create own function for this because it happens often?
 			*/
 	
-				if(stat(str,&fileStat) < 0) 
+				if(stat(argv[j],&fileStat) < 0) 
 				{
-					ft_printf("./ft_ls: %s: No such file or directory\n", str);
+					ft_printf("./ft_ls: %s: No such file or directory\n", argv[j]);
 					exit (-1);
 				} 
-				printf("%s\n", str);
+				printf("%s\n", argv[j]);
 				exit(0);
 			/*
 			** end function here?
