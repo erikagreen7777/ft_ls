@@ -68,8 +68,8 @@ int main(int argc, char **argv)
 				lists->i = 0;
 				// if (argc < 3)
 				// 	ft_error("Usage: ./ft_ls -R <directory>");
-				R_helper(argc, argv);
-				list_dirbigr(argv, argv[2], lists);
+				// R_helper(argc, argv);
+				list_dirbigr(argv[2]);
 			}
 			else if (ft_strcmp(argv[1], "-t") == 0)
 			{
