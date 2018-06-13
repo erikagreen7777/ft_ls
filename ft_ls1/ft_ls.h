@@ -12,6 +12,7 @@
 # include <uuid/uuid.h>
 # include <grp.h>
 # include <time.h>
+# include <stdbool.h>
 # include <errno.h>
 # include "libft/libft.h"
 # include "libft/printf.h"
@@ -21,6 +22,7 @@
 # define WORD_MAX 256
 # define D_NAME_MAX 32000
 # define LONG_MAX 2147483647
+
 
 typedef struct	s_lists
 {
@@ -55,13 +57,6 @@ char				    *extract_path(char *str);
 int					    add_stat(char *str);
 int 					time_stat(char *str);
 void					ft_switch_time(t_lists *lists);
-void					R_helper(int argc, char **argv);
-
-
-
-
-
-
-
+void					R_first(int argc, char **argv);
 
 #endif

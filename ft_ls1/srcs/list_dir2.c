@@ -4,7 +4,7 @@
 ** ls -R helper
 */
 
-void	R_helper(int argc, char **argv)
+void	R_first(int argc, char **argv)
 {
 	DIR				*dip;
 	struct dirent	*dit;
@@ -18,7 +18,7 @@ void	R_helper(int argc, char **argv)
 	}
 	while (j < argc)
 	{
-		if (j > 1 && j < argc)
+		if (j > 2 && j < argc)
 			write(1, "\n", 1);
 		dip = opendir(argv[j]);
 		if (dip == NULL)
