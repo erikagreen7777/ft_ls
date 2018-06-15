@@ -41,10 +41,12 @@ void	list_dirl(int argc, char **argv, t_lists *lists)
 	int 			size;
 	char 			**array;
 	char  			temp[WORD_MAX];
+	int 			flag;
 
 	size = 0;
 	lists->i = 0;
 	j = 2;
+	flag = 0;
 	splitstr = NULL;
 	if (argc == 2)
 	{
@@ -65,9 +67,10 @@ void	list_dirl(int argc, char **argv, t_lists *lists)
 			ls_stat(argv[j]);
 		else if (S_ISDIR(fileStat.st_mode) == 1)
 		{
-
 			dip = opendir(argv[j]);
 			ft_strcpy(arg, argv[j]);
+			if (ft_strcmp(arg, "/dev") == 0)
+				flag = 1;
 	        /*
 	        ** if the last character of argv[j] isn't a "/", add one
 	        */
@@ -118,6 +121,8 @@ void	list_dirl(int argc, char **argv, t_lists *lists)
 	}
 	if (size > 0)
 		ft_printf("total %d\n", size);
+	else if (flag == 1)
+		ft_printf("total 0\n");
 	/*
 	** print actual ls_stat()
 	*/

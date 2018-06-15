@@ -75,6 +75,8 @@ int ls_stat(char *str)
     {
         ft_error("Yo: No such file or directory");
     }
+    // if (ft_strcmp(str, "/dev") == 0)
+    //     ft_printf("total 0\n");
     /*
     ** file permissions
     */
@@ -111,7 +113,10 @@ int ls_stat(char *str)
     /*
     ** file size
     */
-    ft_printf("%llu\t",fileStat.st_size);
+    if (ft_strcmp(str, "/dev") != 0)
+        ft_printf("%llu\t",fileStat.st_size);
+    else
+        printf("/dev yo\n");
     /*
     ** last modification date
     ** split up ctime array into format present on ls -l (month date hour:min)
