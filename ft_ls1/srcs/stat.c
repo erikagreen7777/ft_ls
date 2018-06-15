@@ -61,7 +61,7 @@ char *readlink_malloc (const char *filename)
     }
 }
 
-int ls_stat(char *str)
+int ls_stat(char *str,  t_lists *lists)
 {
     struct stat     fileStat;
     struct passwd   *pwd;
@@ -106,7 +106,6 @@ int ls_stat(char *str)
     ft_printf( (fileStat.st_mode & S_IWOTH) ? "w" : "-");
     ft_printf( (fileStat.st_mode & S_IXOTH) ? "x" : "-");
     ft_printf("\t");
-
     /*
     ** number of links
     */
@@ -126,12 +125,12 @@ int ls_stat(char *str)
     else
         ft_printf("%d\t", fileStat.st_gid);
     /*
-    ** file size
+    ** file size / for /dev -> major/minor device numbers
     */
-    if (ft_strcmp(str, "/dev") != 0)
+    if (lists->flag == 0)
         ft_printf("%llu\t",fileStat.st_size);
     else
-        printf("/dev yo\n");
+        ft_printf("%4ld, %4ld ", (long) major(fileStat.st_rdev), (long) minor(fileStat.st_rdev));
     /*
     ** last modification date
     ** split up ctime array into format present on ls -l (month date hour:min)

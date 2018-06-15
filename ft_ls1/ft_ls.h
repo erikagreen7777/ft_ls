@@ -39,8 +39,7 @@ typedef struct	s_lists
 	int 		destleni;
 	int 		destlenj;
 	char 		newpath[PATH_MAX];
-
-
+	int 		flag;
 
 }				t_lists;
 
@@ -48,7 +47,7 @@ void					init_struct(t_lists **lists);
 
 void					list_dir(int argc, char **argv);
 void					list_dira(int argc, char **argv);
-int 					ls_stat(char *str);
+int 					ls_stat(char *str, t_lists *lists);
 void					list_dirr(int argc, char **argv, t_lists *lists);
 void					list_dirt(int argc, char **argv, t_lists *lists);
 void 					list_dirbigr(const char *dir_name);
