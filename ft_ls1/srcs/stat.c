@@ -80,7 +80,22 @@ int ls_stat(char *str)
     /*
     ** file permissions
     */
-    ft_printf( (S_ISDIR(fileStat.st_mode)) ? "d" : "-");
+    lstat(str, &fileStat);
+    if (S_ISLNK(fileStat.st_mode))
+        ft_printf("l");
+    else if (S_ISDIR(fileStat.st_mode) == 1)
+        ft_printf("d");
+    else if ((fileStat.st_mode & S_IFMT) == S_IFIFO)
+        ft_printf("p");
+    else if ((fileStat.st_mode & S_IFMT) == S_IFCHR)
+        ft_printf("c");
+    else if ((fileStat.st_mode & S_IFMT) == S_IFBLK)
+        ft_printf("b");
+    else if ((fileStat.st_mode & S_IFMT) == S_IFSOCK)
+        ft_printf("s");
+    else if ((fileStat.st_mode & S_IFMT) == S_IFREG)
+        ft_printf("-");
+    // ft_printf( (S_ISDIR(fileStat.st_mode)) ? "d" : "-");
     ft_printf( (fileStat.st_mode & S_IRUSR) ? "r" : "-");
     ft_printf( (fileStat.st_mode & S_IWUSR) ? "w" : "-");
     ft_printf( (fileStat.st_mode & S_IXUSR) ? "x" : "-");
