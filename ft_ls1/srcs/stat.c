@@ -109,7 +109,7 @@ int ls_stat(char *str,  t_lists *lists)
     /*
     ** number of links
     */
-    ft_printf("%d\t",fileStat.st_nlink);      
+    ft_printf("%5d\t",fileStat.st_nlink);      
     /*
     ** print userid. else, print numerical version
     */
@@ -128,7 +128,7 @@ int ls_stat(char *str,  t_lists *lists)
     ** file size / for /dev -> major/minor device numbers
     */
     if (lists->flag == 0)
-        ft_printf("%llu\t",fileStat.st_size);
+        ft_printf("%5llu\t",fileStat.st_size);
     else
         ft_printf("%4ld, %4ld ", (long) major(fileStat.st_rdev), (long) minor(fileStat.st_rdev));
     /*
@@ -139,7 +139,7 @@ int ls_stat(char *str,  t_lists *lists)
     // printf("\nfoo: %s\n", foo[1]);
     timearray = ft_strsplit(foo, ' ');
     ft_strncpy(hourmin, timearray[3], 5);
-    ft_printf("%s %s %s\t", timearray[1], timearray[2], hourmin);
+    ft_printf("%s %2s %s\t", timearray[1], timearray[2], hourmin);
     lstat(str, &fileStat);
     if (S_ISLNK(fileStat.st_mode))
     {
