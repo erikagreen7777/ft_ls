@@ -43,6 +43,12 @@ int main(int argc, char **argv)
 				ls_lt(argc, argv, lists);
 				return (0);
 			}
+			else if ((ft_strcmp(argv[1], "-ra") == 0) || ft_strcmp(argv[1], "-ar") == 0)
+			{
+				init_struct(&lists);
+				ls_ra(argc, argv, lists);
+				return (0);
+			}
 			else if ((ft_strcmp(argv[1], "-tal") == 0) || ft_strcmp(argv[1], "-lta") == 0 || \
 				(ft_strcmp(argv[1], "-lat") == 0) || ft_strcmp(argv[1], "-tla") == 0 || \
 				ft_strcmp(argv[1], "-alt") == 0 || ft_strcmp(argv[1], "-atl") == 0)
@@ -52,28 +58,16 @@ int main(int argc, char **argv)
 				return (0);
 			}
 			else if (ft_strcmp(argv[1], "-a") == 0)
-			{
-				
-				// if (argc < 3)
-				// 	ft_error("Usage: ./ft_ls -a <directory>");
+			{				
 				list_dira(argc, argv);
 			}
 			else if (ft_strcmp(argv[1], "-l") == 0)
 			{
-				// if (argc < 3)
-				// 	ft_error("Usage: ./ft_ls -l <directory>");
 				init_struct(&lists);
 				list_dirl(argc, argv, lists);
-				/*
-				** TODO: free stuff?
-				*/
-				// free_stuff(&lists);
-
 			}
 			else if (ft_strcmp(argv[1], "-r") == 0)
 			{
-				// if (argc < 3)
-				// 	ft_error("Usage: ./ft_ls -r <directory>");
 				init_struct(&lists);
 				list_dirr(argc, argv, lists);
 			}
@@ -86,8 +80,6 @@ int main(int argc, char **argv)
 				}
 				init_struct(&lists);
 				lists->i = 0;
-				// if (argc < 3)
-				// 	ft_error("Usage: ./ft_ls -R <directory>");
 				R_first(argc, argv);
 				list_dirbigr(argv[2]);
 			}
@@ -95,11 +87,6 @@ int main(int argc, char **argv)
 			{
 				init_struct(&lists);
 				list_dirt(argc, argv, lists);
-				/*
-				** TODO: free stuff?
-				** free_stuff(&lists);
-				*/
-				// free_stuff(&lists);
 			}
 			else
 				list_dir(argc, argv);

@@ -235,7 +235,7 @@ void	list_dirt(int argc, char **argv, t_lists *lists)
 /*
 ** lexicographically sort for ls -r
 */
-static void	lex_sort(t_lists *lists)
+void	lex_sort(t_lists *lists)
 {
 	char 	*temp;
 	lists->i = 0;

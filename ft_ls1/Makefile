@@ -10,7 +10,8 @@ SRC = srcs/main.c \
 	srcs/recursion.c \
 	srcs/switch.c \
 	srcs/list_dir2.c \
-	srcs/doubles.c
+	srcs/doubles.c \
+	srcs/more.c
 
 OBJ = $(SRC:.c=.o)
 
