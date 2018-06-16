@@ -31,7 +31,13 @@ int main(int argc, char **argv)
 		}
 		if (argc >= 2)
 		{
-			if (ft_strcmp(argv[1], "-a") == 0)
+			if ((ft_strcmp(argv[1], "-la") == 0) || (ft_strcmp(argv[1], "-al") == 0))
+			{
+				init_struct(&lists);
+				ls_la(argc, argv, lists);
+				return (0);
+			}
+			else if (ft_strcmp(argv[1], "-a") == 0)
 			{
 				
 				// if (argc < 3)

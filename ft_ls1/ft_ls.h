@@ -44,7 +44,7 @@ typedef struct	s_lists
 }				t_lists;
 
 void					init_struct(t_lists **lists);
-
+int						directory_count(DIR *dip, char *str, int flag);
 void					list_dir(int argc, char **argv);
 void					list_dira(int argc, char **argv);
 int 					ls_stat(char *str, t_lists *lists);
@@ -57,5 +57,5 @@ int					    add_stat(char *str);
 int 					time_stat(char *str);
 void					ft_switch_time(t_lists *lists);
 void					R_first(int argc, char **argv);
-
+void 					ls_la(int argc, char **argv, t_lists *lists);
 #endif

@@ -3,7 +3,7 @@
 /*
 ** helper function for ls -t
 */
-static int		directory_count(DIR *dip, char *str)
+int		directory_count(DIR *dip, char *str, int flag)
 {
 	int		filecount;
 	struct 	dirent *dit;
@@ -14,10 +14,13 @@ static int		directory_count(DIR *dip, char *str)
 
 	while ((dit = readdir(dip)) != NULL)
 	{
-		if (dit->d_name[0] != '.')
+		if (flag == 0)
 		{
-			filecount++;
+			if (dit->d_name[0] != '.')
+				filecount++;
 		}
+		if (flag == 1)
+			filecount++;
 	}
 	if (closedir(dip) == -1)
 		ft_error("closedir");
@@ -77,7 +80,7 @@ void	list_dirl(int argc, char **argv, t_lists *lists)
 				ft_strcat(arg, "/");
 			if (closedir(dip) == -1)
 				ft_error("closedir");
-			lists->filecount = directory_count(dip, argv[j]);
+			lists->filecount = directory_count(dip, argv[j], 0);
 			dip = opendir(argv[j]);
 			/*
 			** malloc memory for the 2D array (include extra + 1 for null at end)
@@ -177,7 +180,7 @@ void	list_dirt(int argc, char **argv, t_lists *lists)
 			// if (closedir(dip) == -1)
 			// 	ft_error("closedir");
 
-			lists->filecount = directory_count(dip, argv[j]);
+			lists->filecount = directory_count(dip, argv[j], 0);
 			dip = opendir(argv[j]);
 			/*
 			** malloc memory for the 2D array (include extra + 1 for null at end)
@@ -293,7 +296,7 @@ void	list_dirr(int argc, char **argv, t_lists *lists)
 		}
 		if (closedir(dip) == -1)
 			ft_error("closedir");
-		lists->filecount = directory_count(dip, argv[j]);
+		lists->filecount = directory_count(dip, argv[j], 0);
 		dip = opendir(argv[j]);
 		lists->dest = (char **)ft_memalloc(sizeof(char *) * lists->filecount  + 1);
 		array = (char **)ft_memalloc(sizeof(char *) * lists->filecount  + 1);
