@@ -37,6 +37,12 @@ int main(int argc, char **argv)
 				ls_la(argc, argv, lists);
 				return (0);
 			}
+			else if ((ft_strcmp(argv[1], "-tl") == 0) || ft_strcmp(argv[1], "-lt") == 0)
+			{
+				init_struct(&lists);
+				ls_lt(argc, argv, lists);
+				return (0);
+			}
 			else if (ft_strcmp(argv[1], "-a") == 0)
 			{
 				

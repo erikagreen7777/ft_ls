@@ -19,7 +19,7 @@ int		directory_count(DIR *dip, char *str, int flag)
 			if (dit->d_name[0] != '.')
 				filecount++;
 		}
-		if (flag == 1)
+		else if (flag == 1)
 			filecount++;
 	}
 	if (closedir(dip) == -1)

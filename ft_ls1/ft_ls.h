@@ -58,4 +58,7 @@ int 					time_stat(char *str);
 void					ft_switch_time(t_lists *lists);
 void					R_first(int argc, char **argv);
 void 					ls_la(int argc, char **argv, t_lists *lists);
+void 					ls_lt(int argc, char **argv, t_lists *lists);
+
+
 #endif
