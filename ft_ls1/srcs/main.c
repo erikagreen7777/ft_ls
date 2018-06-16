@@ -36,11 +36,19 @@ int main(int argc, char **argv)
 				init_struct(&lists);
 				ls_la(argc, argv, lists);
 				return (0);
-			}
+			}			
 			else if ((ft_strcmp(argv[1], "-tl") == 0) || ft_strcmp(argv[1], "-lt") == 0)
 			{
 				init_struct(&lists);
 				ls_lt(argc, argv, lists);
+				return (0);
+			}
+			else if ((ft_strcmp(argv[1], "-tal") == 0) || ft_strcmp(argv[1], "-lta") == 0 || \
+				(ft_strcmp(argv[1], "-lat") == 0) || ft_strcmp(argv[1], "-tla") == 0 || \
+				ft_strcmp(argv[1], "-alt") == 0 || ft_strcmp(argv[1], "-atl") == 0)
+			{
+				init_struct(&lists);
+				ls_lta(argc, argv, lists);
 				return (0);
 			}
 			else if (ft_strcmp(argv[1], "-a") == 0)
