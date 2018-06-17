@@ -63,7 +63,7 @@ void 					ls_lta(int argc, char **argv, t_lists *lists);
 void 					ls_ra(int argc, char **argv, t_lists *lists);
 void 					ls_rt(int argc, char **argv, t_lists *lists);
 void					lex_sort(t_lists *lists);
-
+void 					ls_rat(int argc, char **argv, t_lists *lists);
 
 
 

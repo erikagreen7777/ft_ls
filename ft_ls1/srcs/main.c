@@ -49,6 +49,14 @@ int main(int argc, char **argv)
 				ls_ra(argc, argv, lists);
 				return (0);
 			}
+			else if ((ft_strcmp(argv[1], "-rat") == 0) || ft_strcmp(argv[1], "-rta") == 0 || \
+				(ft_strcmp(argv[1], "-art") == 0) || ft_strcmp(argv[1], "-atr") == 0 || \
+				ft_strcmp(argv[1], "-tra") == 0 || ft_strcmp(argv[1], "-tar") == 0)
+			{
+				init_struct(&lists);
+				ls_rat(argc, argv, lists);
+				return (0);
+			}
 			else if ((ft_strcmp(argv[1], "-rt") == 0) || ft_strcmp(argv[1], "-tr") == 0)
 			{
 				init_struct(&lists);
