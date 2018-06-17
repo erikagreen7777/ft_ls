@@ -4,7 +4,7 @@
 ** ls -R helper
 */
 
-void	R_first(int argc, char **argv)
+void	R_first(int argc, char **argv, int flag)
 {
 	DIR				*dip;
 	struct dirent	*dit;
@@ -26,7 +26,6 @@ void	R_first(int argc, char **argv)
 			/*
 			** TODO: create own function for this because it happens often?
 			*/
-	
 				if(stat(argv[j],&fileStat) < 0) 
 				{
 					ft_printf("./ft_ls: %s: No such file or directory\n", argv[j]);
@@ -40,7 +39,12 @@ void	R_first(int argc, char **argv)
 		}
 		while ((dit = readdir(dip)) != NULL)
 		{
-			if (dit->d_name[0] != '.')
+			if (flag == 0)
+			{
+				if (dit->d_name[0] != '.')
+					ft_printf("%s\n", dit->d_name);
+			}
+			else
 				ft_printf("%s\n", dit->d_name);
 		}
 		if (closedir(dip) == -1)

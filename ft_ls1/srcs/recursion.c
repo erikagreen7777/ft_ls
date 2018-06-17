@@ -1,6 +1,6 @@
 #include "../ft_ls.h"
 
-static int    R_helper(const char *str)
+static int    R_helper(const char *str, int flag)
 {
     DIR             *dip;
     struct dirent   *dit;
@@ -25,7 +25,12 @@ static int    R_helper(const char *str)
     }
     while ((dit = readdir(dip)) != NULL)
     {
-        if (dit->d_name[0] != '.')
+        if (flag == 0)
+        {
+            if (dit->d_name[0] != '.')
+                ft_printf("%s\n", dit->d_name);
+        }
+        else if (flag == 1)
             ft_printf("%s\n", dit->d_name);
     }
     if (closedir(dip) == -1)
@@ -35,7 +40,7 @@ static int    R_helper(const char *str)
 
 
 
-void list_dirbigr(const char *name)
+void list_dirbigr(const char *name, int flag)
 {
     DIR *dir;
     struct dirent *entry;
@@ -47,7 +52,6 @@ void list_dirbigr(const char *name)
     {
         if (entry->d_type == DT_DIR) 
         {
-
                 char path[1024];
                 if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0)
                     continue;
@@ -55,8 +59,19 @@ void list_dirbigr(const char *name)
                 ft_strcat(path, "/");
                 ft_strcat(path, entry->d_name);
                 printf("\n%s: \n", path);
-                R_helper(path);
-                list_dirbigr(path);
+                /*
+                ** 0 flag, no -a. 1 flag -a
+                */
+                if (flag == 0)
+                {
+                    R_helper(path, 0);
+                    list_dirbigr(path, 0);
+                }
+                else
+                {
+                    R_helper(path, 1);
+                    list_dirbigr(path, 1);
+                }
         }    
     }
     closedir(dir);

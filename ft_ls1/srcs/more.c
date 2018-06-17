@@ -320,5 +320,3 @@ void 					ls_lrat(int argc, char **argv, t_lists *lists)
 		lists->i--;
 	}
 }
-
-

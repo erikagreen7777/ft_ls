@@ -44,28 +44,28 @@ typedef struct	s_lists
 
 }				t_lists;
 
-void					init_struct(t_lists **lists);
-int						directory_count(DIR *dip, char *str, int flag);
-void					list_dir(int argc, char **argv);
-void					list_dira(int argc, char **argv);
-int 					ls_stat(char *str, t_lists *lists);
-void					list_dirr(int argc, char **argv, t_lists *lists);
-void					list_dirt(int argc, char **argv, t_lists *lists);
-void 					list_dirbigr(const char *dir_name);
-void					list_dirl(int argc, char **argv, t_lists *lists);
-char				    *extract_path(char *str);
-int					    add_stat(char *str);
-int 					time_stat(char *str);
-void					ft_switch_time(t_lists *lists);
-void					R_first(int argc, char **argv);
-void 					ls_la(int argc, char **argv, t_lists *lists);
-void 					ls_lt(int argc, char **argv, t_lists *lists);
-void 					ls_lta(int argc, char **argv, t_lists *lists);
-void 					ls_ra(int argc, char **argv, t_lists *lists);
-void 					ls_rt(int argc, char **argv, t_lists *lists);
-void					lex_sort(t_lists *lists);
-void 					ls_rat(int argc, char **argv, t_lists *lists);
-void 					ls_lrat(int argc, char **argv, t_lists *lists);
+void			init_struct(t_lists **lists);
+int				directory_count(DIR *dip, char *str, int flag);
+void			list_dir(int argc, char **argv);
+void			list_dira(int argc, char **argv);
+int 			ls_stat(char *str, t_lists *lists);
+void			list_dirr(int argc, char **argv, t_lists *lists);
+void			list_dirt(int argc, char **argv, t_lists *lists);
+void 			list_dirbigr(const char *dir_name, int flag);
+void			list_dirl(int argc, char **argv, t_lists *lists);
+char		    *extract_path(char *str);
+int				add_stat(char *str);
+int 			time_stat(char *str);
+void			ft_switch_time(t_lists *lists);
+void			R_first(int argc, char **argv, int flag);
+void 			ls_la(int argc, char **argv, t_lists *lists);
+void 			ls_lt(int argc, char **argv, t_lists *lists);
+void 			ls_lta(int argc, char **argv, t_lists *lists);
+void 			ls_ra(int argc, char **argv, t_lists *lists);
+void 			ls_rt(int argc, char **argv, t_lists *lists);
+void			lex_sort(t_lists *lists);
+void 			ls_rat(int argc, char **argv, t_lists *lists);
+void 			ls_lrat(int argc, char **argv, t_lists *lists);
 
 
 
