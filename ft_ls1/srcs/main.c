@@ -181,6 +181,22 @@ int main(int argc, char **argv)
 				return (0);
 			}
 			/*
+			** -Rl
+			*/
+			else if ((ft_strcmp(argv[1], "-Rl") == 0) || ft_strcmp(argv[1], "-lR") == 0)
+			{
+				if (argc == 2)
+				{
+				    argv[2] = ".";
+				    argc = 3;
+				}
+				init_struct(&lists);
+				lists->i = 0;
+				R_first(argc, argv, 0);
+				list_dirbigrl(argv[2], 0, lists);
+				return (0);
+			}
+			/*
 			** -t
 			*/
 			else if (ft_strcmp(argv[1], "-t") == 0)

@@ -67,6 +67,7 @@ void			lex_sort(t_lists *lists);
 void 			ls_rat(int argc, char **argv, t_lists *lists);
 void 			ls_lrat(int argc, char **argv, t_lists *lists);
 void 			list_dirbigrt(const char *name, int flag, t_lists *lists);
+void    		list_dirbigrl(const char *name, int flag, t_lists *lists);
 
 
 
