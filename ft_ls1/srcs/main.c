@@ -82,22 +82,6 @@ int main(int argc, char **argv)
 				return (0);
 			}
 			/*
-			** -Ra
-			*/
-			else if ((ft_strcmp(argv[1], "-Ra") == 0) || ft_strcmp(argv[1], "-aR") == 0)
-			{
-				if (argc == 2)
-				{
-				    argv[2] = ".";
-				    argc = 3;
-				}
-				init_struct(&lists);
-				lists->i = 0;
-				R_first(argc, argv, 1);
-				list_dirbigr(argv[2], 1);
-				return (0);
-			}
-			/*
 			** rat
 			*/
 			else if ((ft_strcmp(argv[1], "-rat") == 0) || ft_strcmp(argv[1], "-rta") == 0 || \
@@ -161,9 +145,40 @@ int main(int argc, char **argv)
 				}
 				init_struct(&lists);
 				lists->i = 0;
-				// lists->flag = 0;
 				R_first(argc, argv, 0);
 				list_dirbigr(argv[2], 0);
+			}
+			/*
+			** -Ra
+			*/
+			else if ((ft_strcmp(argv[1], "-Ra") == 0) || ft_strcmp(argv[1], "-aR") == 0)
+			{
+				if (argc == 2)
+				{
+				    argv[2] = ".";
+				    argc = 3;
+				}
+				init_struct(&lists);
+				lists->i = 0;
+				R_first(argc, argv, 1);
+				list_dirbigr(argv[2], 1);
+				return (0);
+			}
+			/*
+			** -Rt
+			*/
+			else if ((ft_strcmp(argv[1], "-Rt") == 0) || ft_strcmp(argv[1], "-tR") == 0)
+			{
+				if (argc == 2)
+				{
+				    argv[2] = ".";
+				    argc = 3;
+				}
+				init_struct(&lists);
+				lists->i = 0;
+				R_first(argc, argv, 0);
+				list_dirbigr(argv[2], 0);
+				return (0);
 			}
 			/*
 			** -t
