@@ -82,7 +82,7 @@ int main(int argc, char **argv)
 				return (0);
 			}
 			/*
-			** rat
+			** -rat
 			*/
 			else if ((ft_strcmp(argv[1], "-rat") == 0) || ft_strcmp(argv[1], "-rta") == 0 || \
 				(ft_strcmp(argv[1], "-art") == 0) || ft_strcmp(argv[1], "-atr") == 0 || \
@@ -177,7 +177,7 @@ int main(int argc, char **argv)
 				init_struct(&lists);
 				lists->i = 0;
 				R_first(argc, argv, 0);
-				list_dirbigr(argv[2], 0);
+				list_dirbigrt(argv[2], 0, lists);
 				return (0);
 			}
 			/*

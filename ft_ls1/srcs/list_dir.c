@@ -8,7 +8,6 @@ int		directory_count(DIR *dip, char *str, int flag)
 	int		filecount;
 	struct 	dirent *dit;
 	filecount = 0;
-	// str = NULL;
 
 	dip = opendir(str);
 
@@ -25,10 +24,8 @@ int		directory_count(DIR *dip, char *str, int flag)
 	if (closedir(dip) == -1)
 		ft_error("closedir");
 
-	// dip = opendir(str);
 	return (filecount);
 }
-
 
 /*
 ** ls -l
@@ -169,16 +166,12 @@ void	list_dirt(int argc, char **argv, t_lists *lists)
 			ls_stat(argv[j], lists);
 		else if (S_ISDIR(fileStat.st_mode) == 1)
 		{
-			// dip = opendir(argv[j]);
 			ft_strcpy(arg, argv[j]);
 	        /*
 	        ** if the last character of argv[j] isn't a "/", add one
 	        */
 			if (ft_strcmp(&arg[ft_strlen(arg) - 1], "/") != 0)
 				ft_strcat(arg, "/");
-			// if (closedir(dip) == -1)
-			// 	ft_error("closedir");
-
 			lists->filecount = directory_count(dip, argv[j], 0);
 			dip = opendir(argv[j]);
 			/*
@@ -214,9 +207,6 @@ void	list_dirt(int argc, char **argv, t_lists *lists)
 			/*
 			** print off new array
 			*/
-			lists->i = -1;
-			while (++lists->i < lists->filecount)
-				ft_printf("%s\n", lists->dest[lists->i]);
 			/*
 			** close dir stream
 			*/
@@ -227,7 +217,14 @@ void	list_dirt(int argc, char **argv, t_lists *lists)
 	}
 	/*
 	** TODO: free memory
+	** If the modification time of the file is more than 6 months in the past or
+    ** future, then the year of the last modification is displayed in place of
+    ** the hour and minute fields.
 	*/
+	lists->i = -1;
+	while (++lists->i < lists->filecount)
+		ft_printf("%s\n", lists->dest[lists->i]);
+
 }
 
 
