@@ -41,11 +41,10 @@ void	list_dirl(int argc, char **argv, t_lists *lists)
 	char			**splitstr;
 	struct stat 	fileStat;
 	char			arg[WORD_MAX];
-	int 			size;
 	char 			**array;
 	char  			temp[WORD_MAX];
 
-	size = 0;
+	lists->size = 0;
 	lists->i = 0;
 	j = 2;
 	lists->flag = 0;
@@ -118,11 +117,11 @@ void	list_dirl(int argc, char **argv, t_lists *lists)
 	lists->i = 0;
 	while (lists->i < lists->filecount)
 	{
-		size += add_stat(lists->dest[lists->i]);
+		lists->size += add_stat(lists->dest[lists->i]);
 		lists->i++;
 	}
-	if (size > 0)
-		ft_printf("total %d\n", size);
+	if (lists->size > 0)
+		ft_printf("total %d\n", lists->size);
 	else if (lists->flag == 1)
 		ft_printf("total 0\n");
 	/*

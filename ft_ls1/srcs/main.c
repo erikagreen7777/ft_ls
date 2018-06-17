@@ -31,12 +31,31 @@ int main(int argc, char **argv)
 		}
 		if (argc >= 2)
 		{
+
 			if ((ft_strcmp(argv[1], "-la") == 0) || (ft_strcmp(argv[1], "-al") == 0))
 			{
 				init_struct(&lists);
 				ls_la(argc, argv, lists);
 				return (0);
-			}			
+			}
+			else if ((ft_strcmp(argv[1], "-lrat") == 0) || ft_strcmp(argv[1], "-lrta") == 0 || \
+				(ft_strcmp(argv[1], "-lart") == 0) || ft_strcmp(argv[1], "-latr") == 0 || \
+				ft_strcmp(argv[1], "-ltra") == 0 || ft_strcmp(argv[1], "-ltar") == 0 || \
+				ft_strcmp(argv[1], "-rlat") == 0 || ft_strcmp(argv[1], "-rlta") == 0 || \
+				ft_strcmp(argv[1], "-ralt") == 0 || ft_strcmp(argv[1], "-ratl") == 0 || \
+				ft_strcmp(argv[1], "-rtla") == 0 || ft_strcmp(argv[1], "-rtal") == 0 || \
+				ft_strcmp(argv[1], "-alrt") == 0 || ft_strcmp(argv[1], "-altr") == 0 || \
+				ft_strcmp(argv[1], "-arlt") == 0 || ft_strcmp(argv[1], "-artl") == 0 || \
+				ft_strcmp(argv[1], "-atlr") == 0 || ft_strcmp(argv[1], "-atrl") == 0 || \
+				ft_strcmp(argv[1], "-tlra") == 0 || ft_strcmp(argv[1], "-tlar") == 0 || \
+				ft_strcmp(argv[1], "-trla") == 0 || ft_strcmp(argv[1], "-tral") == 0 || \
+				ft_strcmp(argv[1], "-talr") == 0 || ft_strcmp(argv[1], "-tarl") == 0)
+			{
+				init_struct(&lists);
+				ls_lrat(argc, argv, lists);
+				return (0);
+			}
+			
 			else if ((ft_strcmp(argv[1], "-tl") == 0) || ft_strcmp(argv[1], "-lt") == 0)
 			{
 				init_struct(&lists);

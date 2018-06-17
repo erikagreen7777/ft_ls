@@ -40,6 +40,7 @@ typedef struct	s_lists
 	int 		destlenj;
 	char 		newpath[PATH_MAX];
 	int 		flag;
+	int 		size;
 
 }				t_lists;
 
@@ -64,6 +65,7 @@ void 					ls_ra(int argc, char **argv, t_lists *lists);
 void 					ls_rt(int argc, char **argv, t_lists *lists);
 void					lex_sort(t_lists *lists);
 void 					ls_rat(int argc, char **argv, t_lists *lists);
+void 					ls_lrat(int argc, char **argv, t_lists *lists);
 
 
 
