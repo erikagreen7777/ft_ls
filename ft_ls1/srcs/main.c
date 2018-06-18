@@ -221,7 +221,8 @@ int main(int argc, char **argv)
 			*/
 			else if (ft_strcmp(argv[1], "-Rla") == 0 || ft_strcmp(argv[1], "-alR") == 0 || \
 				ft_strcmp(argv[1], "-Ral") == 0 || ft_strcmp(argv[1], "-lRa") == 0 || \
-				ft_strcmp(argv[1], "-laR") == 0 || ft_strcmp(argv[1], "-aRl") == 0)			{
+				ft_strcmp(argv[1], "-laR") == 0 || ft_strcmp(argv[1], "-aRl") == 0)			
+			{
 				if (argc == 2)
 				{
 				    argv[2] = ".";
@@ -247,6 +248,24 @@ int main(int argc, char **argv)
 				lists->i = 0;
 				Rr_helper(argv[2], 0, lists);
 				list_dirbigrr(argv[2], 0, lists);
+				return (0);
+			}
+			/*
+			** -Rra
+			*/
+			else if (ft_strcmp(argv[1], "-Rra") == 0 || ft_strcmp(argv[1], "-arR") == 0 || \
+				ft_strcmp(argv[1], "-Rar") == 0 || ft_strcmp(argv[1], "-rRa") == 0 || \
+				ft_strcmp(argv[1], "-raR") == 0 || ft_strcmp(argv[1], "-aRr") == 0)
+			{
+				if (argc == 2)
+				{
+				    argv[2] = ".";
+				    argc = 3;
+				}
+				init_struct(&lists);
+				lists->i = 0;
+				Rr_helper(argv[2], 1, lists);
+				list_dirbigrr(argv[2], 1, lists);
 				return (0);
 			}
 			/*
