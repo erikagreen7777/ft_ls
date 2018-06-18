@@ -176,7 +176,6 @@ int main(int argc, char **argv)
 				}
 				init_struct(&lists);
 				lists->i = 0;
-				// Rt_first(argc, argv, 0);
 				Rt_helper(argv[2], 0, lists);
 				list_dirbigrt(argv[2], 0, lists);
 				return (0);
