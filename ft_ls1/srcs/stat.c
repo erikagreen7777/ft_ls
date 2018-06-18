@@ -71,7 +71,7 @@ int ls_stat(char *str,  t_lists *lists)
     char            *hourmin;
     hourmin = (char *)malloc(sizeof(char));
 
-    if(stat(str, &fileStat) < 0) 
+    if(lstat(str, &fileStat) < 0) 
     {
         ft_error("Yo: No such file or directory");
     }
