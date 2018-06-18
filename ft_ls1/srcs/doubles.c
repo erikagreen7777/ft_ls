@@ -27,12 +27,12 @@ void 	ls_la(int argc, char **argv, t_lists *lists)
 		/*
 		** if the file/folder isn't valid
 		*/
-		if(stat(argv[j], &fileStat) < 0) 
+		if(lstat(argv[j], &fileStat) < 0) 
         	ft_error("ls -l: No such file or directory");
     	/*
     	** if it's a regular file
 		*/
-		if ((fileStat.st_mode & S_IFMT) == S_IFREG)
+		if (((fileStat.st_mode & S_IFMT) == S_IFREG) || S_ISLNK(fileStat.st_mode))
 			ls_stat(argv[j], lists);
 		else if (S_ISDIR(fileStat.st_mode) == 1)
 		{
@@ -129,12 +129,12 @@ void 					ls_lt(int argc, char **argv, t_lists *lists)
 		/*
 		** if the file/folder isn't valid
 		*/
-		if(stat(argv[j], &fileStat) < 0) 
+		if(lstat(argv[j], &fileStat) < 0) 
         	ft_error("ls -l: No such file or directory");
     	/*
     	** if it's a regular file
 		*/
-		if ((fileStat.st_mode & S_IFMT) == S_IFREG)
+		if (((fileStat.st_mode & S_IFMT) == S_IFREG) || S_ISLNK(fileStat.st_mode))
 			ls_stat(argv[j], lists);
 		else if (S_ISDIR(fileStat.st_mode) == 1)
 		{
@@ -238,12 +238,12 @@ void 					ls_lta(int argc, char **argv, t_lists *lists)
 		/*
 		** if the file/folder isn't valid
 		*/
-		if(stat(argv[j], &fileStat) < 0) 
+		if(lstat(argv[j], &fileStat) < 0) 
         	ft_error("ls -l: No such file or directory");
     	/*
     	** if it's a regular file
 		*/
-		if ((fileStat.st_mode & S_IFMT) == S_IFREG)
+		if (((fileStat.st_mode & S_IFMT) == S_IFREG) || S_ISLNK(fileStat.st_mode))
 			ls_stat(argv[j], lists);
 		else if (S_ISDIR(fileStat.st_mode) == 1)
 		{
