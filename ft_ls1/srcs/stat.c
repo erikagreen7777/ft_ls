@@ -16,7 +16,7 @@ char    *extract_path(char *str)
 int    add_stat(char *str)
 {
     struct stat     fileStat;
-    if(stat(str, &fileStat) < 0) 
+    if(lstat(str, &fileStat) < 0) 
     {
         ft_error("add_stat(): No such file or directory");
     }
@@ -28,7 +28,7 @@ int    add_stat(char *str)
 int time_stat(char *str)
 {
     struct stat     fileStat;
-    if(stat(str, &fileStat) < 0) 
+    if(lstat(str, &fileStat) < 0) 
     {
         ft_error("Yo: No such file or directory");
     }

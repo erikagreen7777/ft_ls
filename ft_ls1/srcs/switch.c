@@ -39,7 +39,6 @@ void	ft_switch_time(t_lists *lists)
 				/*
 				** put what we're going to switch into a temporary container
 				*/
-				// printf("before: lists->timearray[i]: %s: %s lists->timearray[j]: %s: %s\n", lists->timearray[lists->i], lists->dest[lists->i], lists->timearray[lists->j], lists->dest[lists->j]);
 				lists->temp = ft_strdup(lists->timearray[lists->i]);
 				lists->tempdest = ft_strdup(lists->dest[lists->i]);
 				/*
