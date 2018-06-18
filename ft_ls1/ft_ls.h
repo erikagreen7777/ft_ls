@@ -72,6 +72,12 @@ int   			Rt_helper(const char *str, int flag, t_lists *lists);
 int   			Rl_helper(const char *str, int flag, t_lists *lists);
 int   			Rr_helper(const char *str, int flag, t_lists *lists);
 void		    list_dirbigrr(const char *name, int flag, t_lists *lists);
+int   			Rrl_helper(const char *str, int flag, t_lists *lists);
+// void		    list_dirbigrrl(const char *name, int flag, t_lists *lists);
+void			list_dirlr(int argc, char **argv, t_lists *lists);
+void	lex_sortrl(t_lists *lists);
+
+
 
 
 #endif

@@ -135,6 +135,15 @@ int main(int argc, char **argv)
 				return (0);
 			}
 			/*
+			** -rl
+			*/
+			else if ((ft_strcmp(argv[1], "-rl") == 0) || ft_strcmp(argv[1], "-lr") == 0)
+			{
+				init_struct(&lists);
+				list_dirlr(argc, argv, lists);
+				return (0);
+			}
+			/*
 			** -R
 			*/
 			else if (ft_strcmp(argv[1], "-R") == 0)
@@ -268,6 +277,33 @@ int main(int argc, char **argv)
 				list_dirbigrr(argv[2], 1, lists);
 				return (0);
 			}
+			/*
+			** -Rral
+			*/
+			// else if ((ft_strcmp(argv[1], "-Rral") == 0) || ft_strcmp(argv[1], "-larR") == 0 || \
+			// 	(ft_strcmp(argv[1], "-laRr") == 0) || ft_strcmp(argv[1], "-lraR") == 0 || \
+			// 	ft_strcmp(argv[1], "-lrRa") == 0 || ft_strcmp(argv[1], "-lRar") == 0 || \
+			// 	ft_strcmp(argv[1], "-lRra") == 0 || ft_strcmp(argv[1], "-alrR") == 0 || \
+			// 	ft_strcmp(argv[1], "-alRr") == 0 || ft_strcmp(argv[1], "-arlR") == 0 || \
+			// 	ft_strcmp(argv[1], "-rlRa") == 0 || ft_strcmp(argv[1], "-arRl") == 0 || \
+			// 	ft_strcmp(argv[1], "-aRlr") == 0 || ft_strcmp(argv[1], "-aRrl") == 0 || \
+			// 	ft_strcmp(argv[1], "-rlaR") == 0 || ft_strcmp(argv[1], "-ralR") == 0 || \
+			// 	ft_strcmp(argv[1], "-raRl") == 0 || ft_strcmp(argv[1], "-rRla") == 0 || \
+			// 	ft_strcmp(argv[1], "-rRal") == 0 || ft_strcmp(argv[1], "-Rlar") == 0 || \
+			// 	ft_strcmp(argv[1], "-Rlra") == 0 || ft_strcmp(argv[1], "-Ralr") == 0 || \
+			// 	ft_strcmp(argv[1], "-Rarl") == 0 || ft_strcmp(argv[1], "-Rrla") == 0)
+			// {
+			// 	if (argc == 2)
+			// 	{
+			// 	    argv[2] = ".";
+			// 	    argc = 3;
+			// 	}
+			// 	init_struct(&lists);
+			// 	lists->i = 0;
+			// 	Rrl_helper(argv[2], 1, lists);
+			// 	list_dirbigrrl(argv[2], 1, lists);
+			// 	return (0);
+			// }
 			/*
 			** -t
 			*/
