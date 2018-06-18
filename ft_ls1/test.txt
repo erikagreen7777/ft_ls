@@ -1,8 +1,5 @@
 **** MEMORY LEAKS ****
 
-- need rl
-
-- all of the long recursions need add_stat wiped each time.
 - if date is greater than 6 months, write year instead
 - print out the file name, not the complete path
 

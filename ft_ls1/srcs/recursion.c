@@ -259,6 +259,7 @@ int    Rl_helper(const char *str, int flag, t_lists *lists)
     char            temp[WORD_MAX];
     char            **array;
 
+    lists->size = 0;
     lists->i = 0;
     ft_strcpy(arg, str);
     if (ft_strcmp(arg, "/dev") == 0)
@@ -321,9 +322,8 @@ int    Rl_helper(const char *str, int flag, t_lists *lists)
         lists->size += add_stat(lists->dest[lists->i]);
         lists->i++;
     }
-    if (lists->size > 0)
-        ft_printf("total %d\n", lists->size);
-    else if (lists->flag == 1)
+    ft_printf("total %d\n", lists->size);
+    if (lists->flag == 1)
         ft_printf("total 0\n");
     /*
     ** print actual ls_stat()
