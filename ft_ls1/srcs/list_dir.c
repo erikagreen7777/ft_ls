@@ -1,7 +1,7 @@
 #include "../ft_ls.h"
 
 /*
-** helper function for ls -t
+** find out how many files are in a directory
 */
 int		directory_count(DIR *dip, char *str, int flag)
 {

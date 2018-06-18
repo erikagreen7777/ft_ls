@@ -52,9 +52,83 @@ void    R_first(int argc, char **argv, int flag)
 }
 
 /*
+** ls -Rt pre-helper
+*/
+void    Rt_first(int argc, char **argv, int flag)
+{
+    DIR             *dip;
+    struct dirent   *dit;
+    struct stat     fileStat;
+    int             j;
+    char            arg[WORD_MAX];
+    char            temp[WORD_MAX];
+    t_lists         *lists = NULL;
+    j = 2;
+    if (argc == 2)
+    {
+        argv[j] = ".";
+        argc = 3;
+    }
+    while (j < argc)
+    {
+        if (j > 2 && j < argc)
+            write(1, "\n", 1);
+        dip = opendir(argv[j]);
+        if (dip == NULL)
+        {
+            /*
+            ** TODO: create own function for this because it happens often?
+            */
+                if(stat(argv[j],&fileStat) < 0) 
+                {
+                    ft_printf("./ft_ls: %s: No such file or directory\n", argv[j]);
+                    exit (-1);
+                } 
+                printf("%s\n", argv[j]);
+                exit(0);
+            /*
+            ** end function here?
+            */
+        }
+        lists->filecount = directory_count(dip, arg, 0);
+        lists->dest = (char **)ft_memalloc(sizeof(char *) * lists->filecount + 1);
+        lists->timearray = (char **)ft_memalloc(sizeof(char *) * lists->filecount + 1);
+        ft_strcpy(temp, arg);
+        while ((dit = readdir(dip)) != NULL)
+        {
+            if (flag == 0)
+            {
+                if (dit->d_name[0] != '.')
+                {
+                   if (lists->i > 0)
+                        ft_strcpy(arg, temp);
+                    ft_strcat(arg, dit->d_name);
+                    lists->dest[lists->i] = ft_strdup(arg);
+                    ft_bzero(arg, ft_strlen(arg));
+                    lists->timearray[lists->i] = ft_strdup(ft_itoa(time_stat(lists->dest[lists->i])));
+                    lists->i++;            
+                }
+            }
+            else
+            {
+                if (lists->i > 0)
+                    ft_strcpy(arg, temp);
+                ft_strcat(arg, dit->d_name);
+                lists->dest[lists->i] = ft_strdup(arg);
+                ft_bzero(arg, ft_strlen(arg));
+                lists->timearray[lists->i] = ft_strdup(ft_itoa(time_stat(lists->dest[lists->i])));
+                lists->i++;
+            }
+        }
+        if (closedir(dip) == -1)
+            ft_error("closedir");
+        j++;
+    }
+}
+/*
 ** ls -Rt helper
 */
-static int   Rt_helper(const char *str, int flag, t_lists *lists)
+int   Rt_helper(const char *str, int flag, t_lists *lists)
 {
     DIR             *dip;
     struct dirent   *dit;
@@ -62,6 +136,7 @@ static int   Rt_helper(const char *str, int flag, t_lists *lists)
     char            arg[WORD_MAX];
     char            temp[WORD_MAX];
 
+    lists->i = 0;
     ft_strcpy(arg, str);
     if (ft_strcmp(&arg[ft_strlen(arg) - 1], "/") != 0)
         ft_strcat(arg, "/");
@@ -109,9 +184,13 @@ static int   Rt_helper(const char *str, int flag, t_lists *lists)
             lists->dest[lists->i] = ft_strdup(arg);
             ft_bzero(arg, ft_strlen(arg));
             lists->timearray[lists->i] = ft_strdup(ft_itoa(time_stat(lists->dest[lists->i])));
-            lists->i++;        }
+            lists->i++;        
         }
+    }
     ft_switch_time(lists);
+    lists->i = -1;
+    while (++lists->i < lists->filecount)
+        ft_printf("%s\n", lists->dest[lists->i]);
     if (closedir(dip) == -1)
         ft_error("closedir");
     return (0);

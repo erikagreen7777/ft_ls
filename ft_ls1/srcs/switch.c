@@ -22,8 +22,8 @@ static void get_lengths(t_lists *lists)
 void	ft_switch_time(t_lists *lists)
 {
 	lists->i = -1;
-	if (lists->filecount > 1)
-	{
+	// if (lists->filecount > 1)
+	// {
 		while (++lists->i < lists->filecount)
 		{
 			lists->j = lists->i + 1;
@@ -72,5 +72,5 @@ void	ft_switch_time(t_lists *lists)
 				lists->j++;
 			}
 		}
-	}
+	// }
 }
