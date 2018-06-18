@@ -252,8 +252,6 @@ void	lex_sortrl(t_lists *lists)
 		lists->i++;
 	}
 }
-
-
 /*
 ** lexicographically sort for ls -r
 */
