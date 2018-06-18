@@ -256,7 +256,7 @@ void	lex_sort(t_lists *lists)
 	lists->i = -1;
 	while (++lists->i < lists->filecount)
 		printf("%s\n", lists->dest[lists->i]);
-	exit(1);
+	// exit(1);
 }
 
 /*

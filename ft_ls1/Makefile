@@ -11,7 +11,8 @@ SRC = srcs/main.c \
 	srcs/switch.c \
 	srcs/list_dir2.c \
 	srcs/doubles.c \
-	srcs/more.c
+	srcs/more.c \
+	srcs/recuse.c
 
 OBJ = $(SRC:.c=.o)
 
