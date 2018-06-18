@@ -83,7 +83,10 @@ int   Rt_helper(const char *str, int flag, t_lists *lists)
             ** end function here?
             */
     }
-    lists->filecount = directory_count(dip, arg, 0);
+    if (flag == 0)
+        lists->filecount = directory_count(dip, arg, 0);
+    else if (flag == 1)
+        lists->filecount = directory_count(dip, arg, 1);
     lists->dest = (char **)ft_memalloc(sizeof(char *) * lists->filecount + 1);
     lists->timearray = (char **)ft_memalloc(sizeof(char *) * lists->filecount + 1);
     ft_strcpy(temp, arg);
@@ -279,7 +282,10 @@ int    Rl_helper(const char *str, int flag, t_lists *lists)
             ** end function here?
             */
     }
-    lists->filecount = directory_count(dip, arg, 0);
+    if (flag == 0)
+        lists->filecount = directory_count(dip, arg, 0);
+    else if (flag == 1)
+        lists->filecount = directory_count(dip, arg, 1);
     lists->dest = (char **)ft_memalloc(sizeof(char *) * lists->filecount  + 1);
     array = (char **)ft_memalloc(sizeof(char *) * lists->filecount  + 1);
     ft_strcpy(temp, arg);

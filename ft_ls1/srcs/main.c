@@ -182,6 +182,25 @@ int main(int argc, char **argv)
 				return (0);
 			}
 			/*
+			** -Rta
+			*/
+			else if (ft_strcmp(argv[1], "-Rta") == 0 || ft_strcmp(argv[1], "-atR") == 0 || \
+				ft_strcmp(argv[1], "-Rat") == 0 || ft_strcmp(argv[1], "-tRa") == 0 || \
+				ft_strcmp(argv[1], "-taR") == 0 || ft_strcmp(argv[1], "-aRt") == 0)
+
+			{
+				if (argc == 2)
+				{
+				    argv[2] = ".";
+				    argc = 3;
+				}
+				init_struct(&lists);
+				lists->i = 0;
+				Rt_helper(argv[2], 1, lists);
+				list_dirbigrt(argv[2], 1, lists);
+				return (0);
+			}
+			/*
 			** -Rl
 			*/
 			else if ((ft_strcmp(argv[1], "-Rl") == 0) || ft_strcmp(argv[1], "-lR") == 0)
