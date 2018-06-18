@@ -1,4 +1,5 @@
 TODO: Rt
+ ---> time stat from Rt_helper. The file path isn't being copied back into line 98ish on recursion.c
 Rl segfaults too
 if date is greater than 6 months, write year instead
 

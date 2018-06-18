@@ -30,7 +30,7 @@ int time_stat(char *str)
     struct stat     fileStat;
     if(lstat(str, &fileStat) < 0) 
     {
-        ft_error("Yo: No such file or directory");
+        ft_error("time_stat: No such file or directory");
     }
     return (fileStat.st_mtime);
 }
