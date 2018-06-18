@@ -192,7 +192,7 @@ int main(int argc, char **argv)
 				}
 				init_struct(&lists);
 				lists->i = 0;
-				R_first(argc, argv, 0);
+				Rl_helper(argv[2], 0, lists);
 				list_dirbigrl(argv[2], 0, lists);
 				return (0);
 			}

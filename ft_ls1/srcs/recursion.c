@@ -163,8 +163,9 @@ static int    R_helper(const char *str, int flag)
         ft_error("closedir");
     return (0);
 }
-
-
+/*
+** -R
+*/
 
 void list_dirbigr(const char *name, int flag)
 {
@@ -244,36 +245,30 @@ void    list_dirbigrt(const char *name, int flag, t_lists *lists)
 }
 
 /*
-** ls -R helper
+** ls -Rl helper
 */
-static int    Rl_helper(const char *str, int flag, t_lists *lists)
+int    Rl_helper(const char *str, int flag, t_lists *lists)
 {
-    DIR             *dip = NULL;
+    DIR             *dip;
     struct dirent   *dit;
     struct stat     fileStat;
     char            arg[WORD_MAX];
     char            temp[WORD_MAX];
     char            **array;
 
-
+    lists->i = 0;
     ft_strcpy(arg, str);
     if (ft_strcmp(arg, "/dev") == 0)
         lists->flag = 1;
     if (ft_strcmp(&arg[ft_strlen(arg) - 1], "/") != 0)
         ft_strcat(arg, "/");
-    if (closedir(dip) == -1)
-        ft_error("closedir");
-    lists->filecount = directory_count(dip, arg, 0);
     dip = opendir(str);
-    lists->dest = (char **)ft_memalloc(sizeof(char *) * lists->filecount  + 1);
-    array = (char **)ft_memalloc(sizeof(char *) * lists->filecount  + 1);
-
     if (dip == NULL)
     {
             /*
             ** TODO: create own function for this because it happens often?
             */
-        if(stat(str, &fileStat) < 0) 
+        if(lstat(str, &fileStat) < 0) 
         {
             ft_printf("./ft_ls: %s: No such file or directory\n", str);
             return (-1);
@@ -284,6 +279,9 @@ static int    Rl_helper(const char *str, int flag, t_lists *lists)
             ** end function here?
             */
     }
+    lists->filecount = directory_count(dip, arg, 0);
+    lists->dest = (char **)ft_memalloc(sizeof(char *) * lists->filecount  + 1);
+    array = (char **)ft_memalloc(sizeof(char *) * lists->filecount  + 1);
     ft_strcpy(temp, arg);
     while ((dit = readdir(dip)) != NULL)
     {

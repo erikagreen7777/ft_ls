@@ -69,6 +69,7 @@ void 			ls_lrat(int argc, char **argv, t_lists *lists);
 void 			list_dirbigrt(const char *name, int flag, t_lists *lists);
 void    		list_dirbigrl(const char *name, int flag, t_lists *lists);
 int   			Rt_helper(const char *str, int flag, t_lists *lists);
+int   			Rl_helper(const char *str, int flag, t_lists *lists);
 
 
 #endif
