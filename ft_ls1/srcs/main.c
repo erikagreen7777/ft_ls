@@ -305,6 +305,25 @@ int main(int argc, char **argv)
 				return (0);
 			}
 			/*
+			** -Rrl
+			*/
+			else if (ft_strcmp(argv[1], "-Rrl") == 0 || ft_strcmp(argv[1], "-lrR") == 0 || \
+				ft_strcmp(argv[1], "-Rlr") == 0 || ft_strcmp(argv[1], "-rRl") == 0 || \
+				ft_strcmp(argv[1], "-rlR") == 0 || ft_strcmp(argv[1], "-lRr") == 0)
+			{
+				if (argc == 2)
+				{
+				    argv[2] = ".";
+				    argc = 3;
+				}
+				init_struct(&lists);
+				lists->i = 0;
+				Rrl_helper(argv[2], 0, lists);
+				list_dirbigrrl(argv[2], 0, lists);
+				return (0);
+			}
+
+			/*
 			** -t
 			*/
 			else if (ft_strcmp(argv[1], "-t") == 0)
