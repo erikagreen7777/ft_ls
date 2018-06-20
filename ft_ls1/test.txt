@@ -8,4 +8,4 @@ git addclear
 
 
 
-{r,l,a} {r,l,t} {R,l,t} {R,r,t} 
+{r,l,t} {R,l,t} {R,r,t} 

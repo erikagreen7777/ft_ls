@@ -79,6 +79,8 @@ void			lex_sortrl(t_lists *lists);
 void			list_dirta(int argc, char **argv, t_lists *lists);
 void			ls_lra(int argc, char **argv, t_lists *lists);
 void	rlex_sortrl(t_lists *lists);
+void            ls_lrt(int argc, char **argv, t_lists *lists);
+
 
 
 

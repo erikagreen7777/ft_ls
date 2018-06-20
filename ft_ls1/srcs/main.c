@@ -162,6 +162,15 @@ int main(int argc, char **argv)
 				return (0);
 			}
 			/*
+			** - rlt
+			*/
+			else if ((ft_strcmp(argv[1], "-rlt") == 0) || ft_strcmp(argv[1], "-ltr") == 0) /*need more permutaitons*/
+			{
+				init_struct(&lists);
+				ls_lrt(argc, argv, lists);
+				return (0);
+			}
+			/*
 			** -R
 			*/
 			else if (ft_strcmp(argv[1], "-R") == 0)

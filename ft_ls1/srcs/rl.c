@@ -1,5 +1,8 @@
 #include "../ft_ls.h"
-
+			
+/*
+** -rl
+*/
 void	list_dirlr(int argc, char **argv, t_lists *lists)
 {
 	int				j;
