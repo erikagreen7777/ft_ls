@@ -64,6 +64,15 @@ int main(int argc, char **argv)
 				return (0);
 			}
 			/*
+			** - rla
+			*/
+			else if ((ft_strcmp(argv[1], "-rla") == 0) || ft_strcmp(argv[1], "-lar") == 0) /* add extras */
+			{
+				init_struct(&lists);
+				ls_lra(argc, argv, lists);
+				return (0);
+			}
+			/*
 			** -at
 			*/
 			else if (ft_strcmp(argv[1], "-at") == 0 || ft_strcmp(argv[1], "-ta") == 0)

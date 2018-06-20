@@ -5,4 +5,7 @@ git addclear
 - print out the file name, not the complete path
 
 
- {a,t}
+
+
+
+{r,l,a} {r,l,t} {R,l,t} {R,r,t} 
