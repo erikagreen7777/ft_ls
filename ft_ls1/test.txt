@@ -1,5 +1,8 @@
 **** MEMORY LEAKS ****
+git addclear
 
 - if date is greater than 6 months, write year instead
 - print out the file name, not the complete path
 
+
+ {a,t}
