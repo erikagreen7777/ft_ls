@@ -80,6 +80,12 @@ void			list_dirta(int argc, char **argv, t_lists *lists);
 void			ls_lra(int argc, char **argv, t_lists *lists);
 void	rlex_sortrl(t_lists *lists);
 void            ls_lrt(int argc, char **argv, t_lists *lists);
+int  rlt_helper(const char *str, int flag, t_lists *lists);
+void    rlt(const char *name, int flag, t_lists *lists);
+int    R_helper(const char *str, int flag);
+
+
+
 
 
 

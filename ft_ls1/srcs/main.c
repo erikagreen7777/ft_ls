@@ -287,6 +287,24 @@ int main(int argc, char **argv)
 				return (0);
 			}
 			/*
+			** -Rlt
+			*/
+			else if (ft_strcmp(argv[1], "-Rlt") == 0 || ft_strcmp(argv[1], "-tlR") == 0 || \
+				ft_strcmp(argv[1], "-Rtl") == 0 || ft_strcmp(argv[1], "-lRt") == 0 || \
+				ft_strcmp(argv[1], "-ltR") == 0 || ft_strcmp(argv[1], "-tRl") == 0)
+			{
+				if (argc == 2)
+				{
+				    argv[2] = ".";
+				    argc = 3;
+				}
+				init_struct(&lists);
+				lists->i = 0;
+				rlt_helper(argv[2], 0, lists);
+				rlt(argv[2], 0, lists);
+				return (0);
+			}
+			/*
 			** -Rra
 			*/
 			else if (ft_strcmp(argv[1], "-Rra") == 0 || ft_strcmp(argv[1], "-arR") == 0 || \
@@ -349,7 +367,6 @@ int main(int argc, char **argv)
 				list_dirbigrrl(argv[2], 0, lists);
 				return (0);
 			}
-
 			/*
 			** -t
 			*/
