@@ -9,5 +9,4 @@ git addclear
 
 
 
-
-{R,l,t} {R,r,t} 
+{R,r,t} 
