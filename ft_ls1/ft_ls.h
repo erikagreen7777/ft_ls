@@ -78,15 +78,26 @@ void			list_dirlr(int argc, char **argv, t_lists *lists);
 void			lex_sortrl(t_lists *lists);
 void			list_dirta(int argc, char **argv, t_lists *lists);
 void			ls_lra(int argc, char **argv, t_lists *lists);
-void	rlex_sortrl(t_lists *lists);
+void			rlex_sortrl(t_lists *lists);
 void            ls_lrt(int argc, char **argv, t_lists *lists);
-int  rlt_helper(const char *str, int flag, t_lists *lists);
-void    rlt(const char *name, int flag, t_lists *lists);
-int    R_helper(const char *str, int flag);
-int  rbigrt_helper(const char *str, int flag, t_lists *lists);
-void    rbigrt(const char *name, int flag, t_lists *lists);
-void	everything(const char *name, int flag, t_lists *lists);
-int  everything_helper(const char *str, int flag, t_lists *lists);
+int  			rlt_helper(const char *str, int flag, t_lists *lists);
+void    		rlt(const char *name, int flag, t_lists *lists);
+int    			R_helper(const char *str, int flag);
+int  			rbigrt_helper(const char *str, int flag, t_lists *lists);
+void    		rbigrt(const char *name, int flag, t_lists *lists);
+void			everything(const char *name, int flag, t_lists *lists);
+int  			everything_helper(const char *str, int flag, t_lists *lists);
+void			ls_stat_helper(t_lists *lists);
+void 	recursive_ls_stat_helper(t_lists *lists);
+void 	r_recursive_ls_stat_helper(t_lists *lists);
+void    print_lists(t_lists *lists);
+void    print_lists_back(t_lists *lists);
+void	back_helper(t_lists *lists);
+
+
+
+
+
 
 
 

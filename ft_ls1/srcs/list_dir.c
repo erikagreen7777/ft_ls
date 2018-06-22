@@ -111,22 +111,23 @@ void	list_dirl(int argc, char **argv, t_lists *lists)
 	/*
 	** print total 512 block-byte size
 	*/
-	lists->i = 0;
-	while (lists->i < lists->filecount)
-	{
-		lists->size += add_stat(lists->dest[lists->i]);
-		lists->i++;
-	}
-	if (lists->size > 0)
-		ft_printf("total %d\n", lists->size);
-	else if (lists->flag == 1)
-		ft_printf("total 0\n");
-	/*
-	** print actual ls_stat()
-	*/
-	lists->i = -1;
-	while (++lists->i < lists->filecount)
-		ls_stat(lists->dest[lists->i], lists);
+	ls_stat_helper(lists);
+	// lists->i = 0;
+	// while (lists->i < lists->filecount)
+	// {
+	// 	lists->size += add_stat(lists->dest[lists->i]);
+	// 	lists->i++;
+	// }
+	// if (lists->size > 0)
+	// 	ft_printf("total %d\n", lists->size);
+	// else if (lists->flag == 1)
+	// 	ft_printf("total 0\n");
+	// /*
+	// ** print actual ls_stat()
+	// */
+	// lists->i = -1;
+	// while (++lists->i < lists->filecount)
+	// 	ls_stat(lists->dest[lists->i], lists);
 	/*
 	** TODO: free memory
 	*/
@@ -203,7 +204,6 @@ void	list_dirt(int argc, char **argv, t_lists *lists)
 			/*
 			** sort array based on st_mtime
 			*/
-			ft_switch_time(lists);
 			/*
 			** print off new array
 			*/
@@ -215,15 +215,17 @@ void	list_dirt(int argc, char **argv, t_lists *lists)
 		}
 		j++;
 	}
+	ft_switch_time(lists);
+	print_lists(lists);
 	/*
 	** TODO: free memory
 	** If the modification time of the file is more than 6 months in the past or
     ** future, then the year of the last modification is displayed in place of
     ** the hour and minute fields.
 	*/
-	lists->i = -1;
-	while (++lists->i < lists->filecount)
-		ft_printf("%s\n", lists->dest[lists->i]);
+	// lists->i = -1;
+	// while (++lists->i < lists->filecount)
+	// 	ft_printf("%s\n", lists->dest[lists->i]);
 
 }
 /*
@@ -264,6 +266,9 @@ void	rlex_sortrl(t_lists *lists)
 		lists->j = lists->i + 1;
 		while (lists->j < lists->filecount)
 		{
+			/*
+			** - the next line is different than the previous function. add flag?
+			*/
 			if (ft_strcmp(lists->dest[lists->i], lists->dest[lists->j]) > 0)
 			{
 				temp = ft_strdup(lists->dest[lists->i]);				
@@ -303,9 +308,10 @@ void	lex_sort(t_lists *lists)
 		}
 		lists->i++;
 	}
-	lists->i = -1;
-	while (++lists->i < lists->filecount)
-		printf("%s\n", lists->dest[lists->i]);
+	print_lists(lists);
+	// lists->i = -1;
+	// while (++lists->i < lists->filecount)
+	// 	printf("%s\n", lists->dest[lists->i]);
 	// exit(1);
 }
 

@@ -82,25 +82,26 @@ void	list_dirlr(int argc, char **argv, t_lists *lists)
 		j++;
 	}
 	lex_sortrl(lists);
+	ls_stat_helper(lists);
 	/*
 	** print total 512 block-byte size
 	*/
-	lists->i = 0;
-	while (lists->i < lists->filecount)
-	{
-		lists->size += add_stat(lists->dest[lists->i]);
-		lists->i++;
-	}
-	if (lists->size > 0)
-		ft_printf("total %d\n", lists->size);
-	else if (lists->flag == 1)
-		ft_printf("total 0\n");
-	/*
-	** print actual ls_stat()
-	*/
-	lists->i = -1;
-	while (++lists->i < lists->filecount)
-		ls_stat(lists->dest[lists->i], lists);
+	// lists->i = 0;
+	// while (lists->i < lists->filecount)
+	// {
+	// 	lists->size += add_stat(lists->dest[lists->i]);
+	// 	lists->i++;
+	// }
+	// if (lists->size > 0)
+	// 	ft_printf("total %d\n", lists->size);
+	// else if (lists->flag == 1)
+	// 	ft_printf("total 0\n");
+	// /*
+	// ** print actual ls_stat()
+	// */
+	// lists->i = -1;
+	// while (++lists->i < lists->filecount)
+	// 	ls_stat(lists->dest[lists->i], lists);
 	/*
 	** TODO: free memory
 	*/

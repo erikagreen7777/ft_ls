@@ -297,26 +297,26 @@ void 					ls_lrat(int argc, char **argv, t_lists *lists)
 					lists->timearray[lists->i] = ft_strdup(ft_itoa(time_stat(lists->dest[lists->i])));
 					lists->i++;
 			}
-			ft_switch_time(lists);
 			if (closedir(dip) == -1)
 				ft_error("closedir");
 		}
 		j++;
 	}
-	lists->i = 0;
-	while (lists->i < lists->filecount)
-	{
-		lists->size += add_stat(lists->dest[lists->i]);
-		lists->i++;
-	}
-	if (lists->size > 0)
-		ft_printf("total %d\n", lists->size);
-	else if (lists->flag == 1)
-		ft_printf("total 0\n");
-	lists->i = lists->filecount - 1;
-	while (lists->i > -1)
-	{
-		ls_stat(lists->dest[lists->i], lists);
-		lists->i--;
-	}
+	ft_switch_time(lists);
+	back_helper(lists);
+	// lists->i = 0;
+	// while (lists->i < lists->filecount)
+	// {
+	// 	lists->size += add_stat(lists->dest[lists->i]);
+	// 	lists->i++;
+	// }
+	// if (lists->size > 0)
+	// 	ft_printf("total %d\n", lists->size);
+	// else if (lists->flag == 1)
+	// 	ft_printf("total 0\n");
+	// lists->i = lists->filecount;
+	// while (--lists->i > -1)
+	// {
+	// 	ls_stat(lists->dest[lists->i], lists);
+	// }
 }

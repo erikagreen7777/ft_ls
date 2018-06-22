@@ -1,5 +1,96 @@
 #include "../ft_ls.h"
 
+/*
+** -aother backwards helper
+*/
+void	back_helper(t_lists *lists)
+{
+	lists->i = 0;
+	while (lists->i < lists->filecount)
+	{
+		lists->size += add_stat(lists->dest[lists->i]);
+		lists->i++;
+	}
+	if (lists->size > 0)
+		ft_printf("total %d\n", lists->size);
+	else if (lists->flag == 1)
+		ft_printf("total 0\n");
+	lists->i = lists->filecount;
+	while (--lists->i > -1)
+	{
+		ls_stat(lists->dest[lists->i], lists);
+	}
+}
+/*
+** -recursive lstat() helpers
+*/
+void 	recursive_ls_stat_helper(t_lists *lists)
+{
+    lists->i = 0;
+    while (lists->i < lists->filecount)
+    {
+        lists->size += add_stat(lists->dest[lists->i]);
+        lists->i++;
+    }
+    ft_printf("total %d\n", lists->size);
+    if (lists->flag == 1)
+        ft_printf("total 0\n");
+    /*
+    ** print actual ls_stat()
+    */
+    lists->i = -1;
+    while (++lists->i < lists->filecount)
+        ls_stat(lists->dest[lists->i], lists);
+}
+
+/*
+** - recurstive lstat() helper for -r
+*/
+void 	r_recursive_ls_stat_helper(t_lists *lists)
+{
+	lists->i = -1;
+    while (++lists->i < lists->filecount)
+        lists->size += add_stat(lists->dest[lists->i]);
+    ft_printf("total %d\n", lists->size);
+    if (lists->flag == 1)
+        ft_printf("total 0\n");
+    /*
+    ** feed into lstat() backwards to get -r
+    */
+    lists->i = lists->filecount;
+    while (--lists->i > -1)
+        ls_stat(lists->dest[lists->i], lists);
+}
+
+/*
+** -lstat()_helper
+*/
+void	ls_stat_helper(t_lists *lists)
+{
+	int 			size;
+
+	size = 0;
+	/*
+	** print total 512 block-byte size
+	*/
+	lists->i = 0;
+	while (lists->i < lists->filecount)
+	{
+		size += add_stat(lists->dest[lists->i]);
+		lists->i++;
+	}
+	if (size > 0)
+		ft_printf("total %d\n", size);
+	else if (lists->flag == 1)
+		ft_printf("total 0\n");
+	/*
+	** print actual ls_stat()
+	*/
+	lists->i = -1;
+	while (++lists->i < lists->filecount)
+		ls_stat(lists->dest[lists->i], lists);
+}
+
 void 	ls_la(int argc, char **argv, t_lists *lists)
 {
 	int				j;
@@ -8,11 +99,9 @@ void 	ls_la(int argc, char **argv, t_lists *lists)
 	char			**splitstr;
 	struct stat 	fileStat;
 	char			arg[WORD_MAX];
-	int 			size;
 	char 			**array;
 	char  			temp[WORD_MAX];
 
-	size = 0;
 	lists->i = 0;
 	j = 2;
 	lists->flag = 0;
@@ -76,25 +165,26 @@ void 	ls_la(int argc, char **argv, t_lists *lists)
 		}
 		j++;
 	}
-	/*
-	** print total 512 block-byte size
-	*/
-	lists->i = 0;
-	while (lists->i < lists->filecount)
-	{
-		size += add_stat(lists->dest[lists->i]);
-		lists->i++;
-	}
-	if (size > 0)
-		ft_printf("total %d\n", size);
-	else if (lists->flag == 1)
-		ft_printf("total 0\n");
-	/*
-	** print actual ls_stat()
-	*/
-	lists->i = -1;
-	while (++lists->i < lists->filecount)
-		ls_stat(lists->dest[lists->i], lists);
+	ls_stat_helper(lists);
+	// /*
+	// ** print total 512 block-byte size
+	// */
+	// lists->i = 0;
+	// while (lists->i < lists->filecount)
+	// {
+	// 	size += add_stat(lists->dest[lists->i]);
+	// 	lists->i++;
+	// }
+	// if (size > 0)
+	// 	ft_printf("total %d\n", size);
+	// else if (lists->flag == 1)
+	// 	ft_printf("total 0\n");
+	// /*
+	// ** print actual ls_stat()
+	// */
+	// lists->i = -1;
+	// while (++lists->i < lists->filecount)
+	// 	ls_stat(lists->dest[lists->i], lists);
 	/*
 	** TODO: free memory
 	*/
@@ -175,7 +265,6 @@ void 					ls_lt(int argc, char **argv, t_lists *lists)
 					lists->i++;
 				}
 			}
-			ft_switch_time(lists);
 			/*
 			** close dir stream
 			*/
@@ -184,25 +273,27 @@ void 					ls_lt(int argc, char **argv, t_lists *lists)
 		}
 		j++;
 	}
+	ft_switch_time(lists);
+	ls_stat_helper(lists);
 	/*
 	** print total 512 block-byte size
 	*/
-	lists->i = 0;
-	while (lists->i < lists->filecount)
-	{
-		size += add_stat(lists->dest[lists->i]);
-		lists->i++;
-	}
-	if (size > 0)
-		ft_printf("total %d\n", size);
-	else if (lists->flag == 1)
-		ft_printf("total 0\n");
-	/*
-	** print actual ls_stat()
-	*/
-	lists->i = -1;
-	while (++lists->i < lists->filecount)
-		ls_stat(lists->dest[lists->i], lists);
+	// lists->i = 0;
+	// while (lists->i < lists->filecount)
+	// {
+	// 	size += add_stat(lists->dest[lists->i]);
+	// 	lists->i++;
+	// }
+	// if (size > 0)
+	// 	ft_printf("total %d\n", size);
+	// else if (lists->flag == 1)
+	// 	ft_printf("total 0\n");
+	// /*
+	// ** print actual ls_stat()
+	// */
+	// lists->i = -1;
+	// while (++lists->i < lists->filecount)
+	// 	ls_stat(lists->dest[lists->i], lists);
 	/*
 	** TODO: free memory
 	*/
@@ -290,28 +381,29 @@ void 					ls_lta(int argc, char **argv, t_lists *lists)
 		}
 		j++;
 	}
+	ls_stat_helper(lists);
 	/*
 	** print total 512 block-byte size
 	*/
-	lists->i = 0;
-	while (lists->i < lists->filecount)
-	{
-		size += add_stat(lists->dest[lists->i]);
-		lists->i++;
-	}
-	if (size > 0)
-		ft_printf("total %d\n", size);
-	else if (lists->flag == 1)
-		ft_printf("total 0\n");
-	/*
-	** print actual ls_stat()
-	*/
-	lists->i = -1;
-	while (++lists->i < lists->filecount)
-		ls_stat(lists->dest[lists->i], lists);
-	/*
-	** TODO: free memory
-	*/
+	// lists->i = 0;
+	// while (lists->i < lists->filecount)
+	// {
+	// 	size += add_stat(lists->dest[lists->i]);
+	// 	lists->i++;
+	// }
+	// if (size > 0)
+	// 	ft_printf("total %d\n", size);
+	// else if (lists->flag == 1)
+	// 	ft_printf("total 0\n");
+	// /*
+	// ** print actual ls_stat()
+	// */
+	// lists->i = -1;
+	// while (++lists->i < lists->filecount)
+	// 	ls_stat(lists->dest[lists->i], lists);
+	// /*
+	// ** TODO: free memory
+	// */
 }
 
 /*
@@ -382,23 +474,11 @@ void			list_dirta(int argc, char **argv, t_lists *lists)
 			** sort array based on st_mtime
 			*/
 			ft_switch_time(lists);
-			/*
-			** print off new array
-			*/
-			/*
-			** close dir stream
-			*/
 			if (closedir(dip) == -1)
 				ft_error("closedir");
 		}
 		j++;
 	}
-	/*
-	** TODO: free memory
-	** If the modification time of the file is more than 6 months in the past or
-    ** future, then the year of the last modification is displayed in place of
-    ** the hour and minute fields.
-	*/
 	lists->i = -1;
 	while (++lists->i < lists->filecount)
 		ft_printf("%s\n", lists->dest[lists->i]);

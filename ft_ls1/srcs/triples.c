@@ -70,21 +70,22 @@ int   	Rrl_helper(const char *str, int flag, t_lists *lists)
     if (closedir(dip) == -1)
         ft_error("closedir");
     lex_sortrl(lists);
-    lists->i = 0;
-    while (lists->i < lists->filecount)
-    {
-        lists->size += add_stat(lists->dest[lists->i]);
-        lists->i++;
-    }
-    ft_printf("total %d\n", lists->size);
-    if (lists->flag == 1)
-        ft_printf("total 0\n");
-    /*
-    ** print actual ls_stat()
-    */
-    lists->i = -1;
-    while (++lists->i < lists->filecount)
-        ls_stat(lists->dest[lists->i], lists);
+    recursive_ls_stat_helper(lists);
+    // lists->i = 0;
+    // while (lists->i < lists->filecount)
+    // {
+    //     lists->size += add_stat(lists->dest[lists->i]);
+    //     lists->i++;
+    // }
+    // ft_printf("total %d\n", lists->size);
+    // if (lists->flag == 1)
+    //     ft_printf("total 0\n");
+    // /*
+    // ** print actual ls_stat()
+    // */
+    // lists->i = -1;
+    // while (++lists->i < lists->filecount)
+    //     ls_stat(lists->dest[lists->i], lists);
     return (0);
 }
 /*
@@ -200,22 +201,23 @@ void            ls_lra(int argc, char **argv, t_lists *lists)
         }
         j++;
     }
-    lists->i = 0;
-    while (lists->i < lists->filecount)
-    {
-        lists->size += add_stat(lists->dest[lists->i]);
-        lists->i++;
-    }
-    if (lists->size > 0)
-        ft_printf("total %d\n", lists->size);
-    else if (lists->flag == 1)
-        ft_printf("total 0\n");
-    lists->i = lists->filecount - 1;
-    while (lists->i > -1)
-    {
-        ls_stat(lists->dest[lists->i], lists);
-        lists->i--;
-    }
+    back_helper(lists);
+    // lists->i = 0;
+    // while (lists->i < lists->filecount)
+    // {
+    //     lists->size += add_stat(lists->dest[lists->i]);
+    //     lists->i++;
+    // }
+    // if (lists->size > 0)
+    //     ft_printf("total %d\n", lists->size);
+    // else if (lists->flag == 1)
+    //     ft_printf("total 0\n");
+    // lists->i = lists->filecount - 1;
+    // while (lists->i > -1)
+    // {
+    //     ls_stat(lists->dest[lists->i], lists);
+    //     lists->i--;
+    // }
 }
 
 /*
@@ -306,22 +308,23 @@ void            ls_lrt(int argc, char **argv, t_lists *lists)
     /*
     ** print total 512 block-byte size
     */
-    lists->i = 0;
-    while (lists->i < lists->filecount)
-    {
-        size += add_stat(lists->dest[lists->i]);
-        lists->i++;
-    }
-    if (size > 0)
-        ft_printf("total %d\n", size);
-    else if (lists->flag == 1)
-        ft_printf("total 0\n");
-    /*
-    ** print actual ls_stat()
-    */
-    lists->i = lists->filecount;
-    while (--lists->i > -1)
-        ls_stat(lists->dest[lists->i], lists);
+    back_helper(lists);
+    // lists->i = 0;
+    // while (lists->i < lists->filecount)
+    // {
+    //     size += add_stat(lists->dest[lists->i]);
+    //     lists->i++;
+    // }
+    // if (size > 0)
+    //     ft_printf("total %d\n", size);
+    // else if (lists->flag == 1)
+    //     ft_printf("total 0\n");
+    // /*
+    // ** print actual ls_stat()
+    // */
+    // lists->i = lists->filecount;
+    // while (--lists->i > -1)
+    //     ls_stat(lists->dest[lists->i], lists);
 }
 
 /*

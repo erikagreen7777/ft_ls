@@ -1,11 +1,28 @@
 #include "../ft_ls.h"
-
+/*
+** - print lists
+*/
+void    print_lists(t_lists *lists)
+{
+    lists->i = -1;
+    while (++lists->i < lists->filecount)
+        ft_printf("%s\n", lists->dest[lists->i]);
+}
+/*
+** - print lists backwards (for -r flags)
+*/
+void    print_lists_back(t_lists *lists)
+{
+    lists->i = lists->filecount;
+    while (--lists->i > -1)
+        ft_printf("%s\n", lists->dest[lists->i]);
+}
 /*
 ** - -Rlt helper
 */
 int  rlt_helper(const char *str, int flag, t_lists *lists)
 {
-        DIR             *dip;
+    DIR             *dip;
     struct dirent   *dit;
     struct stat     fileStat;
     char            arg[WORD_MAX];
@@ -68,21 +85,22 @@ int  rlt_helper(const char *str, int flag, t_lists *lists)
     ft_switch_time(lists);
     if (closedir(dip) == -1)
         ft_error("closedir");
-    lists->i = 0;
-    while (lists->i < lists->filecount)
-    {
-        lists->size += add_stat(lists->dest[lists->i]);
-        lists->i++;
-    }
-    ft_printf("total %d\n", lists->size);
-    if (lists->flag == 1)
-        ft_printf("total 0\n");
-    /*
-    ** print actual ls_stat()
-    */
-    lists->i = -1;
-    while (++lists->i < lists->filecount)
-        ls_stat(lists->dest[lists->i], lists);
+    recursive_ls_stat_helper(lists);
+    // lists->i = 0;
+    // while (lists->i < lists->filecount)
+    // {
+    //     lists->size += add_stat(lists->dest[lists->i]);
+    //     lists->i++;
+    // }
+    // ft_printf("total %d\n", lists->size);
+    // if (lists->flag == 1)
+    //     ft_printf("total 0\n");
+    // /*
+    // ** print actual ls_stat()
+    // */
+    // lists->i = -1;
+    // while (++lists->i < lists->filecount)
+    //     ls_stat(lists->dest[lists->i], lists);
     return (0);
 }
 /*
@@ -146,9 +164,6 @@ int   Rr_helper(const char *str, int flag, t_lists *lists)
             lists->i++;        
         }
     }
-    // lists->i = -1;
-    // while (++lists->i < lists->filecount)
-    //     ft_printf("%s\n", lists->dest[lists->i]);
     if (closedir(dip) == -1)
         ft_error("closedir");
     lex_sort(lists);
@@ -219,12 +234,13 @@ int   Rt_helper(const char *str, int flag, t_lists *lists)
             lists->i++;        
         }
     }
-    ft_switch_time(lists);
-    lists->i = -1;
-    while (++lists->i < lists->filecount)
-        ft_printf("%s\n", lists->dest[lists->i]);
     if (closedir(dip) == -1)
         ft_error("closedir");
+    ft_switch_time(lists);
+    print_lists(lists);
+    // lists->i = -1;
+    // while (++lists->i < lists->filecount)
+    //     ft_printf("%s\n", lists->dest[lists->i]);
     return (0);
 }
 
@@ -339,21 +355,22 @@ int    Rl_helper(const char *str, int flag, t_lists *lists)
     }
     if (closedir(dip) == -1)
         ft_error("closedir");
-    lists->i = 0;
-    while (lists->i < lists->filecount)
-    {
-        lists->size += add_stat(lists->dest[lists->i]);
-        lists->i++;
-    }
-    ft_printf("total %d\n", lists->size);
-    if (lists->flag == 1)
-        ft_printf("total 0\n");
-    /*
-    ** print actual ls_stat()
-    */
-    lists->i = -1;
-    while (++lists->i < lists->filecount)
-        ls_stat(lists->dest[lists->i], lists);
+    recursive_ls_stat_helper(lists);
+    // lists->i = 0;
+    // while (lists->i < lists->filecount)
+    // {
+    //     lists->size += add_stat(lists->dest[lists->i]);
+    //     lists->i++;
+    // }
+    // ft_printf("total %d\n", lists->size);
+    // if (lists->flag == 1)
+    //     ft_printf("total 0\n");
+    // /*
+    // ** print actual ls_stat()
+    // */
+    // lists->i = -1;
+    // while (++lists->i < lists->filecount)
+    //     ls_stat(lists->dest[lists->i], lists);
     return (0);
 }
 /*
@@ -421,18 +438,22 @@ int  rbigrt_helper(const char *str, int flag, t_lists *lists)
             lists->i++;        
         }
     }
-    ft_switch_time(lists);
-    lists->i = lists->filecount;
-    while (--lists->i > -1)
-        ft_printf("%s\n", lists->dest[lists->i]);
     if (closedir(dip) == -1)
         ft_error("closedir");
+    ft_switch_time(lists);
+    print_lists_back(lists);
+    /*
+    ** - prints backwards
+    */
+    // lists->i = lists->filecount;
+    // while (--lists->i > -1)
+    //     ft_printf("%s\n", lists->dest[lists->i]);
     return (0);
 }
 
 int  everything_helper(const char *str, int flag, t_lists *lists)
 {
-        DIR             *dip;
+    DIR             *dip;
     struct dirent   *dit;
     struct stat     fileStat;
     char            arg[WORD_MAX];
@@ -500,18 +521,19 @@ int  everything_helper(const char *str, int flag, t_lists *lists)
     ft_switch_time(lists);
     if (closedir(dip) == -1)
         ft_error("closedir");
-    lists->i = -1;
-    while (++lists->i < lists->filecount)
-        lists->size += add_stat(lists->dest[lists->i]);
-    ft_printf("total %d\n", lists->size);
-    if (lists->flag == 1)
-        ft_printf("total 0\n");
-    /*
-    ** feed into lstat() backwards to get -r
-    */
-    lists->i = lists->filecount;
-    while (--lists->i > -1)
-        ls_stat(lists->dest[lists->i], lists);
+    r_recursive_ls_stat_helper(lists);
+    // lists->i = -1;
+    // while (++lists->i < lists->filecount)
+    //     lists->size += add_stat(lists->dest[lists->i]);
+    // ft_printf("total %d\n", lists->size);
+    // if (lists->flag == 1)
+    //     ft_printf("total 0\n");
+    // /*
+    // ** feed into lstat() backwards to get -r
+    // */
+    // lists->i = lists->filecount;
+    // while (--lists->i > -1)
+    //     ls_stat(lists->dest[lists->i], lists);
     return (0);
 }
 
