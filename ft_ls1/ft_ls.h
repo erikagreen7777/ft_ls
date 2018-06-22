@@ -85,6 +85,10 @@ void    rlt(const char *name, int flag, t_lists *lists);
 int    R_helper(const char *str, int flag);
 int  rbigrt_helper(const char *str, int flag, t_lists *lists);
 void    rbigrt(const char *name, int flag, t_lists *lists);
+void	everything(const char *name, int flag, t_lists *lists);
+int  everything_helper(const char *str, int flag, t_lists *lists);
+
+
 
 
 

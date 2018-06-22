@@ -15,7 +15,8 @@ SRC = srcs/main.c \
 	srcs/recuse.c \
 	srcs/triples.c \
 	srcs/rl.c \
-	srcs/helpers.c
+	srcs/helpers.c \
+	srcs/quadruples.c
 
 OBJ = $(SRC:.c=.o)
 
