@@ -287,6 +287,22 @@ int main(int argc, char **argv)
 				return (0);
 			}
 			/*
+			** -Rrt
+			*/
+			else if ((ft_strcmp(argv[1], "-Rrt") == 0) || ft_strcmp(argv[1], "-rRt") == 0) /*add more here*/
+			{
+				if (argc == 2)
+				{
+				    argv[2] = ".";
+				    argc = 3;
+				}
+				init_struct(&lists);
+				lists->i = 0;
+				rbigrt_helper(argv[2], 0, lists);
+				rbigrt(argv[2], 0, lists);
+				return (0);
+			}
+			/*
 			** -Rlt
 			*/
 			else if (ft_strcmp(argv[1], "-Rlt") == 0 || ft_strcmp(argv[1], "-tlR") == 0 || \
