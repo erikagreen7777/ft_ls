@@ -7,34 +7,5 @@ git addclear
 -lexicographically sort switch_time if it's the same ctime (it works for something but test for everything)
 
 ************************************************
--ls -lt has a weird memory thing. as does ./ft_ls -lta and
+-ls -lt has a weird memory thing that seems to be made worse by pulling that out as a separate function. as does ./ft_ls -lta and
 ./ft_ls -lrat
-************************************************
-	ls_stat_helper(lists);
-
-
-void	ls_stat_helper(t_lists *lists)
-{
-	int 			size;
-
-	size = 0;
-	/*
-	** print total 512 block-byte size
-	*/
-	lists->i = 0;
-	while (lists->i < lists->filecount)
-	{
-		size += add_stat(lists->dest[lists->i]);
-		lists->i++;
-	}
-	if (size > 0)
-		ft_printf("total %d\n", size);
-	else if (lists->flag == 1)
-		ft_printf("total 0\n");
-	/*
-	** print actual ls_stat()
-	*/
-	lists->i = -1;
-	while (++lists->i < lists->filecount)
-		ls_stat(lists->dest[lists->i], lists);
-}

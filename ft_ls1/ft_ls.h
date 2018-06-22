@@ -93,6 +93,13 @@ void 	r_recursive_ls_stat_helper(t_lists *lists);
 void    print_lists(t_lists *lists);
 void    print_lists_back(t_lists *lists);
 void	back_helper(t_lists *lists);
+void read_helper(t_lists *lists, int flag, char *arg, DIR *dip);
+void read_helper_a(t_lists *lists, int flag, char *arg, DIR *dip);
+void read_helper_guts(t_lists *lists, char *arg, struct dirent *dit, char *temp, int flag);
+void read_helper_guts_a(t_lists *lists, char *arg, struct dirent *dit, char *temp, int flag);
+
+
+
 
 
 

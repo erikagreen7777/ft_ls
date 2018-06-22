@@ -112,25 +112,7 @@ void	list_dirl(int argc, char **argv, t_lists *lists)
 	** print total 512 block-byte size
 	*/
 	ls_stat_helper(lists);
-	// lists->i = 0;
-	// while (lists->i < lists->filecount)
-	// {
-	// 	lists->size += add_stat(lists->dest[lists->i]);
-	// 	lists->i++;
-	// }
-	// if (lists->size > 0)
-	// 	ft_printf("total %d\n", lists->size);
-	// else if (lists->flag == 1)
-	// 	ft_printf("total 0\n");
-	// /*
-	// ** print actual ls_stat()
-	// */
-	// lists->i = -1;
-	// while (++lists->i < lists->filecount)
-	// 	ls_stat(lists->dest[lists->i], lists);
-	/*
-	** TODO: free memory
-	*/
+
 }
 
 
@@ -201,15 +183,6 @@ void	list_dirt(int argc, char **argv, t_lists *lists)
 					lists->i++;
 				}
 			}
-			/*
-			** sort array based on st_mtime
-			*/
-			/*
-			** print off new array
-			*/
-			/*
-			** close dir stream
-			*/
 			if (closedir(dip) == -1)
 				ft_error("closedir");
 		}
@@ -217,15 +190,6 @@ void	list_dirt(int argc, char **argv, t_lists *lists)
 	}
 	ft_switch_time(lists);
 	print_lists(lists);
-	/*
-	** TODO: free memory
-	** If the modification time of the file is more than 6 months in the past or
-    ** future, then the year of the last modification is displayed in place of
-    ** the hour and minute fields.
-	*/
-	// lists->i = -1;
-	// while (++lists->i < lists->filecount)
-	// 	ft_printf("%s\n", lists->dest[lists->i]);
 
 }
 /*
@@ -309,10 +273,6 @@ void	lex_sort(t_lists *lists)
 		lists->i++;
 	}
 	print_lists(lists);
-	// lists->i = -1;
-	// while (++lists->i < lists->filecount)
-	// 	printf("%s\n", lists->dest[lists->i]);
-	// exit(1);
 }
 
 /*

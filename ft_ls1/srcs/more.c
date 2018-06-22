@@ -95,9 +95,6 @@ void 					ls_rt(int argc, char **argv, t_lists *lists)
 	        */
 			if (ft_strcmp(&arg[ft_strlen(arg) - 1], "/") != 0)
 				ft_strcat(arg, "/");
-			// if (closedir(dip) == -1)
-			// 	ft_error("closedir");
-
 			lists->filecount = directory_count(dip, argv[j], 0);
 			dip = opendir(argv[j]);
 			/*
@@ -132,17 +129,13 @@ void 					ls_rt(int argc, char **argv, t_lists *lists)
 		}
 		j++;
 	}
-
-	lists->i = lists->filecount - 1;
-	while (lists->i > -1)
-	{
-		printf("%s\n", lists->dest[lists->i]);
-		lists->i--;
-	}
-
-	/*
-	** TODO: free memory
-	*/
+	print_lists_back(lists);
+	// lists->i = lists->filecount - 1;
+	// while (lists->i > -1)
+	// {
+	// 	printf("%s\n", lists->dest[lists->i]);
+	// 	lists->i--;
+	// }
 }
 
 /*
@@ -178,16 +171,12 @@ void 					ls_rat(int argc, char **argv, t_lists *lists)
 			ls_stat(argv[j], lists);
 		else if (S_ISDIR(fileStat.st_mode) == 1)
 		{
-			// dip = opendir(argv[j]);
 			ft_strcpy(arg, argv[j]);
 	        /*
 	        ** if the last character of argv[j] isn't a "/", add one
 	        */
 			if (ft_strcmp(&arg[ft_strlen(arg) - 1], "/") != 0)
 				ft_strcat(arg, "/");
-			// if (closedir(dip) == -1)
-			// 	ft_error("closedir");
-
 			lists->filecount = directory_count(dip, argv[j], 1);
 			dip = opendir(argv[j]);
 			/*
@@ -219,13 +208,13 @@ void 					ls_rat(int argc, char **argv, t_lists *lists)
 		}
 		j++;
 	}
-
-	lists->i = lists->filecount - 1;
-	while (lists->i > -1)
-	{
-		printf("%s\n", lists->dest[lists->i]);
-		lists->i--;
-	}
+	print_lists_back(lists);
+	// lists->i = lists->filecount - 1;
+	// while (lists->i > -1)
+	// {
+	// 	printf("%s\n", lists->dest[lists->i]);
+	// 	lists->i--;
+	// }
 }
 
 /*
@@ -262,16 +251,12 @@ void 					ls_lrat(int argc, char **argv, t_lists *lists)
 			ls_stat(argv[j], lists);		
 		else if (S_ISDIR(fileStat.st_mode) == 1)
 		{
-			// dip = opendir(argv[j]);
 			ft_strcpy(arg, argv[j]);
 	        /*
 	        ** if the last character of argv[j] isn't a "/", add one
 	        */
 			if (ft_strcmp(&arg[ft_strlen(arg) - 1], "/") != 0)
 				ft_strcat(arg, "/");
-			// if (closedir(dip) == -1)
-			// 	ft_error("closedir");
-
 			lists->filecount = directory_count(dip, argv[j], 1);
 			dip = opendir(argv[j]);
 			/*
@@ -304,19 +289,4 @@ void 					ls_lrat(int argc, char **argv, t_lists *lists)
 	}
 	ft_switch_time(lists);
 	back_helper(lists);
-	// lists->i = 0;
-	// while (lists->i < lists->filecount)
-	// {
-	// 	lists->size += add_stat(lists->dest[lists->i]);
-	// 	lists->i++;
-	// }
-	// if (lists->size > 0)
-	// 	ft_printf("total %d\n", lists->size);
-	// else if (lists->flag == 1)
-	// 	ft_printf("total 0\n");
-	// lists->i = lists->filecount;
-	// while (--lists->i > -1)
-	// {
-	// 	ls_stat(lists->dest[lists->i], lists);
-	// }
 }

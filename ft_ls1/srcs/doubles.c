@@ -95,12 +95,12 @@ void 	ls_la(int argc, char **argv, t_lists *lists)
 {
 	int				j;
 	DIR				*dip;
-	struct dirent	*dit;
+	// struct dirent	*dit;
 	char			**splitstr;
 	struct stat 	fileStat;
 	char			arg[WORD_MAX];
-	char 			**array;
-	char  			temp[WORD_MAX];
+	// char 			**array;
+	// char  			temp[WORD_MAX];
 
 	lists->i = 0;
 	j = 2;
@@ -141,22 +141,23 @@ void 	ls_la(int argc, char **argv, t_lists *lists)
 			/*
 			** malloc memory for the 2D array (include extra + 1 for null at end)
 			*/
-			lists->dest = (char **)ft_memalloc(sizeof(char *) * lists->filecount  + 1);
-			array = (char **)ft_memalloc(sizeof(char *) * lists->filecount  + 1);
-			if (dip == NULL)
-			{
-				ft_error(": No file or directory");
-			}
-			ft_strcpy(temp, arg);
-			while ((dit = readdir(dip)) != NULL)
-			{
-					if (lists->i > 0)
-						ft_strcpy(arg, temp);
-					ft_strcat(arg, dit->d_name);
-					lists->dest[lists->i] = ft_strdup(arg);
-					ft_bzero(arg, ft_strlen(arg));
-					lists->i++;
-			}
+			read_helper_a(lists, 0, arg, dip);
+			// lists->dest = (char **)ft_memalloc(sizeof(char *) * lists->filecount  + 1);
+			// array = (char **)ft_memalloc(sizeof(char *) * lists->filecount  + 1);
+			// if (dip == NULL)
+			// {
+			// 	ft_error(": No file or directory");
+			// }
+			// ft_strcpy(temp, arg);
+			// while ((dit = readdir(dip)) != NULL)
+			// {
+			// 		if (lists->i > 0)
+			// 			ft_strcpy(arg, temp);
+			// 		ft_strcat(arg, dit->d_name);
+			// 		lists->dest[lists->i] = ft_strdup(arg);
+			// 		ft_bzero(arg, ft_strlen(arg));
+			// 		lists->i++;
+			// }
 			/*
 			** close dir stream
 			*/
@@ -166,28 +167,6 @@ void 	ls_la(int argc, char **argv, t_lists *lists)
 		j++;
 	}
 	ls_stat_helper(lists);
-	// /*
-	// ** print total 512 block-byte size
-	// */
-	// lists->i = 0;
-	// while (lists->i < lists->filecount)
-	// {
-	// 	size += add_stat(lists->dest[lists->i]);
-	// 	lists->i++;
-	// }
-	// if (size > 0)
-	// 	ft_printf("total %d\n", size);
-	// else if (lists->flag == 1)
-	// 	ft_printf("total 0\n");
-	// /*
-	// ** print actual ls_stat()
-	// */
-	// lists->i = -1;
-	// while (++lists->i < lists->filecount)
-	// 	ls_stat(lists->dest[lists->i], lists);
-	/*
-	** TODO: free memory
-	*/
 }
 /*
 ** -lt / -tl
@@ -196,13 +175,13 @@ void 					ls_lt(int argc, char **argv, t_lists *lists)
 {
 	int				j;
 	DIR				*dip;
-	struct dirent	*dit;
+	// struct dirent	*dit;
 	char			**splitstr;
 	struct stat 	fileStat;
 	char			arg[WORD_MAX];
 	int 			size;
-	char 			**array;
-	char  			temp[WORD_MAX];
+	// char 			**array;
+	// char  			temp[WORD_MAX];
 
 	size = 0;
 	lists->i = 0;
@@ -244,27 +223,28 @@ void 					ls_lt(int argc, char **argv, t_lists *lists)
 			/*
 			** malloc memory for the 2D array (include extra + 1 for null at end)
 			*/
-			lists->dest = (char **)ft_memalloc(sizeof(char *) * lists->filecount  + 1);
-			array = (char **)ft_memalloc(sizeof(char *) * lists->filecount  + 1);
-			lists->timearray = (char **)ft_memalloc(sizeof(char *) * lists->filecount + 1);
-			if (dip == NULL)
-			{
-				ft_error(": No file or directory");
-			}
-			ft_strcpy(temp, arg);
-			while ((dit = readdir(dip)) != NULL)
-			{
-				if (dit->d_name[0] != '.')
-				{	
-					if (lists->i > 0)
-						ft_strcpy(arg, temp);
-					ft_strcat(arg, dit->d_name);
-					lists->dest[lists->i] = ft_strdup(arg);
-					ft_bzero(arg, ft_strlen(arg));
-					lists->timearray[lists->i] = ft_strdup(ft_itoa(time_stat(lists->dest[lists->i])));
-					lists->i++;
-				}
-			}
+			read_helper(lists, 1, arg, dip);
+			// lists->dest = (char **)ft_memalloc(sizeof(char *) * lists->filecount  + 1);
+			// array = (char **)ft_memalloc(sizeof(char *) * lists->filecount  + 1);
+			// lists->timearray = (char **)ft_memalloc(sizeof(char *) * lists->filecount + 1);
+			// if (dip == NULL)
+			// {
+			// 	ft_error(": No file or directory");
+			// }
+			// ft_strcpy(temp, arg);
+			// while ((dit = readdir(dip)) != NULL)
+			// {
+			// 	if (dit->d_name[0] != '.')
+			// 	{	
+			// 		if (lists->i > 0)
+			// 			ft_strcpy(arg, temp);
+			// 		ft_strcat(arg, dit->d_name);
+			// 		lists->dest[lists->i] = ft_strdup(arg);
+			// 		ft_bzero(arg, ft_strlen(arg));
+			// 		lists->timearray[lists->i] = ft_strdup(ft_itoa(time_stat(lists->dest[lists->i])));
+			// 		lists->i++;
+			// 	}
+			// }
 			/*
 			** close dir stream
 			*/
@@ -275,28 +255,6 @@ void 					ls_lt(int argc, char **argv, t_lists *lists)
 	}
 	ft_switch_time(lists);
 	ls_stat_helper(lists);
-	/*
-	** print total 512 block-byte size
-	*/
-	// lists->i = 0;
-	// while (lists->i < lists->filecount)
-	// {
-	// 	size += add_stat(lists->dest[lists->i]);
-	// 	lists->i++;
-	// }
-	// if (size > 0)
-	// 	ft_printf("total %d\n", size);
-	// else if (lists->flag == 1)
-	// 	ft_printf("total 0\n");
-	// /*
-	// ** print actual ls_stat()
-	// */
-	// lists->i = -1;
-	// while (++lists->i < lists->filecount)
-	// 	ls_stat(lists->dest[lists->i], lists);
-	/*
-	** TODO: free memory
-	*/
 }
 
 /*
@@ -306,13 +264,13 @@ void 					ls_lta(int argc, char **argv, t_lists *lists)
 {
 	int				j;
 	DIR				*dip;
-	struct dirent	*dit;
+	// struct dirent	*dit;
 	char			**splitstr;
 	struct stat 	fileStat;
 	char			arg[WORD_MAX];
 	int 			size;
-	char 			**array;
-	char  			temp[WORD_MAX];
+	// char 			**array;
+	// char  			temp[WORD_MAX];
 
 	size = 0;
 	lists->i = 0;
@@ -354,24 +312,25 @@ void 					ls_lta(int argc, char **argv, t_lists *lists)
 			/*
 			** malloc memory for the 2D array (include extra + 1 for null at end)
 			*/
-			lists->dest = (char **)ft_memalloc(sizeof(char *) * lists->filecount  + 1);
-			array = (char **)ft_memalloc(sizeof(char *) * lists->filecount  + 1);
-			lists->timearray = (char **)ft_memalloc(sizeof(char *) * lists->filecount + 1);
-			if (dip == NULL)
-			{
-				ft_error(": No file or directory");
-			}
-			ft_strcpy(temp, arg);
-			while ((dit = readdir(dip)) != NULL)
-			{
-					if (lists->i > 0)
-						ft_strcpy(arg, temp);
-					ft_strcat(arg, dit->d_name);
-					lists->dest[lists->i] = ft_strdup(arg);
-					ft_bzero(arg, ft_strlen(arg));
-					lists->timearray[lists->i] = ft_strdup(ft_itoa(time_stat(lists->dest[lists->i])));
-					lists->i++;
-			}
+			read_helper_a(lists, 1, arg, dip);
+			// lists->dest = (char **)ft_memalloc(sizeof(char *) * lists->filecount  + 1);
+			// array = (char **)ft_memalloc(sizeof(char *) * lists->filecount  + 1);
+			// lists->timearray = (char **)ft_memalloc(sizeof(char *) * lists->filecount + 1);
+			// if (dip == NULL)
+			// {
+			// 	ft_error(": No file or directory");
+			// }
+			// ft_strcpy(temp, arg);
+			// while ((dit = readdir(dip)) != NULL)
+			// {
+			// 		if (lists->i > 0)
+			// 			ft_strcpy(arg, temp);
+			// 		ft_strcat(arg, dit->d_name);
+			// 		lists->dest[lists->i] = ft_strdup(arg);
+			// 		ft_bzero(arg, ft_strlen(arg));
+			// 		lists->timearray[lists->i] = ft_strdup(ft_itoa(time_stat(lists->dest[lists->i])));
+			// 		lists->i++;
+			// }
 			ft_switch_time(lists);
 			/*
 			** close dir stream
@@ -382,28 +341,7 @@ void 					ls_lta(int argc, char **argv, t_lists *lists)
 		j++;
 	}
 	ls_stat_helper(lists);
-	/*
-	** print total 512 block-byte size
-	*/
-	// lists->i = 0;
-	// while (lists->i < lists->filecount)
-	// {
-	// 	size += add_stat(lists->dest[lists->i]);
-	// 	lists->i++;
-	// }
-	// if (size > 0)
-	// 	ft_printf("total %d\n", size);
-	// else if (lists->flag == 1)
-	// 	ft_printf("total 0\n");
-	// /*
-	// ** print actual ls_stat()
-	// */
-	// lists->i = -1;
-	// while (++lists->i < lists->filecount)
-	// 	ls_stat(lists->dest[lists->i], lists);
-	// /*
-	// ** TODO: free memory
-	// */
+
 }
 
 /*
@@ -413,10 +351,10 @@ void			list_dirta(int argc, char **argv, t_lists *lists)
 {
 	int				j;
 	DIR				*dip;
-	struct dirent	*dit;
+	// struct dirent	*dit;
 	struct stat 	fileStat;
 	char			arg[WORD_MAX];
-	char  			temp[WORD_MAX];
+	// char  			temp[WORD_MAX];
 
 	lists->i = 0;
 	j = 2;
@@ -450,26 +388,27 @@ void			list_dirta(int argc, char **argv, t_lists *lists)
 			/*
 			** malloc memory for the 2D array (include extra + 1 for null at end)
 			*/
-			lists->dest = (char **)ft_memalloc(sizeof(char *) * lists->filecount + 1);
-			lists->timearray = (char **)ft_memalloc(sizeof(char *) * lists->filecount + 1);
-			if (dip == NULL)
-			{
-				ft_error(": No file or directory");
-			}
-			/*
-			** TODO: end split function here?
-			*/
-			ft_strcpy(temp, arg);
-			while ((dit = readdir(dip)) != NULL)
-			{	
-					if (lists->i > 0)
-						ft_strcpy(arg, temp);
-					ft_strcat(arg, dit->d_name);
-					lists->dest[lists->i] = ft_strdup(arg);
-					ft_bzero(arg, ft_strlen(arg));
-					lists->timearray[lists->i] = ft_strdup(ft_itoa(time_stat(lists->dest[lists->i])));
-					lists->i++;
-			}
+			read_helper_a(lists, 1, arg, dip);
+			// lists->dest = (char **)ft_memalloc(sizeof(char *) * lists->filecount + 1);
+			// lists->timearray = (char **)ft_memalloc(sizeof(char *) * lists->filecount + 1);
+			// if (dip == NULL)
+			// {
+			// 	ft_error(": No file or directory");
+			// }
+			// /*
+			// ** TODO: end split function here?
+			// */
+			// ft_strcpy(temp, arg);
+			// while ((dit = readdir(dip)) != NULL)
+			// {	
+			// 		if (lists->i > 0)
+			// 			ft_strcpy(arg, temp);
+			// 		ft_strcat(arg, dit->d_name);
+			// 		lists->dest[lists->i] = ft_strdup(arg);
+			// 		ft_bzero(arg, ft_strlen(arg));
+			// 		lists->timearray[lists->i] = ft_strdup(ft_itoa(time_stat(lists->dest[lists->i])));
+			// 		lists->i++;
+			// }
 			/*
 			** sort array based on st_mtime
 			*/

@@ -1,4 +1,102 @@
 #include "../ft_ls.h"
+
+void read_helper_guts_a(t_lists *lists, char *arg, struct dirent *dit, char *temp, int flag)
+{
+    if (lists->i > 0)
+        ft_strcpy(arg, temp);
+    ft_strcat(arg, dit->d_name);
+    lists->dest[lists->i] = ft_strdup(arg);
+    ft_bzero(arg, ft_strlen(arg));
+    if (flag == 1)
+        lists->timearray[lists->i] = ft_strdup(ft_itoa(time_stat(lists->dest[lists->i])));
+    lists->i++;
+}
+
+void read_helper_guts(t_lists *lists, char *arg, struct dirent *dit, char *temp, int flag)
+{
+    if (dit->d_name[0] != '.')
+    {  
+        if (lists->i > 0)
+            ft_strcpy(arg, temp);
+        ft_strcat(arg, dit->d_name);
+        lists->dest[lists->i] = ft_strdup(arg);
+        ft_bzero(arg, ft_strlen(arg));
+        if (flag == 1)
+            lists->timearray[lists->i] = ft_strdup(ft_itoa(time_stat(lists->dest[lists->i])));
+        lists->i++;
+    }
+}
+
+
+void read_helper(t_lists *lists, int flag, char *arg, DIR *dip)
+{
+    // char            **array;
+    char            temp[WORD_MAX];
+    struct dirent   *dit;
+
+
+
+    lists->dest = (char **)ft_memalloc(sizeof(char *) * lists->filecount  + 1);
+    // array = (char **)ft_memalloc(sizeof(char *) * lists->filecount  + 1);
+    if (flag == 1)
+        lists->timearray = (char **)ft_memalloc(sizeof(char *) * lists->filecount + 1);
+    if (dip == NULL)
+    {
+        ft_error(": No file or directory");
+    }
+    ft_strcpy(temp, arg);
+    while ((dit = readdir(dip)) != NULL)
+    {
+        read_helper_guts(lists, arg, dit, temp, flag);
+    }
+}
+        // if (dit->d_name[0] != '.')
+        // {   
+        //     if (lists->i > 0)
+        //         ft_strcpy(arg, temp);
+        //     ft_strcat(arg, dit->d_name);
+        //     lists->dest[lists->i] = ft_strdup(arg);
+        //     ft_bzero(arg, ft_strlen(arg));
+        //     if (flag == 1)
+        //         lists->timearray[lists->i] = ft_strdup(ft_itoa(time_stat(lists->dest[lists->i])));
+        //     lists->i++;
+        // }
+
+/*
+** -read helper for -a
+*/
+void read_helper_a(t_lists *lists, int flag, char *arg, DIR *dip)
+{
+    // char            **array;
+    char            temp[WORD_MAX];
+    struct dirent   *dit;
+
+
+
+    lists->dest = (char **)ft_memalloc(sizeof(char *) * lists->filecount  + 1);
+    // array = (char **)ft_memalloc(sizeof(char *) * lists->filecount  + 1);
+    if (flag == 1)
+        lists->timearray = (char **)ft_memalloc(sizeof(char *) * lists->filecount + 1);
+    if (dip == NULL)
+    {
+        ft_error(": No file or directory");
+    }
+    ft_strcpy(temp, arg);
+    while ((dit = readdir(dip)) != NULL)
+    {
+        read_helper_guts_a(lists, arg, dit, temp, flag);
+            // if (lists->i > 0)
+            //     ft_strcpy(arg, temp);
+            // ft_strcat(arg, dit->d_name);
+            // lists->dest[lists->i] = ft_strdup(arg);
+            // ft_bzero(arg, ft_strlen(arg));
+            // if (flag == 1)
+            //     lists->timearray[lists->i] = ft_strdup(ft_itoa(time_stat(lists->dest[lists->i])));
+            // lists->i++;
+    }
+}
+
+
 /*
 ** - print lists
 */
@@ -17,92 +115,7 @@ void    print_lists_back(t_lists *lists)
     while (--lists->i > -1)
         ft_printf("%s\n", lists->dest[lists->i]);
 }
-/*
-** - -Rlt helper
-*/
-int  rlt_helper(const char *str, int flag, t_lists *lists)
-{
-    DIR             *dip;
-    struct dirent   *dit;
-    struct stat     fileStat;
-    char            arg[WORD_MAX];
-    char            temp[WORD_MAX];
 
-    lists->i = 0;
-    ft_strcpy(arg, str);
-    if (ft_strcmp(&arg[ft_strlen(arg) - 1], "/") != 0)
-        ft_strcat(arg, "/");
-    dip = opendir(str);
-    if (dip == NULL)
-    {
-            /*
-            ** TODO: create own function for this because it happens often?
-            */
-        if(lstat(str, &fileStat) < 0) 
-        {
-            ft_printf("./ft_ls: %s: No such file or directory\n", str);
-            return (-1);
-        } 
-        ft_printf("%s\n", str);
-        return (0);
-            /*
-            ** end function here?
-            */
-    }
-    if (flag == 0)
-        lists->filecount = directory_count(dip, arg, 0);
-    else if (flag == 1)
-        lists->filecount = directory_count(dip, arg, 1);
-    lists->dest = (char **)ft_memalloc(sizeof(char *) * lists->filecount + 1);
-    lists->timearray = (char **)ft_memalloc(sizeof(char *) * lists->filecount + 1);
-    ft_strcpy(temp, arg);
-    while ((dit = readdir(dip)) != NULL)
-    {
-        if (flag == 0)
-        {
-            if (dit->d_name[0] != '.')
-            {
-               if (lists->i > 0)
-                    ft_strcpy(arg, temp);
-                ft_strcat(arg, dit->d_name);
-                lists->dest[lists->i] = ft_strdup(arg);
-                ft_bzero(arg, ft_strlen(arg));
-                lists->timearray[lists->i] = ft_strdup(ft_itoa(time_stat(lists->dest[lists->i])));
-                lists->i++;
-            }
-        }
-        else if (flag == 1)
-        {
-            if (lists->i > 0)
-                ft_strcpy(arg, temp);
-            ft_strcat(arg, dit->d_name);
-            lists->dest[lists->i] = ft_strdup(arg);
-            ft_bzero(arg, ft_strlen(arg));
-            lists->timearray[lists->i] = ft_strdup(ft_itoa(time_stat(lists->dest[lists->i])));
-            lists->i++;        
-        }
-    }
-    ft_switch_time(lists);
-    if (closedir(dip) == -1)
-        ft_error("closedir");
-    recursive_ls_stat_helper(lists);
-    // lists->i = 0;
-    // while (lists->i < lists->filecount)
-    // {
-    //     lists->size += add_stat(lists->dest[lists->i]);
-    //     lists->i++;
-    // }
-    // ft_printf("total %d\n", lists->size);
-    // if (lists->flag == 1)
-    //     ft_printf("total 0\n");
-    // /*
-    // ** print actual ls_stat()
-    // */
-    // lists->i = -1;
-    // while (++lists->i < lists->filecount)
-    //     ls_stat(lists->dest[lists->i], lists);
-    return (0);
-}
 /*
 ** ls -Rr helper
 */
@@ -238,9 +251,6 @@ int   Rt_helper(const char *str, int flag, t_lists *lists)
         ft_error("closedir");
     ft_switch_time(lists);
     print_lists(lists);
-    // lists->i = -1;
-    // while (++lists->i < lists->filecount)
-    //     ft_printf("%s\n", lists->dest[lists->i]);
     return (0);
 }
 
@@ -356,21 +366,6 @@ int    Rl_helper(const char *str, int flag, t_lists *lists)
     if (closedir(dip) == -1)
         ft_error("closedir");
     recursive_ls_stat_helper(lists);
-    // lists->i = 0;
-    // while (lists->i < lists->filecount)
-    // {
-    //     lists->size += add_stat(lists->dest[lists->i]);
-    //     lists->i++;
-    // }
-    // ft_printf("total %d\n", lists->size);
-    // if (lists->flag == 1)
-    //     ft_printf("total 0\n");
-    // /*
-    // ** print actual ls_stat()
-    // */
-    // lists->i = -1;
-    // while (++lists->i < lists->filecount)
-    //     ls_stat(lists->dest[lists->i], lists);
     return (0);
 }
 /*
@@ -442,12 +437,6 @@ int  rbigrt_helper(const char *str, int flag, t_lists *lists)
         ft_error("closedir");
     ft_switch_time(lists);
     print_lists_back(lists);
-    /*
-    ** - prints backwards
-    */
-    // lists->i = lists->filecount;
-    // while (--lists->i > -1)
-    //     ft_printf("%s\n", lists->dest[lists->i]);
     return (0);
 }
 
@@ -522,18 +511,6 @@ int  everything_helper(const char *str, int flag, t_lists *lists)
     if (closedir(dip) == -1)
         ft_error("closedir");
     r_recursive_ls_stat_helper(lists);
-    // lists->i = -1;
-    // while (++lists->i < lists->filecount)
-    //     lists->size += add_stat(lists->dest[lists->i]);
-    // ft_printf("total %d\n", lists->size);
-    // if (lists->flag == 1)
-    //     ft_printf("total 0\n");
-    // /*
-    // ** feed into lstat() backwards to get -r
-    // */
-    // lists->i = lists->filecount;
-    // while (--lists->i > -1)
-    //     ls_stat(lists->dest[lists->i], lists);
     return (0);
 }
 

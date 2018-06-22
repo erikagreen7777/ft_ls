@@ -89,6 +89,5 @@ void	list_dira(int argc, char **argv)
 			ft_printf("%s\n", dit->d_name);
 		if (closedir(dip) == -1)
 			ft_error("closedir");
-		// j++;
 	}
 }
