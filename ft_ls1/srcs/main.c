@@ -441,6 +441,22 @@ int main(int argc, char **argv)
 				rbigrt(argv[2], 1, lists);
 				return (0);
 			}
+			/*
+			** -Rlta
+			*/
+			else if (ft_strcmp(argv[1], "-Rlta") == 0) /*add rest here*/
+			{
+				if (argc == 2)
+				{
+				    argv[2] = ".";
+				    argc = 3;
+				}
+				init_struct(&lists);
+				lists->i = 0;
+				rlt_helper(argv[2], 1, lists);
+				rlt(argv[2], 1, lists);
+				return (0);
+			}
 			/* 
 			** ls
 			*/
