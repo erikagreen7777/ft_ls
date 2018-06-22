@@ -98,5 +98,4 @@ int  everything_helper(const char *str, int flag, t_lists *lists);
 
 
 
-
 #endif

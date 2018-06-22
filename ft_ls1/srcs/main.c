@@ -409,6 +409,38 @@ int main(int argc, char **argv)
 				everything(argv[2], 1, lists);
 				return (0);
 			}
+			/*
+			** -Rrlt
+			*/
+			else if ((ft_strcmp(argv[1], "-Rrlt") == 0)) /*add the rest */
+			{
+				if (argc == 2)
+				{
+				    argv[2] = ".";
+				    argc = 3;
+				}
+				init_struct(&lists);
+				lists->i = 0;
+				everything_helper(argv[2], 0, lists);
+				everything(argv[2], 0, lists);
+				return (0);
+			}
+			/*
+			** -Rrta
+			*/
+			else if ((ft_strcmp(argv[1], "-Rrta") == 0)) /*add more here*/
+			{
+				if (argc == 2)
+				{
+				    argv[2] = ".";
+				    argc = 3;
+				}
+				init_struct(&lists);
+				lists->i = 0;
+				rbigrt_helper(argv[2], 1, lists);
+				rbigrt(argv[2], 1, lists);
+				return (0);
+			}
 			/* 
 			** ls
 			*/

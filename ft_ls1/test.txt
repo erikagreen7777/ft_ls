@@ -6,4 +6,4 @@ git addclear
 
 -lexicographically sort switch_time if it's the same ctime (it works for something but test for everything)
 
-
+{R,r,t,a} {R,l,t,a} 

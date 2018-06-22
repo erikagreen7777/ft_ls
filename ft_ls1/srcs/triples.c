@@ -322,13 +322,6 @@ void            ls_lrt(int argc, char **argv, t_lists *lists)
     lists->i = lists->filecount;
     while (--lists->i > -1)
         ls_stat(lists->dest[lists->i], lists);
-
-    // lists->i = -1;
-    // while (++lists->i < lists->filecount)
-    //     ls_stat(lists->dest[lists->i], lists);
-    /*
-    ** TODO: free memory
-    */
 }
 
 /*

@@ -500,13 +500,9 @@ int  everything_helper(const char *str, int flag, t_lists *lists)
     ft_switch_time(lists);
     if (closedir(dip) == -1)
         ft_error("closedir");
-    // lex_sortrl(lists);
-    lists->i = 0;
-    while (lists->i < lists->filecount)
-    {
+    lists->i = -1;
+    while (++lists->i < lists->filecount)
         lists->size += add_stat(lists->dest[lists->i]);
-        lists->i++;
-    }
     ft_printf("total %d\n", lists->size);
     if (lists->flag == 1)
         ft_printf("total 0\n");
@@ -517,8 +513,6 @@ int  everything_helper(const char *str, int flag, t_lists *lists)
     while (--lists->i > -1)
         ls_stat(lists->dest[lists->i], lists);
     return (0);
-    // lists->i = -1;
-    // while (++lists->i < lists->filecount)
-    //     ls_stat(lists->dest[lists->i], lists);
-    // return (0);
 }
+
+
