@@ -69,12 +69,13 @@ void list_dirbigr(const char *name, int flag)
         if (entry->d_type == DT_DIR) 
         {
                 char path[1024];
-                if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0)
+                if (ft_strcmp(entry->d_name, ".") == 0 || ft_strcmp(entry->d_name, "..") == 0)
                     continue;
-                ft_strcpy(path, name);
-                ft_strcat(path, "/");
-                ft_strcat(path, entry->d_name);
-                printf("\n%s: \n", path);
+                recursive_cat(path, name, entry);
+                // ft_strcpy(path, name);
+                // ft_strcat(path, "/");
+                // ft_strcat(path, entry->d_name);
+                // printf("\n%s: \n", path);
                 /*
                 ** 0 flag, no -a. 1 flag -a
                 */
@@ -109,12 +110,13 @@ void    list_dirbigrt(const char *name, int flag, t_lists *lists)
         if (entry->d_type == DT_DIR) 
         {
                 char path[1024];
-                if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0)
+                if (ft_strcmp(entry->d_name, ".") == 0 || ft_strcmp(entry->d_name, "..") == 0)
                     continue;
-                ft_strcpy(path, name);
-                ft_strcat(path, "/");
-                ft_strcat(path, entry->d_name);
-                printf("\n%s: \n", path);
+                recursive_cat(path, name, entry);
+                // ft_strcpy(path, name);
+                // ft_strcat(path, "/");
+                // ft_strcat(path, entry->d_name);
+                // printf("\n%s: \n", path);
                 /*
                 ** 0 flag, no -a. 1 flag -a
                 */
@@ -149,12 +151,14 @@ void    list_dirbigrl(const char *name, int flag, t_lists *lists)
         if (entry->d_type == DT_DIR) 
         {
                 char path[1024];
-                if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0)
+                if (ft_strcmp(entry->d_name, ".") == 0 || ft_strcmp(entry->d_name, "..") == 0)
                     continue;
-                ft_strcpy(path, name);
-                ft_strcat(path, "/");
-                ft_strcat(path, entry->d_name);
-                printf("\n%s: \n", path);
+                recursive_cat(path, name, entry);
+
+                // ft_strcpy(path, name);
+                // ft_strcat(path, "/");
+                // ft_strcat(path, entry->d_name);
+                // printf("\n%s: \n", path);
                 /*
                 ** 0 flag, no -a. 1 flag -a
                 */

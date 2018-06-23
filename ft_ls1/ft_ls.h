@@ -105,6 +105,11 @@ void	rt_helper_helper(DIR *dip, t_lists *lists, char *arg, int flag);
 void 	rl_helper_helper(DIR *dip, t_lists *lists, char *arg, int flag);
 void		lt_helper(t_lists *lists, char *str);
 void	lta_helper(t_lists *lists, char *str);
+void	rlt_helper_helper(t_lists *lists, char *str);
+void	rla_helper_helper(t_lists *lists, char *str);
+void	recursive_cat(char *path, const char *name, struct dirent *entry);
+
+
 
 
 
