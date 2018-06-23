@@ -64,105 +64,106 @@ char *readlink_malloc (const char *filename)
 int ls_stat(char *str,  t_lists *lists)
 {
     struct stat     fileStat;
-    struct passwd   *pwd;
-    struct group    *grp;
-    char            *foo;
-    char            **timearray;
-    char            *hourmin;
-    time_t          current;
+    // struct passwd   *pwd;
+    // struct group    *grp;
+    // char            *foo;
+    // char            **timearray;
+    // char            *hourmin;
+    // time_t          current;
 
     if(lstat(str, &fileStat) < 0) 
-    {
-        ft_error("Yo: No such file or directory");
-    }
-    // if (ft_strcmp(str, "/dev") == 0)
-    //     ft_printf("total 0\n");
+        ft_error("ls_stat: No such file or directory");
     /*
-    ** file permissions
+    ** file permissions    -------------------------------------------------------> function start here
     */
-    // lstat(str, &fileStat);
-    if (S_ISLNK(fileStat.st_mode))
-        ft_printf("l");
-    else if (S_ISDIR(fileStat.st_mode) == 1)
-        ft_printf("d");
-    else if ((fileStat.st_mode & S_IFMT) == S_IFIFO)
-        ft_printf("p");
-    else if ((fileStat.st_mode & S_IFMT) == S_IFCHR)
-        ft_printf("c");
-    else if ((fileStat.st_mode & S_IFMT) == S_IFBLK)
-        ft_printf("b");
-    else if ((fileStat.st_mode & S_IFMT) == S_IFSOCK)
-        ft_printf("s");
-    else if ((fileStat.st_mode & S_IFMT) == S_IFREG)
-        ft_printf("-");
-    // ft_printf( (S_ISDIR(fileStat.st_mode)) ? "d" : "-");
-    ft_printf( (fileStat.st_mode & S_IRUSR) ? "r" : "-");
-    ft_printf( (fileStat.st_mode & S_IWUSR) ? "w" : "-");
-    ft_printf( (fileStat.st_mode & S_IXUSR) ? "x" : "-");
-    ft_printf( (fileStat.st_mode & S_IRGRP) ? "r" : "-");
-    ft_printf( (fileStat.st_mode & S_IWGRP) ? "w" : "-");
-    ft_printf( (fileStat.st_mode & S_IXGRP) ? "x" : "-");
-    ft_printf( (fileStat.st_mode & S_IROTH) ? "r" : "-");
-    ft_printf( (fileStat.st_mode & S_IWOTH) ? "w" : "-");
-    ft_printf( (fileStat.st_mode & S_IXOTH) ? "x" : "-");
-    ft_printf("\t");
+    permissions(fileStat);
+    // if (S_ISLNK(fileStat.st_mode))
+    //     ft_printf("l");
+    // else if (S_ISDIR(fileStat.st_mode) == 1)
+    //     ft_printf("d");
+    // else if ((fileStat.st_mode & S_IFMT) == S_IFIFO)
+    //     ft_printf("p");
+    // else if ((fileStat.st_mode & S_IFMT) == S_IFCHR)
+    //     ft_printf("c");
+    // else if ((fileStat.st_mode & S_IFMT) == S_IFBLK)
+    //     ft_printf("b");
+    // else if ((fileStat.st_mode & S_IFMT) == S_IFSOCK)
+    //     ft_printf("s");
+    // else if ((fileStat.st_mode & S_IFMT) == S_IFREG)
+    //     ft_printf("-");
+    // ft_printf( (fileStat.st_mode & S_IRUSR) ? "r" : "-");
+    // ft_printf( (fileStat.st_mode & S_IWUSR) ? "w" : "-");
+    // ft_printf( (fileStat.st_mode & S_IXUSR) ? "x" : "-");
+    // ft_printf( (fileStat.st_mode & S_IRGRP) ? "r" : "-");
+    // ft_printf( (fileStat.st_mode & S_IWGRP) ? "w" : "-");
+    // ft_printf( (fileStat.st_mode & S_IXGRP) ? "x" : "-");
+    // ft_printf( (fileStat.st_mode & S_IROTH) ? "r" : "-");
+    // ft_printf( (fileStat.st_mode & S_IWOTH) ? "w" : "-");
+    // ft_printf( (fileStat.st_mode & S_IXOTH) ? "x" : "-");
+    // ft_printf("\t");
     /*
-    ** number of links
+    ** number of links  ---------------------------------------------------------------> function end here
     */
-    ft_printf("%5d\t",fileStat.st_nlink);      
-    /*
-    ** print userid. else, print numerical version
-    */
-    if ((pwd = getpwuid(fileStat.st_uid)) != NULL)
-        ft_printf("%s\t", pwd->pw_name);
-    else
-        ft_printf("%d\t", fileStat.st_uid);
-    /*       
-    ** print %s of groupid. else, print numerical version
-    */
-    if ((grp = getgrgid(fileStat.st_gid)) != NULL)
-        ft_printf("%s\t", grp->gr_name);
-    else
-        ft_printf("%d\t", fileStat.st_gid);
-    /*
-    ** file size / for /dev -> major/minor device numbers
-    */
-    if (lists->flag == 0)
-        ft_printf("%5llu\t",fileStat.st_size);
-    else
-        ft_printf("%4ld, %4ld ", (long) major(fileStat.st_rdev), (long) minor(fileStat.st_rdev));
+    guidstuff(fileStat, lists);
+    // ft_printf("%5d\t",fileStat.st_nlink);      
+    // /*
+    // ** print userid. else, print numerical version
+    // */
+    // if ((pwd = getpwuid(fileStat.st_uid)) != NULL)
+    //     ft_printf("%s\t", pwd->pw_name);
+    // else
+    //     ft_printf("%d\t", fileStat.st_uid);
+    // /*       
+    // ** print %s of groupid. else, print numerical version
+    // */
+    // if ((grp = getgrgid(fileStat.st_gid)) != NULL)
+    //     ft_printf("%s\t", grp->gr_name);
+    // else
+    //     ft_printf("%d\t", fileStat.st_gid);
+    // /*
+    // ** file size / for /dev -> major/minor device numbers
+    // */
+    // if (lists->flag == 0)
+    //     ft_printf("%5llu\t",fileStat.st_size);
+    // else
+    //     ft_printf("%4ld, %4ld ", (long) major(fileStat.st_rdev), (long) minor(fileStat.st_rdev));
     /*
     ** last modification date
     ** split up ctime array into format present on ls -l (month date hour:min)
+    **  
+    **
+    **
+    **     -----------------------------------------------------------------------------> function start here
     */
-    hourmin = (char *)malloc(sizeof(char));
-    foo = ctime(&(fileStat.st_mtime));
+    timeinfo(fileStat);
+    // hourmin = (char *)malloc(sizeof(char));
+    // foo = ctime(&(fileStat.st_mtime));
+    // /*
+    // ** if (foo > ctime - 6 months) || (foo < ctime + 6 months)
+    // */
+    // timearray = ft_strsplit(foo, ' ');
+    // if (fileStat.st_mtime > time(&current) + 15780000 || fileStat.st_mtime < time(&current) - 15780000)
+    // {
+    //     char year[5];
+    //     ft_strncpy(year, timearray[4], 4);
+    //     ft_printf("%s  ", year);
+    // }
+    // else
+    // {
+    //     ft_strncpy(hourmin, timearray[3], 5);
+    //     ft_printf("%s %2s %s  ", timearray[1], timearray[2], hourmin);
+    // }
+    // int k = 0;
+    // while (timearray[k])
+    // {
+    //     free(timearray[k]);
+    //     k++;
+    // }
+    // free(timearray);
+    // free(hourmin);
     /*
-    ** if (foo > ctime - 6 months) || (foo < ctime + 6 months)
+    **        --------------------------------------------------------------------------------> function end here
     */
-    // printf("current time is: %ld\n", time(&current));
-    // printf("current time + 6 months is: %ld\n", time(&current) + 15780000);
-    // printf("current time - 6 months is: %ld\n", time(&current) - 15780000);
-    // int compare = (fileStat.st_mtime);
-    // int currenttime = time(&current);
-    // int sixmonthsout = time(&current) + 15780000;
-    // int sixmonthsbefore = time(&current) - 15780000;
-    // printf("compare: %d\n", compare);
-    // printf("currenttime: %d\n", currenttime);
-    timearray = ft_strsplit(foo, ' ');
-    if (fileStat.st_mtime > time(&current) + 15780000 || fileStat.st_mtime < time(&current) - 15780000)
-    {
-        char year[5];
-        ft_strncpy(year, timearray[4], 4);
-        ft_printf("%s  ", year);
-    }
-    else
-    {
-        ft_strncpy(hourmin, timearray[3], 5);
-        ft_printf("%s %2s %s  ", timearray[1], timearray[2], hourmin);
-    }
-    // printf("\nfoo: %s\n", foo[1]);
-    // lstat(str, &fileStat);
     if (S_ISLNK(fileStat.st_mode))
     {
         char *buf = readlink_malloc(str);
@@ -170,51 +171,8 @@ int ls_stat(char *str,  t_lists *lists)
     }
     else
         ft_printf("%s\n", str);
-
     /*
     ** TODO: free timearray
     */
-    int k = 0;
-    while (timearray[k])
-    {
-        free(timearray[k]);
-        k++;
-    }
-    free(timearray);
-    free(hourmin);
-    /*
-    ** TODO: free hourmin
-    ** TODO: extra attributes like @
-    ** TODO: symbolic link stuff
-    */
-    // lstat(str, &fileStat);
-    // if (S_ISLNK(fileStat.st_mode))
-    //     printf("it's a link\n");
-
-
-    //device type?
-    // printf("device type: \t\t%d\n", fileStat.st_rdev);
-
-    //file type
-    // if (S_ISDIR(fileStat.st_mode) == 1)
-    //     printf("File type: \t\tDirectory\n");
-    // else if ((fileStat.st_mode & S_IFMT) == S_IFIFO)
-    //     printf("File type: \t\tNamed Pipe (FIFO)\n");
-    // else if ((fileStat.st_mode & S_IFMT) == S_IFCHR)
-    //     printf("File type: \t\tCharacter Device\n");
-    // else if ((fileStat.st_mode & S_IFMT) == S_IFBLK)
-    //     printf("File type: \t\tBlock Device\n");
-    // else if ((fileStat.st_mode & S_IaFMT) == S_IFSOCK)
-    //     printf("File type: \t\tSocket\n");
-    // else if ((fileStat.st_mode & S_IFMT) == S_IFREG)
-    //     printf("File type: \t\tRegular File\n");
-    // else
-    //     printf("Some sort of file type error\n");
-
-//symbolic link?
-    // ft_printf("The file %s a symbolic link\n", (S_ISLNK(fileStat.st_mode)) ? "is" : "is not");
-
-
-
     return (0);
 }

@@ -97,6 +97,11 @@ void read_helper(t_lists *lists, int flag, char *arg, DIR *dip);
 void read_helper_a(t_lists *lists, int flag, char *arg, DIR *dip);
 void read_helper_guts(t_lists *lists, char *arg, struct dirent *dit, char *temp, int flag);
 void read_helper_guts_a(t_lists *lists, char *arg, struct dirent *dit, char *temp, int flag);
+void    permissions(struct stat fileStat);
+void    guidstuff(struct stat fileStat, t_lists *lists);
+void    timeinfo(struct stat fileStat);
+
+
 
 
 

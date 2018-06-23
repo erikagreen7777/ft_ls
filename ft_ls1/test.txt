@@ -1,7 +1,8 @@
 **** MEMORY LEAKS ****
 git addclear
 
-- if date is greater than 6 months, write year instead
+- multiple arguments like -l -t -R -r -a instead of -ltRra
+
 - print out the file name, not the complete path
 
 -lexicographically sort switch_time if it's the same ctime (it works for something but test for everything)
