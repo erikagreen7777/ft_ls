@@ -1,6 +1,8 @@
 #include "../ft_ls.h"
 
-
+/*
+** - possibly extraneous function
+*/
 char    *extract_path(char *str)
 {
     int             len;
@@ -9,25 +11,26 @@ char    *extract_path(char *str)
     newstr = (char *)malloc(sizeof(char));
     len = ft_strlen(str) - ft_strlen(ft_strstr(str, "/"));
     ft_strncpy(newstr, str, len);
-    printf("newstr: %s\n", newstr);
+    ft_printf("newstr: %s\n", newstr);
     return (newstr);
 }
 
 int    add_stat(char *str)
 {
     struct stat     fileStat;
+
     if(lstat(str, &fileStat) < 0) 
     {
         ft_error("add_stat(): No such file or directory");
     }
     return (fileStat.st_blocks);
-
 }
 
 
 int time_stat(char *str)
 {
     struct stat     fileStat;
+
     if(lstat(str, &fileStat) < 0) 
     {
         ft_error("time_stat: No such file or directory");
@@ -35,6 +38,9 @@ int time_stat(char *str)
     return (fileStat.st_mtime);
 }
 
+/*
+** - for ls -l, buffer reation for -> symlink printing
+*/
 char *readlink_malloc (const char *filename)
 {
   int size = 32767;
@@ -61,6 +67,9 @@ char *readlink_malloc (const char *filename)
     }
 }
 
+/*
+** - stat() for -l
+*/
 int ls_stat(char *str,  t_lists *lists)
 {
     struct stat     fileStat;

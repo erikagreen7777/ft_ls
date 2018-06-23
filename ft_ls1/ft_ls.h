@@ -100,6 +100,8 @@ void read_helper_guts_a(t_lists *lists, char *arg, struct dirent *dit, char *tem
 void    permissions(struct stat fileStat);
 void    guidstuff(struct stat fileStat, t_lists *lists);
 void    timeinfo(struct stat fileStat);
+void null_check(const char *str);
+
 
 
 

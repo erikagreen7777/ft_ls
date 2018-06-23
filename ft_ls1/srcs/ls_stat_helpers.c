@@ -70,7 +70,7 @@ static void free_timearray(char **timearray, char *hourmin)
 }
 
 /*
-** - if the date is more than 6 months in either direction, print just the year. 
+** - if the date is more than 6 months in either direction, print month, date, year. 
 ** - else, print the month, date, and hour:min
 */
 void    timeinfo(struct stat fileStat)

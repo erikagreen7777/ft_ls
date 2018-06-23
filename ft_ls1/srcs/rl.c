@@ -148,30 +148,9 @@ int  rlt_helper(const char *str, int flag, t_lists *lists)
     while ((dit = readdir(dip)) != NULL)
     {
         if (flag == 0)
-        {
         	read_helper_guts(lists, arg, dit, temp, 1);
-            // if (dit->d_name[0] != '.')
-            // {
-            //    if (lists->i > 0)
-            //         ft_strcpy(arg, temp);
-            //     ft_strcat(arg, dit->d_name);
-            //     lists->dest[lists->i] = ft_strdup(arg);
-            //     ft_bzero(arg, ft_strlen(arg));
-            //     lists->timearray[lists->i] = ft_strdup(ft_itoa(time_stat(lists->dest[lists->i])));
-            //     lists->i++;
-            // }
-        }
         else if (flag == 1)
-        {
         	read_helper_guts_a(lists, arg, dit, temp, 1);
-            // if (lists->i > 0)
-            //     ft_strcpy(arg, temp);
-            // ft_strcat(arg, dit->d_name);
-            // lists->dest[lists->i] = ft_strdup(arg);
-            // ft_bzero(arg, ft_strlen(arg));
-            // lists->timearray[lists->i] = ft_strdup(ft_itoa(time_stat(lists->dest[lists->i])));
-            // lists->i++;        
-        }
     }
     ft_switch_time(lists);
     if (closedir(dip) == -1)
