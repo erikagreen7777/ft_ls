@@ -1,6 +1,8 @@
 **** MEMORY LEAKS ****
 git addclear
 
+-list_dirlr is really long still
+ 
 - multiple arguments like -l -t -R -r -a instead of -ltRra
 
 - print out the file name, not the complete path

@@ -102,6 +102,12 @@ void    guidstuff(struct stat fileStat, t_lists *lists);
 void    timeinfo(struct stat fileStat);
 void null_check(const char *str);
 void	rt_helper_helper(DIR *dip, t_lists *lists, char *arg, int flag);
+void 	rl_helper_helper(DIR *dip, t_lists *lists, char *arg, int flag);
+void		lt_helper(t_lists *lists, char *str);
+void	lta_helper(t_lists *lists, char *str);
+
+
+
 
 
 
