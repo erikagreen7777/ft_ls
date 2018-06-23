@@ -6,6 +6,3 @@ git addclear
 
 -lexicographically sort switch_time if it's the same ctime (it works for something but test for everything)
 
-************************************************
--ls -lt has a weird memory thing that seems to be made worse by pulling that out as a separate function. as does ./ft_ls -lta and
-./ft_ls -lrat

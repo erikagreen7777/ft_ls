@@ -69,6 +69,7 @@ int ls_stat(char *str,  t_lists *lists)
     char            *foo;
     char            **timearray;
     char            *hourmin;
+    time_t          current;
 
     if(lstat(str, &fileStat) < 0) 
     {
@@ -136,10 +137,31 @@ int ls_stat(char *str,  t_lists *lists)
     */
     hourmin = (char *)malloc(sizeof(char));
     foo = ctime(&(fileStat.st_mtime));
-    // printf("\nfoo: %s\n", foo[1]);
+    /*
+    ** if (foo > ctime - 6 months) || (foo < ctime + 6 months)
+    */
+    // printf("current time is: %ld\n", time(&current));
+    // printf("current time + 6 months is: %ld\n", time(&current) + 15780000);
+    // printf("current time - 6 months is: %ld\n", time(&current) - 15780000);
+    // int compare = (fileStat.st_mtime);
+    // int currenttime = time(&current);
+    // int sixmonthsout = time(&current) + 15780000;
+    // int sixmonthsbefore = time(&current) - 15780000;
+    // printf("compare: %d\n", compare);
+    // printf("currenttime: %d\n", currenttime);
     timearray = ft_strsplit(foo, ' ');
-    ft_strncpy(hourmin, timearray[3], 5);
-    ft_printf("%s %2s %s\t", timearray[1], timearray[2], hourmin);
+    if (fileStat.st_mtime > time(&current) + 15780000 || fileStat.st_mtime < time(&current) - 15780000)
+    {
+        char year[5];
+        ft_strncpy(year, timearray[4], 4);
+        ft_printf("%s  ", year);
+    }
+    else
+    {
+        ft_strncpy(hourmin, timearray[3], 5);
+        ft_printf("%s %2s %s  ", timearray[1], timearray[2], hourmin);
+    }
+    // printf("\nfoo: %s\n", foo[1]);
     // lstat(str, &fileStat);
     if (S_ISLNK(fileStat.st_mode))
     {
