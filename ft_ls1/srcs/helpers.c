@@ -124,7 +124,7 @@ int   Rr_helper(const char *str, int flag, t_lists *lists)
     DIR             *dip;
     struct dirent   *dit;
     struct stat     fileStat;
-    char            **array;
+    // char            **array;
     char            arg[WORD_MAX];
     char            temp[WORD_MAX];
 
@@ -151,30 +151,32 @@ int   Rr_helper(const char *str, int flag, t_lists *lists)
     }
     lists->filecount = directory_count(dip, arg, 0);
     lists->dest = (char **)ft_memalloc(sizeof(char *) * lists->filecount + 1);
-    array = (char **)ft_memalloc(sizeof(char *) * lists->filecount  + 1);
+    // array = (char **)ft_memalloc(sizeof(char *) * lists->filecount  + 1);
     ft_strcpy(temp, arg);
     while ((dit = readdir(dip)) != NULL)
     {
         if (flag == 0)
         {
-            if (dit->d_name[0] != '.')
-            {
-               if (lists->i > 0)
-                    ft_strcpy(arg, temp);
-                ft_strcat(arg, dit->d_name);
-                lists->dest[lists->i] = ft_strdup(arg);
-                ft_bzero(arg, ft_strlen(arg));
-                lists->i++;
-            }
+            read_helper_guts(lists, arg, dit, temp, 0);
+            // if (dit->d_name[0] != '.')
+            // {
+            //    if (lists->i > 0)
+            //         ft_strcpy(arg, temp);
+            //     ft_strcat(arg, dit->d_name);
+            //     lists->dest[lists->i] = ft_strdup(arg);
+            //     ft_bzero(arg, ft_strlen(arg));
+            //     lists->i++;
+            // }
         }
         else if (flag == 1)
         {
-            if (lists->i > 0)
-                ft_strcpy(arg, temp);
-            ft_strcat(arg, dit->d_name);
-            lists->dest[lists->i] = ft_strdup(arg);
-            ft_bzero(arg, ft_strlen(arg));
-            lists->i++;        
+            read_helper_guts_a(lists, arg, dit, temp, 0);
+            // if (lists->i > 0)
+            //     ft_strcpy(arg, temp);
+            // ft_strcat(arg, dit->d_name);
+            // lists->dest[lists->i] = ft_strdup(arg);
+            // ft_bzero(arg, ft_strlen(arg));
+            // lists->i++;        
         }
     }
     if (closedir(dip) == -1)
@@ -225,26 +227,30 @@ int   Rt_helper(const char *str, int flag, t_lists *lists)
     {
         if (flag == 0)
         {
-            if (dit->d_name[0] != '.')
-            {
-               if (lists->i > 0)
-                    ft_strcpy(arg, temp);
-                ft_strcat(arg, dit->d_name);
-                lists->dest[lists->i] = ft_strdup(arg);
-                ft_bzero(arg, ft_strlen(arg));
-                lists->timearray[lists->i] = ft_strdup(ft_itoa(time_stat(lists->dest[lists->i])));
-                lists->i++;
-            }
+            // if (dit->d_name[0] != '.')
+            // {
+                read_helper_guts(lists, arg, dit, temp, 1);
+
+            //    if (lists->i > 0)
+            //         ft_strcpy(arg, temp);
+            //     ft_strcat(arg, dit->d_name);
+            //     lists->dest[lists->i] = ft_strdup(arg);
+            //     ft_bzero(arg, ft_strlen(arg));
+            //     lists->timearray[lists->i] = ft_strdup(ft_itoa(time_stat(lists->dest[lists->i])));
+            //     lists->i++;
+            // }
         }
         else if (flag == 1)
         {
-            if (lists->i > 0)
-                ft_strcpy(arg, temp);
-            ft_strcat(arg, dit->d_name);
-            lists->dest[lists->i] = ft_strdup(arg);
-            ft_bzero(arg, ft_strlen(arg));
-            lists->timearray[lists->i] = ft_strdup(ft_itoa(time_stat(lists->dest[lists->i])));
-            lists->i++;        
+            read_helper_guts_a(lists, arg, dit, temp, 1);
+
+            // if (lists->i > 0)
+            //     ft_strcpy(arg, temp);
+            // ft_strcat(arg, dit->d_name);
+            // lists->dest[lists->i] = ft_strdup(arg);
+            // ft_bzero(arg, ft_strlen(arg));
+            // lists->timearray[lists->i] = ft_strdup(ft_itoa(time_stat(lists->dest[lists->i])));
+            // lists->i++;        
         }
     }
     if (closedir(dip) == -1)
@@ -306,7 +312,6 @@ int    Rl_helper(const char *str, int flag, t_lists *lists)
     struct stat     fileStat;
     char            arg[WORD_MAX];
     char            temp[WORD_MAX];
-    char            **array;
 
     lists->size = 0;
     lists->i = 0;
@@ -337,30 +342,33 @@ int    Rl_helper(const char *str, int flag, t_lists *lists)
     else if (flag == 1)
         lists->filecount = directory_count(dip, arg, 1);
     lists->dest = (char **)ft_memalloc(sizeof(char *) * lists->filecount  + 1);
-    array = (char **)ft_memalloc(sizeof(char *) * lists->filecount  + 1);
     ft_strcpy(temp, arg);
     while ((dit = readdir(dip)) != NULL)
     {
         if (flag == 0)
         {
-            if (dit->d_name[0] != '.')
-            {
-                if (lists->i > 0)
-                    ft_strcpy(arg, temp);
-                ft_strcat(arg, dit->d_name);
-                lists->dest[lists->i] = ft_strdup(arg);
-                ft_bzero(arg, ft_strlen(arg));
-                lists->i++;
-            }
+            read_helper_guts(lists, arg, dit, temp, 0);
+
+            // if (dit->d_name[0] != '.')
+            // {
+            //     if (lists->i > 0)
+            //         ft_strcpy(arg, temp);
+            //     ft_strcat(arg, dit->d_name);
+            //     lists->dest[lists->i] = ft_strdup(arg);
+            //     ft_bzero(arg, ft_strlen(arg));
+            //     lists->i++;
+            // }
         }
         else if (flag == 1)
         {
-            if (lists->i > 0)
-                ft_strcpy(arg, temp);
-            ft_strcat(arg, dit->d_name);
-            lists->dest[lists->i] = ft_strdup(arg);
-            ft_bzero(arg, ft_strlen(arg));
-            lists->i++;
+            read_helper_guts_a(lists, arg, dit, temp, 0);
+
+            // if (lists->i > 0)
+            //     ft_strcpy(arg, temp);
+            // ft_strcat(arg, dit->d_name);
+            // lists->dest[lists->i] = ft_strdup(arg);
+            // ft_bzero(arg, ft_strlen(arg));
+            // lists->i++;
         }
     }
     if (closedir(dip) == -1)
@@ -411,26 +419,31 @@ int  rbigrt_helper(const char *str, int flag, t_lists *lists)
     {
         if (flag == 0)
         {
-            if (dit->d_name[0] != '.')
-            {
-               if (lists->i > 0)
-                    ft_strcpy(arg, temp);
-                ft_strcat(arg, dit->d_name);
-                lists->dest[lists->i] = ft_strdup(arg);
-                ft_bzero(arg, ft_strlen(arg));
-                lists->timearray[lists->i] = ft_strdup(ft_itoa(time_stat(lists->dest[lists->i])));
-                lists->i++;
-            }
+            read_helper_guts(lists, arg, dit, temp, 1);
+
+            // if (dit->d_name[0] != '.')
+            // {
+            //    if (lists->i > 0)
+            //         ft_strcpy(arg, temp);
+            //     ft_strcat(arg, dit->d_name);
+            //     lists->dest[lists->i] = ft_strdup(arg);
+            //     ft_bzero(arg, ft_strlen(arg));
+            //     lists->timearray[lists->i] = ft_strdup(ft_itoa(time_stat(lists->dest[lists->i])));
+            //     lists->i++;
+            // }
         }
         else if (flag == 1)
         {
-            if (lists->i > 0)
-                ft_strcpy(arg, temp);
-            ft_strcat(arg, dit->d_name);
-            lists->dest[lists->i] = ft_strdup(arg);
-            ft_bzero(arg, ft_strlen(arg));
-            lists->timearray[lists->i] = ft_strdup(ft_itoa(time_stat(lists->dest[lists->i])));
-            lists->i++;        
+            read_helper_guts_a(lists, arg, dit, temp, 1);
+
+
+            // if (lists->i > 0)
+            //     ft_strcpy(arg, temp);
+            // ft_strcat(arg, dit->d_name);
+            // lists->dest[lists->i] = ft_strdup(arg);
+            // ft_bzero(arg, ft_strlen(arg));
+            // lists->timearray[lists->i] = ft_strdup(ft_itoa(time_stat(lists->dest[lists->i])));
+            // lists->i++;        
         }
     }
     if (closedir(dip) == -1)
@@ -485,26 +498,30 @@ int  everything_helper(const char *str, int flag, t_lists *lists)
     {
         if (flag == 0)
         {
-            if (dit->d_name[0] != '.')
-            {
-                if (lists->i > 0)
-                    ft_strcpy(arg, temp);
-                ft_strcat(arg, dit->d_name);
-                lists->dest[lists->i] = ft_strdup(arg);
-                ft_bzero(arg, ft_strlen(arg));
-                lists->timearray[lists->i] = ft_strdup(ft_itoa(time_stat(lists->dest[lists->i])));
-                lists->i++;
-            }
+            read_helper_guts(lists, arg, dit, temp, 1);
+
+            // if (dit->d_name[0] != '.')
+            // {
+            //     if (lists->i > 0)
+            //         ft_strcpy(arg, temp);
+            //     ft_strcat(arg, dit->d_name);
+            //     lists->dest[lists->i] = ft_strdup(arg);
+            //     ft_bzero(arg, ft_strlen(arg));
+            //     lists->timearray[lists->i] = ft_strdup(ft_itoa(time_stat(lists->dest[lists->i])));
+            //     lists->i++;
+            // }
         }
         else if (flag == 1)
         {
-            if (lists->i > 0)
-                ft_strcpy(arg, temp);
-            ft_strcat(arg, dit->d_name);
-            lists->dest[lists->i] = ft_strdup(arg);
-            ft_bzero(arg, ft_strlen(arg));
-            lists->timearray[lists->i] = ft_strdup(ft_itoa(time_stat(lists->dest[lists->i])));
-            lists->i++;
+            read_helper_guts_a(lists, arg, dit, temp, 1);
+
+            // if (lists->i > 0)
+            //     ft_strcpy(arg, temp);
+            // ft_strcat(arg, dit->d_name);
+            // lists->dest[lists->i] = ft_strdup(arg);
+            // ft_bzero(arg, ft_strlen(arg));
+            // lists->timearray[lists->i] = ft_strdup(ft_itoa(time_stat(lists->dest[lists->i])));
+            // lists->i++;
         }
     }
     ft_switch_time(lists);

@@ -175,15 +175,12 @@ void 					ls_lt(int argc, char **argv, t_lists *lists)
 {
 	int				j;
 	DIR				*dip;
-	// struct dirent	*dit;
 	char			**splitstr;
 	struct stat 	fileStat;
 	char			arg[WORD_MAX];
-	int 			size;
-	// char 			**array;
-	// char  			temp[WORD_MAX];
+	// int 			size;
 
-	size = 0;
+	// size = 0;
 	lists->i = 0;
 	j = 2;
 	lists->flag = 0;

@@ -69,7 +69,6 @@ int ls_stat(char *str,  t_lists *lists)
     char            *foo;
     char            **timearray;
     char            *hourmin;
-    hourmin = (char *)malloc(sizeof(char));
 
     if(lstat(str, &fileStat) < 0) 
     {
@@ -80,7 +79,7 @@ int ls_stat(char *str,  t_lists *lists)
     /*
     ** file permissions
     */
-    lstat(str, &fileStat);
+    // lstat(str, &fileStat);
     if (S_ISLNK(fileStat.st_mode))
         ft_printf("l");
     else if (S_ISDIR(fileStat.st_mode) == 1)
@@ -135,12 +134,13 @@ int ls_stat(char *str,  t_lists *lists)
     ** last modification date
     ** split up ctime array into format present on ls -l (month date hour:min)
     */
+    hourmin = (char *)malloc(sizeof(char));
     foo = ctime(&(fileStat.st_mtime));
     // printf("\nfoo: %s\n", foo[1]);
     timearray = ft_strsplit(foo, ' ');
     ft_strncpy(hourmin, timearray[3], 5);
     ft_printf("%s %2s %s\t", timearray[1], timearray[2], hourmin);
-    lstat(str, &fileStat);
+    // lstat(str, &fileStat);
     if (S_ISLNK(fileStat.st_mode))
     {
         char *buf = readlink_malloc(str);
