@@ -21,7 +21,10 @@ SRC = srcs/main.c \
 	srcs/morehelpers.c \
 	srcs/helpersthree.c \
 	srcs/lex_sorts.c \
-	srcs/argparsing.c
+	srcs/argparsing.c \
+	srcs/maintwo.c \
+	srcs/mainthree.c \
+	srcs/mainfour.c
 
 OBJ = $(SRC:.c=.o)
 

@@ -32,6 +32,7 @@ typedef struct	s_lists
 	char 		**strs;
 	int 		i;
 	int 		j;
+	int 		k;
 	char		*temp;
 	char 		*tempdest;
 	int 		timeleni;
@@ -54,7 +55,7 @@ void	arg_parsing(int argc, char **argv, t_lists *lists);
 void			init_struct(t_lists **lists);
 int				directory_count(DIR *dip, char *str, int flag);
 void			list_dir(int argc, char **argv);
-void			list_dira(int argc, char **argv);
+void			list_dira(int argc, char **argv, t_lists *lists);
 int 			ls_stat(char *str, t_lists *lists);
 void			list_dirr(int argc, char **argv, t_lists *lists);
 void			list_dirt(int argc, char **argv, t_lists *lists);
@@ -118,6 +119,23 @@ void	recursive_cat(char *path, const char *name, struct dirent *entry);
 void	list_dirta_helper(t_lists *lists, char *str);
 void 	la_helper(char *str, t_lists *lists);
 int	argc_stuff(int argc, char **argv, t_lists *lists);
+void	main_two(int argc, char **argv, t_lists *lists);
+void	main_three(int argc, char **argv, t_lists *lists);
+void	main_four(int argc, char **argv, t_lists *lists);
+void	main_five(int argc, char **argv, t_lists *lists);
+void	main_six(int argc, char **argv, t_lists *lists);
+void	main_seven(int argc, char **argv, t_lists *lists);
+void	main_eight(int argc, char **argv, t_lists *lists);
+void	main_nine(int argc, char **argv, t_lists *lists);
+void	main_ten(int argc, char **argv, t_lists *lists);
+void	main_eleven(int argc, char **argv, t_lists *lists);
+void	main_twelve(int argc, char **argv, t_lists *lists);
+void	main_thirteen(int argc, char **argv, t_lists *lists);
+void	main_fourteen(int argc, char **argv, t_lists *lists);
+void	main_fifteen(int argc, char **argv, t_lists *lists);
+
+
+
 
 
 

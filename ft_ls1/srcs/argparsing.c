@@ -41,6 +41,7 @@ void	arg_parsing(int argc, char **argv, t_lists *lists)
 		}
 		lists->i++;
 	}
+	printf("original argcount: %d\n", lists->argcount);
 	lists->argcount++;
 	// printf("rflag: %d\ntflag: %d\nRflag: %d\nlflag: %d\naflag: %d\n", lists->rflag, \
 	// 	lists->tflag, lists->big_r_flag, lists->lflag, lists->aflag);

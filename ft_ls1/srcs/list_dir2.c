@@ -51,40 +51,24 @@ void	list_dir(int argc, char **argv)
 /*
 ** ls -a
 */
-void	list_dira(int argc, char **argv)
+void	list_dira(int argc, char **argv, t_lists *lists)
 {
 	DIR				*dip;
 	struct dirent	*dit;
-	struct stat 	fileStat;
-	int				j;
-	j = 1;
+	lists->j = 1;
 
 	if (argc == 2)
 	{
 		argv[2] = ".";
 		argc = 3;
 	}
-	while (++j < argc)
+	while (++lists->j < argc)
 	{
-		if (j > 2 && j < argc)
+		if (lists->j > 2 && lists->j < argc)
 			write(1, "\n", 1);
-		dip = opendir(argv[j]);
+		dip = opendir(argv[lists->j]);
 		if (dip == NULL)
-		{
-			/*
-			** TODO: create own function for this because it happens often?
-			*/
-				if(stat(argv[j],&fileStat) < 0)  
-				{
-					ft_printf(".hi /ft_ls: %s: No such file or directory\n", argv[j]);
-					exit (-1);
-				} 
-				printf("%s\n", argv[j]);
-				exit(1);
-			/*
-			** end function here?
-			*/
-		}
+			null_check(argv[lists->j]);
 		while ((dit = readdir(dip)) != NULL)
 			ft_printf("%s\n", dit->d_name);
 		if (closedir(dip) == -1)
