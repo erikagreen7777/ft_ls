@@ -41,9 +41,16 @@ typedef struct	s_lists
 	char 		newpath[PATH_MAX];
 	int 		flag;
 	int 		size;
+	int 		argcount;
+	int 		tflag;
+	int 		big_r_flag;
+	int 		rflag;
+	int 		lflag;
+	int 		aflag;
 
 }				t_lists;
 
+void	arg_parsing(int argc, char **argv, t_lists *lists);
 void			init_struct(t_lists **lists);
 int				directory_count(DIR *dip, char *str, int flag);
 void			list_dir(int argc, char **argv);
@@ -110,6 +117,7 @@ void	rla_helper_helper(t_lists *lists, char *str);
 void	recursive_cat(char *path, const char *name, struct dirent *entry);
 void	list_dirta_helper(t_lists *lists, char *str);
 void 	la_helper(char *str, t_lists *lists);
+int	argc_stuff(int argc, char **argv, t_lists *lists);
 
 
 

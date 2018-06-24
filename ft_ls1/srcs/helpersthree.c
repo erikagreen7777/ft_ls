@@ -31,3 +31,13 @@ void 	la_helper(char *str, t_lists *lists)
 		ft_error("closedir");
 }
 
+int	argc_stuff(int argc, char **argv, t_lists *lists)
+{
+	lists->j = 1;
+	if (argc == 2)
+	{
+		argv[lists->j + 1] = ".";
+		argc = 3;
+	}
+	return (argc);
+}

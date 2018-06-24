@@ -38,7 +38,6 @@ void	list_dirl(int argc, char **argv, t_lists *lists)
 	char			arg[WORD_MAX];
 
 /* ------------------------------------------> */
-	lists->size = 0;
 	lists->i = 0;
 	j = 1;
 	lists->flag = 0;
@@ -115,81 +114,36 @@ void	list_dirt(int argc, char **argv, t_lists *lists)
 	print_lists(lists);
 }
 /*
-** lexicographically sort for ls -rl
+** ls -r
 */
-void	lex_sortrl(t_lists *lists)
+void	list_dirr(int argc, char **argv, t_lists *lists)
 {
-	char 	*temp;
-	lists->i = 0;
-	while (lists->i < lists->filecount)
+	DIR				*dip;
+	char			arg[WORD_MAX];
+	// int				lists->j;
+/* ------------------------------------------> */
+	// argc = argc_stuff(argc, argv, lists);
+	lists->j = 1;
+	if (argc >= 2)
 	{
-		lists->j = lists->i + 1;
-		while (lists->j < lists->filecount)
-		{
-			if (ft_strcmp(lists->dest[lists->i], lists->dest[lists->j]) < 0)
-			{
-				temp = ft_strdup(lists->dest[lists->i]);				
-				ft_bzero(lists->dest[lists->i], ft_strlen(lists->dest[lists->i]));
-				lists->dest[lists->i] = ft_strdup(lists->dest[lists->j]);
-				ft_bzero(lists->dest[lists->j], ft_strlen(lists->dest[lists->j]));
-				lists->dest[lists->j] = ft_strdup(temp);
-				ft_bzero(temp, ft_strlen(temp));
-			}
-			lists->j++;
-		}
-		lists->i++;
+		argv[lists->j + 1] = ".";
+		argc = 3;
 	}
-}
-/*
-** - reverse lexicographically sort for -rla
-*/
-void	rlex_sortrl(t_lists *lists)
-{
-	char 	*temp;
-	lists->i = 0;
-	while (lists->i < lists->filecount)
+	/* ------------------------------------------> */
+	while (++lists->j < argc)
 	{
-		lists->j = lists->i + 1;
-		while (lists->j < lists->filecount)
-		{
-			if (ft_strcmp(lists->dest[lists->i], lists->dest[lists->j]) > 0)
-			{
-				temp = ft_strdup(lists->dest[lists->i]);				
-				ft_bzero(lists->dest[lists->i], ft_strlen(lists->dest[lists->i]));
-				lists->dest[lists->i] = ft_strdup(lists->dest[lists->j]);
-				ft_bzero(lists->dest[lists->j], ft_strlen(lists->dest[lists->j]));
-				lists->dest[lists->j] = ft_strdup(temp);
-				ft_bzero(temp, ft_strlen(temp));
-			}
-			lists->j++;
-		}
-		lists->i++;
+		if (lists->j > 2 && lists->j < argc)
+			write(1, "\n", 1);
+		dip = opendir(argv[lists->j]);
+		if (dip == NULL)
+			null_check(argv[lists->j]);
+		if (closedir(dip) == -1)
+			ft_error("closedir");
+		lists->filecount = directory_count(dip, argv[lists->j], 0);
+		dip = opendir(argv[lists->j]);
+		read_helper(lists, 0, arg, dip);
+		if (closedir(dip) == -1)
+			ft_error("closedir");
+		lex_sort(lists);
 	}
-}
-/*
-** lexicographically sort for ls -r
-*/
-void	lex_sort(t_lists *lists)
-{
-	char 	*temp;
-	lists->i = 0;
-	while (lists->i < lists->filecount)
-	{
-		lists->j = lists->i + 1;
-		while (lists->j < lists->filecount)
-		{
-			if (ft_strcmp(lists->dest[lists->i], lists->dest[lists->j]) < 0)
-			{
-				temp = ft_strdup(lists->dest[lists->i]);				
-				ft_bzero(lists->dest[lists->i], ft_strlen(lists->dest[lists->i]));
-				lists->dest[lists->i] = ft_strdup(lists->dest[lists->j]);
-				ft_bzero(lists->dest[lists->j], ft_strlen(lists->dest[lists->j]));
-				lists->dest[lists->j] = ft_strdup(temp);
-				ft_bzero(temp, ft_strlen(temp));
-			}
-			lists->j++;
-		}
-		lists->i++;
-	}
-	print_lists(lists);
 }

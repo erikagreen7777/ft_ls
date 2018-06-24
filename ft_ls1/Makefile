@@ -19,7 +19,9 @@ SRC = srcs/main.c \
 	srcs/quadruples.c \
 	srcs/ls_stat_helpers.c \
 	srcs/morehelpers.c \
-	srcs/helpersthree.c
+	srcs/helpersthree.c \
+	srcs/lex_sorts.c \
+	srcs/argparsing.c
 
 OBJ = $(SRC:.c=.o)
 
