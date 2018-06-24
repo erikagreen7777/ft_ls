@@ -27,6 +27,11 @@ void				read_helper_guts(t_lists *lists, char *arg, struct dirent *dit, char *te
 	}
 }
 
+// void	free_helper_stuff()
+// {
+
+// }
+
 void				read_helper(t_lists *lists, int flag, char *arg, DIR *dip)
 {
 	char			temp[WORD_MAX];
@@ -74,6 +79,9 @@ void				print_lists(t_lists *lists)
 	lists->i = -1;
 	while (++lists->i < lists->filecount)
 		ft_printf("%s\n", lists->dest[lists->i]);
+	lists->i = -1;
+	while (++lists->i < lists->filecount)
+		free(lists->dest[lists->i]);
 }
 /*
 ** - print lists backwards (for -r flags)

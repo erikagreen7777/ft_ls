@@ -114,6 +114,21 @@ void	list_dirt(int argc, char **argv, t_lists *lists)
 	print_lists(lists);
 }
 /*
+** frees stuff used for lex_sort
+*/
+// static void	free_lex_sort(t_lists *lists)
+// {
+// 	int i;
+// 	i = 0;
+// 	while (i < lists->filecount)
+// 	{
+// 		free(lists->dest[i]);
+// 		i++;
+// 	}
+// 	// free(*lists->dest);
+
+// }
+/*
 ** ls -r
 */
 void	list_dirr(int argc, char **argv, t_lists *lists)
@@ -123,7 +138,7 @@ void	list_dirr(int argc, char **argv, t_lists *lists)
 	struct stat 	fileStat;
 	char			arg[WORD_MAX];
 /* --------------------------------------------> */
-	lists->i = 0;
+	// lists->i = 0;
 	j = 1;
 	if (argc == 2)
 	{
@@ -133,6 +148,7 @@ void	list_dirr(int argc, char **argv, t_lists *lists)
 /* --------------------------------------------> */
 	while (++j < argc)
 	{
+		lists->i = 0;
 		if(lstat(argv[j], &fileStat) < 0) 
         	ft_error("ls -t: No such file or directory");
 		if ((fileStat.st_mode & S_IFMT) == S_IFREG)
@@ -144,10 +160,14 @@ void	list_dirr(int argc, char **argv, t_lists *lists)
 				ft_strcat(arg, "/");
 			lists->filecount = directory_count(dip, argv[j], 0);
 			dip = opendir(argv[j]);
-			read_helper(lists, 1, arg, dip);
-			if (closedir(dip) == -1)
-				ft_error("closedir");
+			read_helper(lists, 0, arg, dip);
 		}
+		if (closedir(dip) == -1)
+			ft_error("closedir");
+		lex_sort(lists);
+		// free_lex_sort(lists);
 	}
-	lex_sort(lists);
+
+	// lex_sort(lists);
+
 }

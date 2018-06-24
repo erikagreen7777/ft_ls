@@ -13,3 +13,5 @@ git addclear
 
 -l isn't lexico sorted. Does it matter?
 
+-r newline between directories?
+
