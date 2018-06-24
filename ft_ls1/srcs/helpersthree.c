@@ -10,3 +10,4 @@ void	recursive_cat(char *path, const char *name, struct dirent *entry)
     ft_strcat(path, entry->d_name);
     ft_printf("\n%s: \n", path);
 }
+

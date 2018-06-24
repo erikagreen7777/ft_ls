@@ -41,13 +41,14 @@ void			list_dirta(int argc, char **argv, t_lists *lists)
 	}
 	while (j < argc)
 	{
-/* --------------------------------------------------> */
 		if(stat(argv[j], &fileStat) < 0) 
         	ft_error("ls -t: No such file or directory");
 		if ((fileStat.st_mode & S_IFMT) == S_IFREG)
 			ls_stat(argv[j], lists);
 		else if (S_ISDIR(fileStat.st_mode) == 1)
 		{
+			/* --------------------------------------------------> */
+
 			ft_strcpy(arg, argv[j]);
 			if (ft_strcmp(&arg[ft_strlen(arg) - 1], "/") != 0)
 				ft_strcat(arg, "/");

@@ -22,7 +22,7 @@ int   	Rrl_helper(const char *str, int flag, t_lists *lists)
     if (dip == NULL)
         null_check(str);
     rl_helper_helper(dip, lists, arg, flag);
-
+/* ----------------------------------------------------> */
     // if (flag == 0)
     //     lists->filecount = directory_count(dip, arg, 0);
     // else if (flag == 1)
@@ -36,8 +36,7 @@ int   	Rrl_helper(const char *str, int flag, t_lists *lists)
     //     else if (flag == 1)
     //         read_helper_guts_a(lists, arg, dit, temp, 0);
     // }
-
-
+/* ----------------------------------------------------> */
     if (closedir(dip) == -1)
         ft_error("closedir");
     lex_sortrl(lists);
