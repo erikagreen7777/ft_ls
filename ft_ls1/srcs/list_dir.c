@@ -84,7 +84,6 @@ void	list_dirt(int argc, char **argv, t_lists *lists)
 	struct stat 	fileStat;
 	char			arg[WORD_MAX];
 /* --------------------------------------------> */
-	lists->i = 0;
 	j = 1;
 	if (argc == 2)
 	{
@@ -94,6 +93,7 @@ void	list_dirt(int argc, char **argv, t_lists *lists)
 /* --------------------------------------------> */
 	while (++j < argc)
 	{
+		lists->i = 0;
 		if(lstat(argv[j], &fileStat) < 0) 
         	ft_error("ls -t: No such file or directory");
 		if ((fileStat.st_mode & S_IFMT) == S_IFREG)
@@ -108,10 +108,12 @@ void	list_dirt(int argc, char **argv, t_lists *lists)
 			read_helper(lists, 1, arg, dip);
 			if (closedir(dip) == -1)
 				ft_error("closedir");
+			ft_switch_time(lists);
+			print_lists(lists);
 		}
 	}
-	ft_switch_time(lists);
-	print_lists(lists);
+	// ft_switch_time(lists);
+	// print_lists(lists);
 }
 /*
 ** frees stuff used for lex_sort
