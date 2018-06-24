@@ -133,6 +133,7 @@ void	main_twelve(int argc, char **argv, t_lists *lists);
 void	main_thirteen(int argc, char **argv, t_lists *lists);
 void	main_fourteen(int argc, char **argv, t_lists *lists);
 void	main_fifteen(int argc, char **argv, t_lists *lists);
+void	the_start(int argc, char **argv, t_lists *lists);
 
 
 

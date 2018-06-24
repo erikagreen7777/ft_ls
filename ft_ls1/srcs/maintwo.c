@@ -1,5 +1,33 @@
 #include "../ft_ls.h"
 
+void	the_start(int argc, char **argv, t_lists *lists)
+{
+	/*
+	** -r
+	*/
+	if (lists->rflag > 0 && lists->tflag == 0 && \
+		lists->big_r_flag == 0 && lists->lflag == 0 && \
+		lists->aflag == 0)
+		{
+			list_dirr(argc, argv, lists);
+			exit (0);
+		}
+	main_two(argc, argv, lists);
+	main_three(argc, argv, lists);
+	main_four(argc, argv, lists);
+	main_five(argc, argv, lists);
+	main_six(argc, argv, lists);
+	main_seven(argc, argv, lists);
+	main_eight(argc, argv, lists);
+	main_nine(argc, argv, lists);
+	main_ten(argc, argv, lists);
+	main_eleven(argc, argv, lists);
+	main_twelve(argc, argv, lists);
+	main_thirteen(argc, argv, lists);
+	main_fourteen(argc, argv, lists);
+}
+
+
 void	main_two(int argc, char **argv, t_lists *lists)
 {
 	/*
