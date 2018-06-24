@@ -85,10 +85,10 @@ void	ls_stat_helper(t_lists *lists)
 void 	ls_la(int argc, char **argv, t_lists *lists)
 {
 	int				j;
-	DIR				*dip;
+	// DIR				*dip;
 	char			**splitstr;
 	struct stat 	fileStat;
-	char			arg[WORD_MAX];
+	// char			arg[WORD_MAX];
 
 	lists->i = 0;
 	j = 2;
@@ -108,21 +108,24 @@ void 	ls_la(int argc, char **argv, t_lists *lists)
 			ls_stat(argv[j], lists);
 		else if (S_ISDIR(fileStat.st_mode) == 1)
 		{
-			dip = opendir(argv[j]);
-			ft_strcpy(arg, argv[j]);
-			if (ft_strcmp(arg, "/dev") == 0)
-				lists->flag = 1;
-			if (ft_strcmp(&arg[ft_strlen(arg) - 1], "/") != 0)
-				ft_strcat(arg, "/");
-			if (closedir(dip) == -1)
-				ft_error("closedir");
-			lists->filecount = directory_count(dip, argv[j], 1);
-			dip = opendir(argv[j]);
-			read_helper_a(lists, 0, arg, dip);
-			if (closedir(dip) == -1)
-				ft_error("closedir");
-			/* ------------------------------------------------------------->> function end here */
+				la_helper(argv[j], lists);
+
+		// 	dip = opendir(argv[j]);
+		// 	ft_strcpy(arg, argv[j]);
+		// 	if (ft_strcmp(arg, "/dev") == 0)
+		// 		lists->flag = 1;
+		// 	if (ft_strcmp(&arg[ft_strlen(arg) - 1], "/") != 0)
+		// 		ft_strcat(arg, "/");
+		// 	if (closedir(dip) == -1)
+		// 		ft_error("closedir");
+		// 	lists->filecount = directory_count(dip, argv[j], 1);
+		// 	dip = opendir(argv[j]);
+		// 	read_helper_a(lists, 0, arg, dip);
+		// 	if (closedir(dip) == -1)
+		// 		ft_error("closedir");
 		}
+
+			/* ------------------------------------------------------------->> function end here */
 		j++;
 	}
 	ls_stat_helper(lists);

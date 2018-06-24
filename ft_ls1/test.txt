@@ -11,3 +11,5 @@ git addclear
 
 -lexicographically sort switch_time if it's the same ctime (it works for something but test for everything)
 
+-l isn't lexico sorted. Does it matter?
+
