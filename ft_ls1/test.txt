@@ -5,13 +5,10 @@ git addclear
 
 -list_dirta reticent on norming (function length). same for list_dirlr
  
-- multiple arguments like -l -t -R -r -a instead of -ltRra
-
 - print out the file name, not the complete path
 
 -lexicographically sort switch_time if it's the same ctime (it works for something but test for everything)
 
 -l isn't lexico sorted. Does it matter?
 
--r newline between directories?
 
