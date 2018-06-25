@@ -1,14 +1,13 @@
 **** MEMORY LEAKS ****
 git addclear
-
--list_dirlr is really long still
-
--list_dirta reticent on norming (function length). same for list_dirlr
  
 - print out the file name, not the complete path
 
 -lexicographically sort switch_time if it's the same ctime (it works for something but test for everything)
 
 -l isn't lexico sorted. Does it matter?
+
+./ft_ls -r -R
+./ft_ls: -R: No such file or directory
 
 

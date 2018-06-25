@@ -41,14 +41,8 @@ void	arg_parsing(int argc, char **argv, t_lists *lists)
 		}
 		lists->i++;
 	}
+	/*
+	** - might be unnecessary
+	*/
 	lists->argcount++;
-	// printf("rflag: %d\ntflag: %d\nRflag: %d\nlflag: %d\naflag: %d\n", lists->rflag, \
-	// 	lists->tflag, lists->big_r_flag, lists->lflag, lists->aflag);
-	// printf("The argc to start counting from is: %d\n", lists->argcount + 1);
-	// lists->i = lists->argcount;
-	// while (lists->i < argc)
-	// {
-	// 	printf("argv[%d]: %s\n", lists->i, argv[lists->i]);
-	// 	lists->i++;
-	// }
 }

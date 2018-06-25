@@ -86,14 +86,12 @@ void 	ls_la(int argc, char **argv, t_lists *lists)
 {
 	int				j;
 	// DIR				*dip;
-	char			**splitstr;
 	struct stat 	fileStat;
 	// char			arg[WORD_MAX];
 
-	lists->i = 0;
+	// lists->i = 0;
 	j = 2;
 	lists->flag = 0;
-	splitstr = NULL;
 	if (argc == 2)
 	{
 		argv[j] = ".";
@@ -101,6 +99,7 @@ void 	ls_la(int argc, char **argv, t_lists *lists)
 	}
 	while (j < argc)
 	{
+		lists->i = 0;
 		/* ------------------------------------------------------>> funtion start here */
 		if(lstat(argv[j], &fileStat) < 0) 
         	ft_error("ls -l: No such file or directory");

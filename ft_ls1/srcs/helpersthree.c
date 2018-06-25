@@ -41,3 +41,48 @@ int	argc_stuff(int argc, char **argv, t_lists *lists)
 	}
 	return (argc);
 }
+/*
+** - Rrt helper
+*/
+int				rbigrt_helper(const char *str, int flag, t_lists *lists)
+{
+	DIR			*dip;
+	char		arg[WORD_MAX];
+	lists->i = 0;
+	ft_strcpy(arg, str);
+	if (ft_strcmp(&arg[ft_strlen(arg) - 1], "/") != 0)
+		ft_strcat(arg, "/");
+	dip = opendir(str);
+	if (dip == NULL)
+		null_check(str);
+	rt_helper_helper(dip, lists, arg, flag);
+	if (closedir(dip) == -1)
+		ft_error("closedir");
+	ft_switch_time(lists);
+	print_lists_back(lists);
+	return (0);
+}
+/*
+** - used for -Rrlta
+*/
+int				everything_helper(const char *str, int flag, t_lists *lists)
+{
+	DIR			*dip;
+	char		arg[WORD_MAX];
+	lists->size = 0;
+	lists->i = 0;
+	ft_strcpy(arg, str);
+	if (ft_strcmp(arg, "/dev") == 0)
+		lists->flag = 1;
+	if (ft_strcmp(&arg[ft_strlen(arg) - 1], "/") != 0)
+		ft_strcat(arg, "/");
+	dip = opendir(str);
+	if (dip == NULL)
+		null_check(str);
+	rt_helper_helper(dip, lists, arg, flag);
+	ft_switch_time(lists);
+	if (closedir(dip) == -1)
+		ft_error("closedir");
+	r_recursive_ls_stat_helper(lists);
+	return (0);
+}

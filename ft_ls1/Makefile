@@ -24,7 +24,8 @@ SRC = srcs/main.c \
 	srcs/argparsing.c \
 	srcs/maintwo.c \
 	srcs/mainthree.c \
-	srcs/mainfour.c
+	srcs/mainfour.c \
+	srcs/helpersfour.c
 
 OBJ = $(SRC:.c=.o)
 
