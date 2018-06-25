@@ -70,7 +70,7 @@ void    R_first(int argc, char **argv, int flag, int j);
 void 			ls_la(/*int argc, */char **argv, t_lists *lists);
 void 			ls_lt(/*int argc, */char **argv, t_lists *lists);
 void 			ls_lta(int argc, char **argv, t_lists *lists);
-void 			ls_ra(int argc, char **argv, t_lists *lists);
+void 			ls_ra(/*int argc, */char **argv, t_lists *lists);
 void 			ls_rt(int argc, char **argv, t_lists *lists);
 void			lex_sort(t_lists *lists);
 void 			ls_rat(int argc, char **argv, t_lists *lists);

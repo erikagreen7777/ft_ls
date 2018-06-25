@@ -123,7 +123,7 @@ void	main_four(int argc, char **argv, t_lists *lists)
 		lists->big_r_flag == 0 && lists->lflag == 0 && \
 		lists->aflag > 0)	
 	{
-		ls_ra(argc, argv, lists);
+		ls_ra(/*argc, */argv, lists);
 		exit (0);
 	}	
 	/*

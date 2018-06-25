@@ -12,4 +12,5 @@ git addclear
 
 ./ft_ls -la . srcs ~/Applications only shows Applications
 
-
+ls -ra is still a 
+mess

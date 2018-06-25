@@ -3,26 +3,26 @@
 /*
 ** helper function for ls -t
 */
-static int		directory_count(DIR *dip, char *str)
-{
-	int		filecount;
-	struct 	dirent *dit;
-	filecount = 0;
-	// str = NULL;
+// static int		directory_count(DIR *dip, char *str)
+// {
+// 	int		filecount;
+// 	struct 	dirent *dit;
+// 	filecount = 0;
+// 	// str = NULL;
 
-	while ((dit = readdir(dip)) != NULL)
-	{
-		if (dit->d_name[0] != '.')
-		{
-			filecount++;
-		}
-	}
-	if (closedir(dip) == -1)
-		ft_error("closedir");
+// 	while ((dit = readdir(dip)) != NULL)
+// 	{
+// 		if (dit->d_name[0] != '.')
+// 		{
+// 			filecount++;
+// 		}
+// 	}
+// 	if (closedir(dip) == -1)
+// 		ft_error("closedir");
 
-	dip = opendir(str);
-	return (filecount);
-}
+// 	dip = opendir(str);
+// 	return (filecount);
+// }
 
 
 /*
