@@ -90,13 +90,13 @@ void 	ls_la(int argc, char **argv, t_lists *lists)
 	// char			arg[WORD_MAX];
 
 	// lists->i = 0;
-	j = 2;
+	j = lists->argcount;
 	lists->flag = 0;
-	if (argc == 2)
-	{
-		argv[j] = ".";
-		argc = 3;
-	}
+	// if (argc == 2)
+	// {
+	// 	argv[j] = ".";
+	// 	argc = 3;
+	// }
 	while (j < argc)
 	{
 		lists->i = 0;
