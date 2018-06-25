@@ -36,7 +36,10 @@ void			list_dirta(/*int argc, */char **argv, t_lists *lists)
 	while (++j < lists->newargc)
 	{
 		if (j > lists->argcount && j < lists->newargc)
+		{
+			init_struct(&lists);
 			write(1, "\n", 1);
+		}
 		lists->i = 0;
 		if(stat(argv[j], &fileStat) < 0) 
         	ft_error("ls -t: No such file or directory");
@@ -54,6 +57,7 @@ void			list_dirta(/*int argc, */char **argv, t_lists *lists)
 			if (closedir(dip) == -1)
 				ft_error("closedir");
 			print_lists(lists);
+			free_struct(lists);
 		}
 	}
 }
@@ -95,7 +99,12 @@ void 					ls_lt(/*int argc, */char **argv, t_lists *lists)
 	j = lists->argcount;
 	lists->flag = 0;
 	while (j < lists->newargc)
-	{
+	{		
+		if (j > lists->argcount && j < lists->newargc)
+		{
+			write(1, "\n", 1);
+			init_struct(&lists);
+		}
 		lists->i = 0;
 		if(lstat(argv[j], &fileStat) < 0) 
         	ft_error("ls -l: No such file or directory");
@@ -105,6 +114,7 @@ void 					ls_lt(/*int argc, */char **argv, t_lists *lists)
 			lt_helper(lists, argv[j]);
 		ft_switch_time(lists);
 		ls_stat_helper(lists);
+		free_struct(lists);
 		j++;
 	}
 }
