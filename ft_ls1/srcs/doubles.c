@@ -102,6 +102,33 @@ void 	ls_la(/*int argc, */char **argv, t_lists *lists)
 	ls_stat_helper(lists);
 }
 
+/*
+** find out how many files are in a directory
+*/
+int		directory_count(DIR *dip, char *str, int flag)
+{
+	int		filecount;
+	struct 	dirent *dit;
+	filecount = 0;
+
+	dip = opendir(str);
+
+	while ((dit = readdir(dip)) != NULL)
+	{
+		if (flag == 0)
+		{
+			if (dit->d_name[0] != '.')
+				filecount++;
+		}
+		else if (flag == 1)
+			filecount++;
+	}
+	if (closedir(dip) == -1)
+		ft_error("closedir");
+
+	return (filecount);
+}
+
 
 
 
