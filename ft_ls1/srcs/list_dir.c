@@ -33,7 +33,6 @@ static void ls_l_helper(struct stat fileStat, char *arg, char *str, t_lists *lis
 void	list_dirl(int argc, char **argv, t_lists *lists)
 {
 	int				j;
-	// DIR				*dip;
 	struct stat 	fileStat;
 	char			arg[WORD_MAX];
 

@@ -80,7 +80,7 @@ void	ls_stat_helper(t_lists *lists)
 }
 
 /*
-** - a
+** - la
 */
 void 	ls_la(/*int argc, */char **argv, t_lists *lists)
 {
@@ -90,7 +90,12 @@ void 	ls_la(/*int argc, */char **argv, t_lists *lists)
 	j = lists->firstarg;
 	lists->flag = 0;
 	while (j < lists->newargc)
-	{
+	{		
+		if (j > lists->firstarg && j < lists->newargc)
+		{
+			write(1, "\n", 1);
+			init_struct(&lists);
+		}
 		lists->i = 0;
 		if(lstat(argv[j], &fileStat) < 0) 
         	ft_error("ls -l: No such file or directory");
@@ -99,6 +104,7 @@ void 	ls_la(/*int argc, */char **argv, t_lists *lists)
 		else if (S_ISDIR(fileStat.st_mode) == 1)
 			la_helper(argv[j], lists);
 		ls_stat_helper(lists);
+		free_struct(lists);
 		j++;
 	}
 	// ls_stat_helper(lists);
