@@ -119,17 +119,46 @@ void 					ls_lt(/*int argc, */char **argv, t_lists *lists)
 	}
 }
 /*
+** - rl helper
+*/
+static void rl_helper(char *str, t_lists *lists, struct dirent *dit)
+{
+    DIR             *dip;
+    char            arg[WORD_MAX];
+    char            temp[WORD_MAX];
+
+    dip = opendir(str);
+    ft_strcpy(arg, str);
+    if (ft_strcmp(arg, "/dev") == 0)
+        lists->flag = 1;
+    if (ft_strcmp(&arg[ft_strlen(arg) - 1], "/") != 0)
+        ft_strcat(arg, "/");
+    if (closedir(dip) == -1)
+        ft_error("closedir");
+    lists->filecount = directory_count(dip, str, 0);
+    dip = opendir(str);
+    lists->dest = (char **)ft_memalloc(sizeof(char *) * lists->filecount  + 1);
+    if (dip == NULL)
+        ft_error(": No file or directory");
+    ft_strcpy(temp, arg);
+    while ((dit = readdir(dip)) != NULL)
+    	read_helper_guts(lists, arg, dit, temp, 0);
+    if (closedir(dip) == -1)
+        ft_error("closedir");
+}
+/*
 ** -rl
 */
 void    list_dirlr(/*int argc, */char **argv, t_lists *lists)
 {
     int             j;
-    DIR             *dip;
+    // DIR             *dip;
     struct dirent   *dit;
     struct stat     fileStat;
-    char            arg[WORD_MAX];
-    char            temp[WORD_MAX];
+    // char            arg[WORD_MAX];
+    // char            temp[WORD_MAX];
 
+    dit = NULL;
 	j = lists->argcount;
     lists->flag = 0;
     // if (argc == 2)
@@ -146,25 +175,26 @@ void    list_dirlr(/*int argc, */char **argv, t_lists *lists)
             ls_stat(argv[j], lists);
         else if (S_ISDIR(fileStat.st_mode) == 1)
         {
+        	rl_helper(argv[j], lists, dit);
         	/* -----------------------------------> */
-            dip = opendir(argv[j]);
-            ft_strcpy(arg, argv[j]);
-            if (ft_strcmp(arg, "/dev") == 0)
-                lists->flag = 1;
-            if (ft_strcmp(&arg[ft_strlen(arg) - 1], "/") != 0)
-                ft_strcat(arg, "/");
-            if (closedir(dip) == -1)
-                ft_error("closedir");
-            lists->filecount = directory_count(dip, argv[j], 0);
-            dip = opendir(argv[j]);
-            lists->dest = (char **)ft_memalloc(sizeof(char *) * lists->filecount  + 1);
-            if (dip == NULL)
-                ft_error(": No file or directory");
-            ft_strcpy(temp, arg);
-            while ((dit = readdir(dip)) != NULL)
-            	read_helper_guts(lists, arg, dit, temp, 0);
-            if (closedir(dip) == -1)
-                ft_error("closedir");
+            // dip = opendir(argv[j]);
+            // ft_strcpy(arg, argv[j]);
+            // if (ft_strcmp(arg, "/dev") == 0)
+            //     lists->flag = 1;
+            // if (ft_strcmp(&arg[ft_strlen(arg) - 1], "/") != 0)
+            //     ft_strcat(arg, "/");
+            // if (closedir(dip) == -1)
+            //     ft_error("closedir");
+            // lists->filecount = directory_count(dip, argv[j], 0);
+            // dip = opendir(argv[j]);
+            // lists->dest = (char **)ft_memalloc(sizeof(char *) * lists->filecount  + 1);
+            // if (dip == NULL)
+            //     ft_error(": No file or directory");
+            // ft_strcpy(temp, arg);
+            // while ((dit = readdir(dip)) != NULL)
+            // 	read_helper_guts(lists, arg, dit, temp, 0);
+            // if (closedir(dip) == -1)
+            //     ft_error("closedir");
             /* -----------------------------------> */
 		    lex_sortrl(lists);
 		    ls_stat_helper(lists);
