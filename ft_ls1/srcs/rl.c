@@ -121,7 +121,7 @@ void 					ls_lt(/*int argc, */char **argv, t_lists *lists)
 /*
 ** -rl
 */
-void    list_dirlr(int argc, char **argv, t_lists *lists)
+void    list_dirlr(/*int argc, */char **argv, t_lists *lists)
 {
     int             j;
     DIR             *dip;
@@ -130,17 +130,16 @@ void    list_dirlr(int argc, char **argv, t_lists *lists)
     char            arg[WORD_MAX];
     char            temp[WORD_MAX];
 
-    lists->size = 0;
-    lists->i = 0;
-    j = 2;
+	j = lists->argcount;
     lists->flag = 0;
-    if (argc == 2)
+    // if (argc == 2)
+    // {
+    //     argv[j] = ".";
+    //     argc = 3;
+    // }
+	while (j < lists->newargc)
     {
-        argv[j] = ".";
-        argc = 3;
-    }
-    while (j < argc)
-    {
+	    lists->i = 0;
         if(lstat(argv[j], &fileStat) < 0) 
             ft_error("ls -l: No such file or directory");
         if (((fileStat.st_mode & S_IFMT) == S_IFREG) || S_ISLNK(fileStat.st_mode))
@@ -167,10 +166,11 @@ void    list_dirlr(int argc, char **argv, t_lists *lists)
             if (closedir(dip) == -1)
                 ft_error("closedir");
             /* -----------------------------------> */
-
+		    lex_sortrl(lists);
+		    ls_stat_helper(lists);
         }
         j++;
     }
-    lex_sortrl(lists);
-    ls_stat_helper(lists);
+    // lex_sortrl(lists);
+    // ls_stat_helper(lists);
 }

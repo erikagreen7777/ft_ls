@@ -15,11 +15,6 @@ void 					ls_rt(/*int argc, */char **argv, t_lists *lists)
 	char  			temp[WORD_MAX];
 
 	j = lists->argcount;
-	// if (argc == 2)
-	// {
-	// 	argv[j] = ".";
-	// 	argc = 3;
-	// }
 	while (j < lists->newargc)
 	{
 		if (j > lists->argcount && j < lists->newargc)
@@ -65,13 +60,6 @@ void 					ls_rt(/*int argc, */char **argv, t_lists *lists)
 		}
 		j++;
 	}
-	// print_lists_back(lists);
-	// lists->i = lists->filecount - 1;
-	// while (lists->i > -1)
-	// {
-	// 	printf("%s\n", lists->dest[lists->i]);
-	// 	lists->i--;
-	// }
 }
 
 /*
