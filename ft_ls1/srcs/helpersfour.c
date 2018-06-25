@@ -14,11 +14,8 @@ void				print_lists_back(t_lists *lists)
 int					Rr_helper(const char *str, int flag, t_lists *lists)
 {
 	DIR				*dip;
-    // struct dirent   *dit;
-    // struct stat     fileStat;
-    // char            **array;
 	char			arg[WORD_MAX];
-    // char            temp[WORD_MAX];
+
 	lists->i = 0;
 	ft_strcpy(arg, str);
 	if (ft_strcmp(&arg[ft_strlen(arg) - 1], "/") != 0)

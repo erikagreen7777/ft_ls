@@ -16,7 +16,7 @@ void	the_start(int argc, char **argv, t_lists *lists)
 	main_three(argc, argv, lists);
 	main_four(argc, argv, lists);
 	main_five(argc, argv, lists);
-	main_six(argc, argv, lists);
+	main_six(/*argc, */argv, lists);
 	main_seven(argc, argv, lists);
 	main_eight(argc, argv, lists);
 	main_nine(argc, argv, lists);
@@ -74,7 +74,7 @@ void	main_two(int argc, char **argv, t_lists *lists)
 		    argc = 3;
 		}
 		lists->i = 0;
-		R_first(argc, argv, 0);
+		R_first(argc, argv, 0, lists->argcount);
 		list_dirbigr(argv[2], 0);
 		exit (0);
 	}
@@ -157,14 +157,14 @@ void	main_five(int argc, char **argv, t_lists *lists)
 		lists->big_r_flag > 0 && lists->lflag == 0 && \
 		lists->aflag > 0)	
 	{
-		if (argc == 2)
-		{
-		    argv[2] = ".";
-		    argc = 3;
-		}
+		// if (argc == 2)
+		// {
+		//     argv[2] = ".";
+		//     argc = 3;
+		// }
 		lists->i = 0;
-		R_first(argc, argv, 1);
-		list_dirbigr(argv[2], 1);
+		R_first(argc, argv, 1, lists->argcount);
+		list_dirbigr(argv[lists->argcount], 1);
 		exit (0);
 	}
 	/*
@@ -174,19 +174,19 @@ void	main_five(int argc, char **argv, t_lists *lists)
 		lists->big_r_flag > 0 && lists->lflag == 0 && \
 		lists->aflag == 0)		
 	{
-		if (argc == 2)
-		{
-		    argv[2] = ".";
-		    argc = 3;
-		}
+		// if (argc == 2)
+		// {
+		//     argv[2] = ".";
+		//     argc = 3;
+		// }
 		lists->i = 0;
-		Rt_helper(argv[2], 0, lists);
-		list_dirbigrt(argv[2], 0, lists);
+		Rt_helper(argv[lists->argcount], 0, lists);
+		list_dirbigrt(argv[lists->argcount], 0, lists);
 		exit (0);
 	}
 }
 
-void	main_six(int argc, char **argv, t_lists *lists)
+void	main_six(/*int argc, */char **argv, t_lists *lists)
 {
 	/*
 	** -Rr
@@ -195,14 +195,16 @@ void	main_six(int argc, char **argv, t_lists *lists)
 		lists->big_r_flag > 0 && lists->lflag == 0 && \
 		lists->aflag == 0)			
 	{
-		if (argc == 2)
-		{
-		    argv[2] = ".";
-		    argc = 3;
-		}
+		// if (argc == 2)
+		// {
+		//     argv[2] = ".";
+		//     argc = 3;
+		// }
+		// printf("argv[%d]: %s\n", lists->argcount, argv[lists->argcount]);
+		// printf("new argcount: %d\nnew argc: %d\n", lists->argcount, argc);
 		lists->i = 0;
-		Rr_helper(argv[2], 0, lists);
-		list_dirbigrr(argv[2], 0, lists);
+		Rr_helper(argv[lists->argcount], 0, lists);
+		list_dirbigrr(argv[lists->argcount], 0, lists);
 		exit (0);
 	}
 	/*
@@ -212,14 +214,14 @@ void	main_six(int argc, char **argv, t_lists *lists)
 		lists->big_r_flag > 0 && lists->lflag > 0 && \
 		lists->aflag == 0)			
 	{
-		if (argc == 2)
-		{
-		    argv[2] = ".";
-		    argc = 3;
-		}
+		// if (argc == 2)
+		// {
+		//     argv[2] = ".";
+		//     argc = 3;
+		// }
 		lists->i = 0;
-		Rl_helper(argv[2], 0, lists);
-		list_dirbigrl(argv[2], 0, lists);
+		Rl_helper(argv[lists->argcount], 0, lists);
+		list_dirbigrl(argv[lists->argcount], 0, lists);
 		exit (0);
 	}
 }

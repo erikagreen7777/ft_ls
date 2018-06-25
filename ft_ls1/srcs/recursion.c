@@ -2,21 +2,23 @@
 /*
 ** ls -R pre-helper
 */
-void    R_first(int argc, char **argv, int flag)
+void    R_first(int argc, char **argv, int flag, int j)
 {
     DIR             *dip;
     struct dirent   *dit;
     struct stat     fileStat;
-    int             j;
-    j = 2;
-    if (argc == 2)
-    {
-        argv[j] = ".";
-        argc = 3;
-    }
+    int             k;
+    k = j;
+    // int             j;
+    // j = lists->argcount;
+    // if (argc == 2)
+    // {
+    //     argv[j] = ".";
+    //     argc = 3;
+    // }
     while (j < argc)
     {
-        if (j > 2 && j < argc)
+        if (j > k && j < argc)
             write(1, "\n", 1);
         dip = opendir(argv[j]);
         if (dip == NULL)
