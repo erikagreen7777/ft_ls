@@ -45,10 +45,13 @@ void	rlex_sortrl(t_lists *lists)
 			{
 				temp = ft_strdup(lists->dest[lists->i]);				
 				ft_bzero(lists->dest[lists->i], ft_strlen(lists->dest[lists->i]));
+				free(lists->dest[lists->i]);
 				lists->dest[lists->i] = ft_strdup(lists->dest[lists->j]);
 				ft_bzero(lists->dest[lists->j], ft_strlen(lists->dest[lists->j]));
+				free(lists->dest[lists->j]);
 				lists->dest[lists->j] = ft_strdup(temp);
 				ft_bzero(temp, ft_strlen(temp));
+				free(temp);
 			}
 			lists->j++;
 		}
