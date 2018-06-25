@@ -129,7 +129,7 @@ void	main_six(/*int argc, */char **argv, t_lists *lists);
 void	main_seven(int argc, char **argv, t_lists *lists);
 void	main_eight(int argc, char **argv, t_lists *lists);
 void	main_nine(int argc, char **argv, t_lists *lists);
-void	main_ten(int argc, char **argv, t_lists *lists);
+void	main_ten(/*int argc, */char **argv, t_lists *lists);
 void	main_eleven(int argc, char **argv, t_lists *lists);
 void	main_twelve(int argc, char **argv, t_lists *lists);
 void	main_thirteen(int argc, char **argv, t_lists *lists);
