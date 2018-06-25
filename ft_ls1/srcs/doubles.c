@@ -85,50 +85,18 @@ void	ls_stat_helper(t_lists *lists)
 void 	ls_la(/*int argc, */char **argv, t_lists *lists)
 {
 	int				j;
-	// DIR				*dip;
 	struct stat 	fileStat;
-	// char			arg[WORD_MAX];
-
-	// lists->i = 0;
 	j = lists->argcount;
 	lists->flag = 0;
-	// if (argc == 2)
-	// {
-	// 	argv[j] = ".";
-	// 	argc = 3;
-	// }
-	// printf("argc: %d\n", argc);
-	// printf("argv[%d]: %s\n", lists->argcount, argv[lists->argcount]);
-	// printf("func lists->argcount: %d\n", lists->argcount);
-	// printf("lists->newargc: %d\n", lists->newargc);
 	while (j < lists->newargc)
 	{
 		lists->i = 0;
-		/* ------------------------------------------------------>> funtion start here */
 		if(lstat(argv[j], &fileStat) < 0) 
         	ft_error("ls -l: No such file or directory");
 		if (((fileStat.st_mode & S_IFMT) == S_IFREG) || S_ISLNK(fileStat.st_mode))
 			ls_stat(argv[j], lists);
 		else if (S_ISDIR(fileStat.st_mode) == 1)
-		{
-				la_helper(argv[j], lists);
-
-		// 	dip = opendir(argv[j]);
-		// 	ft_strcpy(arg, argv[j]);
-		// 	if (ft_strcmp(arg, "/dev") == 0)
-		// 		lists->flag = 1;
-		// 	if (ft_strcmp(&arg[ft_strlen(arg) - 1], "/") != 0)
-		// 		ft_strcat(arg, "/");
-		// 	if (closedir(dip) == -1)
-		// 		ft_error("closedir");
-		// 	lists->filecount = directory_count(dip, argv[j], 1);
-		// 	dip = opendir(argv[j]);
-		// 	read_helper_a(lists, 0, arg, dip);
-		// 	if (closedir(dip) == -1)
-		// 		ft_error("closedir");
-		}
-
-			/* ------------------------------------------------------------->> function end here */
+			la_helper(argv[j], lists);
 		j++;
 	}
 	ls_stat_helper(lists);

@@ -32,7 +32,6 @@ void			list_dirta(/*int argc, */char **argv, t_lists *lists)
 	struct stat 	fileStat;
 	char			arg[WORD_MAX];
 
-	lists->i = 0;
 	j = lists->argcount;
 	// if (argc == 2)
 	// {
@@ -116,23 +115,23 @@ void 					ls_lta(int argc, char **argv, t_lists *lists)
 /*
 ** -lt / -tl
 */
-void 					ls_lt(int argc, char **argv, t_lists *lists)
+void 					ls_lt(/*int argc, */char **argv, t_lists *lists)
 {
 	int				j;
 	// DIR				*dip;
 	struct stat 	fileStat;
 	// char			arg[WORD_MAX];
 
-	lists->i = 0;
-	j = 2;
+	j = lists->argcount;
 	lists->flag = 0;
-	if (argc == 2)
+	// if (argc == 2)
+	// {
+	// 	argv[j] = ".";
+	// 	argc = 3;
+	// }
+	while (j < lists->newargc)
 	{
-		argv[j] = ".";
-		argc = 3;
-	}
-	while (j < argc)
-	{
+		lists->i = 0;
 		if(lstat(argv[j], &fileStat) < 0) 
         	ft_error("ls -l: No such file or directory");
 		if (((fileStat.st_mode & S_IFMT) == S_IFREG) || S_ISLNK(fileStat.st_mode))

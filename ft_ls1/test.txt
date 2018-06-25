@@ -10,4 +10,6 @@ git addclear
 ./ft_ls -r -R
 ./ft_ls: -R: No such file or directory
 
+./ft_ls -la . srcs ~/Applications only shows Applications
+
 

@@ -13,7 +13,7 @@ void	the_start(int argc, char **argv, t_lists *lists)
 			exit (0);
 		}
 	main_two(argc, argv, lists);
-	main_three(argc, argv, lists);
+	main_three(/*argc, */argv, lists);
 	main_four(argc, argv, lists);
 	main_five(argc, argv, lists);
 	main_six(/*argc, */argv, lists);
@@ -80,7 +80,7 @@ void	main_two(int argc, char **argv, t_lists *lists)
 	}
 }
 
-void	main_three(int argc, char **argv, t_lists *lists)
+void	main_three(/*int argc, */char **argv, t_lists *lists)
 {
 	/*
 	** -la
@@ -109,7 +109,7 @@ void	main_three(int argc, char **argv, t_lists *lists)
 		lists->big_r_flag == 0 && lists->lflag > 0 && \
 		lists->aflag == 0)	
 	{
-		ls_lt(argc, argv, lists);
+		ls_lt(/*argc, */argv, lists);
 			exit (0);
 	}
 }
