@@ -32,9 +32,11 @@ void			list_dirta(/*int argc, */char **argv, t_lists *lists)
 	struct stat 	fileStat;
 	char			arg[WORD_MAX];
 
-	j = lists->argcount;
-	while (j < lists->newargc)
+	j = lists->argcount - 1;
+	while (++j < lists->newargc)
 	{
+		if (j > lists->argcount && j < lists->newargc)
+			write(1, "\n", 1);
 		lists->i = 0;
 		if(stat(argv[j], &fileStat) < 0) 
         	ft_error("ls -t: No such file or directory");
@@ -42,8 +44,6 @@ void			list_dirta(/*int argc, */char **argv, t_lists *lists)
 			ls_stat(argv[j], lists);
 		else if (S_ISDIR(fileStat.st_mode) == 1)
 		{
-			/* --------------------------------------------------> */
-
 			ft_strcpy(arg, argv[j]);
 			if (ft_strcmp(&arg[ft_strlen(arg) - 1], "/") != 0)
 				ft_strcat(arg, "/");
@@ -54,11 +54,8 @@ void			list_dirta(/*int argc, */char **argv, t_lists *lists)
 			if (closedir(dip) == -1)
 				ft_error("closedir");
 			print_lists(lists);
-/* --------------------------------------------------> */
 		}
-		j++;
 	}
-	// print_lists(lists);
 }
 /*
 ** -lta
@@ -152,20 +149,12 @@ static void rl_helper(char *str, t_lists *lists, struct dirent *dit)
 void    list_dirlr(/*int argc, */char **argv, t_lists *lists)
 {
     int             j;
-    // DIR             *dip;
     struct dirent   *dit;
     struct stat     fileStat;
-    // char            arg[WORD_MAX];
-    // char            temp[WORD_MAX];
 
     dit = NULL;
 	j = lists->argcount;
     lists->flag = 0;
-    // if (argc == 2)
-    // {
-    //     argv[j] = ".";
-    //     argc = 3;
-    // }
 	while (j < lists->newargc)
     {
 	    lists->i = 0;
@@ -176,31 +165,9 @@ void    list_dirlr(/*int argc, */char **argv, t_lists *lists)
         else if (S_ISDIR(fileStat.st_mode) == 1)
         {
         	rl_helper(argv[j], lists, dit);
-        	/* -----------------------------------> */
-            // dip = opendir(argv[j]);
-            // ft_strcpy(arg, argv[j]);
-            // if (ft_strcmp(arg, "/dev") == 0)
-            //     lists->flag = 1;
-            // if (ft_strcmp(&arg[ft_strlen(arg) - 1], "/") != 0)
-            //     ft_strcat(arg, "/");
-            // if (closedir(dip) == -1)
-            //     ft_error("closedir");
-            // lists->filecount = directory_count(dip, argv[j], 0);
-            // dip = opendir(argv[j]);
-            // lists->dest = (char **)ft_memalloc(sizeof(char *) * lists->filecount  + 1);
-            // if (dip == NULL)
-            //     ft_error(": No file or directory");
-            // ft_strcpy(temp, arg);
-            // while ((dit = readdir(dip)) != NULL)
-            // 	read_helper_guts(lists, arg, dit, temp, 0);
-            // if (closedir(dip) == -1)
-            //     ft_error("closedir");
-            /* -----------------------------------> */
 		    lex_sortrl(lists);
 		    ls_stat_helper(lists);
         }
         j++;
     }
-    // lex_sortrl(lists);
-    // ls_stat_helper(lists);
 }
