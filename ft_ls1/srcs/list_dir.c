@@ -195,7 +195,10 @@ void	ls_ra(/*int argc, */char **argv, t_lists *lists)
 	while (j < lists->newargc)
 	{
 		if (j > lists->argcount && j < lists->newargc)
+		{
+			init_struct(&lists);
 			write(1, "\n", 1);
+		}
 		lists->i = 0;
 		if(lstat(argv[j], &fileStat) < 0) 
         	ft_error("ls -t: No such file or directory");
@@ -203,6 +206,7 @@ void	ls_ra(/*int argc, */char **argv, t_lists *lists)
 			ls_stat(argv[j], lists);
 		list_dirr_helper_a(fileStat, arg, argv[j], lists);
 		lex_sort(lists);
+		free_struct(lists);
 		j++;
 	}
 }

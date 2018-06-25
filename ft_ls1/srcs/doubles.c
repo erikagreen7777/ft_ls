@@ -93,8 +93,8 @@ void 	ls_la(/*int argc, */char **argv, t_lists *lists)
 	{		
 		if (j > lists->firstarg && j < lists->newargc)
 		{
-			write(1, "\n", 1);
 			init_struct(&lists);
+			write(1, "\n", 1);
 		}
 		lists->i = 0;
 		if(lstat(argv[j], &fileStat) < 0) 

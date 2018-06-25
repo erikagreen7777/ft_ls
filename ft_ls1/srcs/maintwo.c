@@ -110,7 +110,7 @@ void	main_three(/*int argc, */char **argv, t_lists *lists)
 		lists->aflag == 0)	
 	{
 		ls_lt(/*argc, */argv, lists);
-			exit (0);
+		exit (0);
 	}
 }
 

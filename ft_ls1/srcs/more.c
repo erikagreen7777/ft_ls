@@ -16,7 +16,7 @@ void 					ls_rt(/*int argc, */char **argv, t_lists *lists)
 	while (j < lists->newargc)
 	{
 		if (j > lists->argcount && j < lists->newargc)
-			write(1, "\n", 1);
+			write(1, "\n", 1);	
 		lists->i = 0;
 		if(stat(argv[j], &fileStat) < 0) 
         	ft_error("ls -t: No such file or directory");
@@ -24,14 +24,13 @@ void 					ls_rt(/*int argc, */char **argv, t_lists *lists)
 			ls_stat(argv[j], lists);
 		else if (S_ISDIR(fileStat.st_mode) == 1)
 		{
-			// dip = opendir(argv[j]);
 			ft_strcpy(arg, argv[j]);
 			if (ft_strcmp(&arg[ft_strlen(arg) - 1], "/") != 0)
 				ft_strcat(arg, "/");
 			lists->filecount = directory_count(dip, argv[j], 0);
 			dip = opendir(argv[j]);
-			lists->dest = (char **)ft_memalloc(sizeof(char *) * lists->filecount + 1);
-			lists->timearray = (char **)ft_memalloc(sizeof(char *) * lists->filecount + 1);
+			lists->dest = (char **)ft_memalloc(sizeof(char *) * lists->filecount);
+			lists->timearray = (char **)ft_memalloc(sizeof(char *) * lists->filecount);
 			if (dip == NULL)
 			{
 				ft_error(": No file or directory");
@@ -39,22 +38,12 @@ void 					ls_rt(/*int argc, */char **argv, t_lists *lists)
 			ft_strcpy(temp, arg);
 			while ((dit = readdir(dip)) != NULL)
 			{
-				if (dit->d_name[0] != '.')
-				{		
-					if (lists->i > 0)
-						ft_strcpy(arg, temp);
-					ft_strcat(arg, dit->d_name);
-					lists->dest[lists->i] = ft_strdup(arg);
-					ft_bzero(arg, ft_strlen(arg));
-					lists->timearray[lists->i] = ft_strdup(ft_itoa(time_stat(lists->dest[lists->i])));
-					lists->i++;
-				}
+				read_helper_guts(lists, arg, dit, temp, 1);
 			}
 			ft_switch_time(lists);
 			if (closedir(dip) == -1)
 				ft_error("closedir");
 			print_lists_back(lists);
-
 		}
 		j++;
 	}
@@ -75,6 +64,7 @@ static void 	ls_rat_helper(char *str, t_lists *lists, DIR *dip)
 	dip = opendir(str);
 	lists->dest = (char **)ft_memalloc(sizeof(char *) * lists->filecount + 1);
 	lists->timearray = (char **)ft_memalloc(sizeof(char *) * lists->filecount + 1);
+	lists->timearrayflag++;
 	if (dip == NULL)
 		ft_error(": No file or directory");
 	ft_strcpy(temp, arg);

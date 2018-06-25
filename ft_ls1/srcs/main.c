@@ -19,6 +19,7 @@ void		init_struct(t_lists **lists)
 	(*lists)->newargc = 0;
 	(*lists)->firstarg = 0;
 	(*lists)->timearrayflag = 0;
+	(*lists)->itoatemp = NULL;
 
 }
 
@@ -33,6 +34,8 @@ void	free_struct(t_lists *lists)
 		free(lists->dest[i]);
 		i++;
 	}
+	if (lists->timearrayflag > 0)
+		free(lists->itoatemp);
 	ft_memdel((void*)&lists->dest);
 	ft_memdel((void*)&lists->timearray);
 	free(lists->dest);
