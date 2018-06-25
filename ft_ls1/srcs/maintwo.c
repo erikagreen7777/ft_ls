@@ -89,7 +89,7 @@ void	main_three(int argc, char **argv, t_lists *lists)
 		lists->big_r_flag == 0 && lists->lflag > 0 && \
 		lists->aflag > 0)			
 	{
-		ls_la(argc, argv, lists);
+		ls_la(/*argc, */argv, lists);
 		exit (0);
 	}
 	/*
@@ -99,7 +99,7 @@ void	main_three(int argc, char **argv, t_lists *lists)
 		lists->big_r_flag == 0 && lists->lflag == 0 && \
 		lists->aflag > 0)	
 	{
-		list_dirta(argc, argv, lists);
+		list_dirta(/*argc, */argv, lists);
 			exit (0);
 	}
 	/*

@@ -48,10 +48,11 @@ typedef struct	s_lists
 	int 		rflag;
 	int 		lflag;
 	int 		aflag;
+	int 		newargc;
 
 }				t_lists;
 
-void	arg_parsing(int argc, char **argv, t_lists *lists);
+int/*void*/	arg_parsing(int argc, char **argv, t_lists *lists);
 void			init_struct(t_lists **lists);
 int				directory_count(DIR *dip, char *str, int flag);
 void			list_dir(int argc, char **argv);
@@ -66,7 +67,7 @@ int				add_stat(char *str);
 int 			time_stat(char *str);
 void			ft_switch_time(t_lists *lists);
 void    R_first(int argc, char **argv, int flag, int j);
-void 			ls_la(int argc, char **argv, t_lists *lists);
+void 			ls_la(/*int argc, */char **argv, t_lists *lists);
 void 			ls_lt(int argc, char **argv, t_lists *lists);
 void 			ls_lta(int argc, char **argv, t_lists *lists);
 void 			ls_ra(int argc, char **argv, t_lists *lists);
@@ -84,7 +85,7 @@ int   			Rrl_helper(const char *str, int flag, t_lists *lists);
 void		    list_dirbigrrl(const char *name, int flag, t_lists *lists);
 void			list_dirlr(int argc, char **argv, t_lists *lists);
 void			lex_sortrl(t_lists *lists);
-void			list_dirta(int argc, char **argv, t_lists *lists);
+void			list_dirta(/*int argc, */char **argv, t_lists *lists);
 void			ls_lra(int argc, char **argv, t_lists *lists);
 void			rlex_sortrl(t_lists *lists);
 void            ls_lrt(int argc, char **argv, t_lists *lists);

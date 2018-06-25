@@ -25,7 +25,7 @@ int  rlt_helper(const char *str, int flag, t_lists *lists)
 /*
 ** - at
 */
-void			list_dirta(int argc, char **argv, t_lists *lists)
+void			list_dirta(/*int argc, */char **argv, t_lists *lists)
 {
 	int				j;
 	DIR				*dip;
@@ -33,14 +33,15 @@ void			list_dirta(int argc, char **argv, t_lists *lists)
 	char			arg[WORD_MAX];
 
 	lists->i = 0;
-	j = 2;
-	if (argc == 2)
+	j = lists->argcount;
+	// if (argc == 2)
+	// {
+	// 	argv[j] = ".";
+	// 	argc = 3;
+	// }
+	while (j < lists->newargc)
 	{
-		argv[j] = ".";
-		argc = 3;
-	}
-	while (j < argc)
-	{
+		lists->i = 0;
 		if(stat(argv[j], &fileStat) < 0) 
         	ft_error("ls -t: No such file or directory");
 		if ((fileStat.st_mode & S_IFMT) == S_IFREG)

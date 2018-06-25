@@ -82,7 +82,7 @@ void	ls_stat_helper(t_lists *lists)
 /*
 ** - a
 */
-void 	ls_la(int argc, char **argv, t_lists *lists)
+void 	ls_la(/*int argc, */char **argv, t_lists *lists)
 {
 	int				j;
 	// DIR				*dip;
@@ -97,7 +97,11 @@ void 	ls_la(int argc, char **argv, t_lists *lists)
 	// 	argv[j] = ".";
 	// 	argc = 3;
 	// }
-	while (j < argc)
+	// printf("argc: %d\n", argc);
+	// printf("argv[%d]: %s\n", lists->argcount, argv[lists->argcount]);
+	// printf("func lists->argcount: %d\n", lists->argcount);
+	// printf("lists->newargc: %d\n", lists->newargc);
+	while (j < lists->newargc)
 	{
 		lists->i = 0;
 		/* ------------------------------------------------------>> funtion start here */

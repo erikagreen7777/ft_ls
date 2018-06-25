@@ -16,6 +16,7 @@ void		init_struct(t_lists **lists)
 	(*lists)->k = 0;
 	(*lists)->i = 0;
 	(*lists)->j = 0;
+	(*lists)->newargc = 0;
 
 }
 
@@ -36,7 +37,7 @@ int main(int argc, char **argv)
 		if (argc >= 2)
 		{
 			init_struct(&lists);
-			arg_parsing(argc, argv, lists);
+			lists->newargc = arg_parsing(argc, argv, lists);
 			the_start(argc, argv, lists);
 			list_dir(argc, argv);
 		}

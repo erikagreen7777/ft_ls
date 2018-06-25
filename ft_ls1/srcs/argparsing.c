@@ -27,7 +27,7 @@ static void flag_parsing(char *str, t_lists *lists)
 /*
 ** - argument parsing for flag and arc
 */
-void	arg_parsing(int argc, char **argv, t_lists *lists)
+int/*void*/	arg_parsing(int argc, char **argv, t_lists *lists)
 {
 	lists->argcount = 0;
 	lists->i = 0;
@@ -42,14 +42,14 @@ void	arg_parsing(int argc, char **argv, t_lists *lists)
 		lists->i++;
 	}
 	lists->argcount++;
-	printf("argcount: %d\nargc: %d\n", lists->argcount, argc);
+	// printf("argcount: %d\nargc: %d\n", lists->argcount, argc);
 	if (lists->argcount == argc)
 	{
-		lists->argcount++;
+		// lists->argcount++;
 		argv[lists->argcount] = ".";
 		argc++;
 	}
 	// printf("argv[%d]: %s\n", lists->argcount, argv[lists->argcount]);
 	// printf("new argcount: %d\nnew argc: %d\n", lists->argcount, argc);
-
+	return (argc);
 }
