@@ -131,10 +131,16 @@ void	main_ten(/*int argc, */char **argv, t_lists *lists)
 		lists->big_r_flag > 0 && lists->lflag == 0 && \
 		lists->aflag > 0)
 	{
-
+		int j;
+		j = lists->argcount - 1;
 		lists->i = 0;
-		Rr_helper(argv[lists->argcount], 1, lists);
-		list_dirbigrr(argv[lists->argcount], 1, lists);
+		while (++j < lists->newargc)
+		{		
+			if (j > lists->argcount && j < lists->newargc)
+				write(1, "\n", 1);
+			Rr_helper(argv[j], 1, lists);
+			list_dirbigrr(argv[j], 1, lists);
+		}
 		exit (0);
 	}
 }
