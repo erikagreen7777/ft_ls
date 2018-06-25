@@ -61,84 +61,67 @@ void 					ls_rt(/*int argc, */char **argv, t_lists *lists)
 		j++;
 	}
 }
+/*
+** - ls -rat helper
+*/
+static void 	ls_rat_helper(char *str, t_lists *lists, DIR *dip)
+{
+	char			arg[WORD_MAX];
+	char  			temp[WORD_MAX];
+	struct dirent	*dit;
+
+	ft_strcpy(arg, str);
+	if (ft_strcmp(&arg[ft_strlen(arg) - 1], "/") != 0)
+		ft_strcat(arg, "/");
+	lists->filecount = directory_count(dip, str, 1);
+	dip = opendir(str);
+	lists->dest = (char **)ft_memalloc(sizeof(char *) * lists->filecount + 1);
+	lists->timearray = (char **)ft_memalloc(sizeof(char *) * lists->filecount + 1);
+	if (dip == NULL)
+		ft_error(": No file or directory");
+	ft_strcpy(temp, arg);
+	while ((dit = readdir(dip)) != NULL)
+	{	
+		if (lists->i > 0)
+			ft_strcpy(arg, temp);
+		ft_strcat(arg, dit->d_name);
+		lists->dest[lists->i] = ft_strdup(arg);
+		ft_bzero(arg, ft_strlen(arg));
+		lists->timearray[lists->i] = ft_strdup(ft_itoa(time_stat(lists->dest[lists->i])));
+		lists->i++;
+	}
+	if (closedir(dip) == -1)
+		ft_error("closedir");
+}
 
 /*
 ** ls -rat
 */
-void 					ls_rat(int argc, char **argv, t_lists *lists)
+void 					ls_rat(char **argv, t_lists *lists)
 {
 	int				j;
-	DIR				*dip;
-	struct dirent	*dit;
 	struct stat 	fileStat;
-	char			arg[WORD_MAX];
-	char  			temp[WORD_MAX];
+	DIR				*dip;
 
-	lists->i = 0;
-	j = 2;
-	if (argc == 2)
+	dip = NULL;
+	j = lists->argcount;
+	while (j < lists->newargc)
 	{
-		argv[j] = ".";
-		argc = 3;
-	}
-	while (j < argc)
-	{
-		/*
-		** if the file/folder isn't valid
-		*/
+		if (j > lists->argcount && j < lists->newargc)
+			write(1, "\n", 1);
+		lists->i = 0;
 		if(stat(argv[j], &fileStat) < 0) 
         	ft_error("ls -t: No such file or directory");
-    	/*
-    	** if it's a regular file
-		*/
 		if ((fileStat.st_mode & S_IFMT) == S_IFREG)
 			ls_stat(argv[j], lists);
 		else if (S_ISDIR(fileStat.st_mode) == 1)
 		{
-			ft_strcpy(arg, argv[j]);
-	        /*
-	        ** if the last character of argv[j] isn't a "/", add one
-	        */
-			if (ft_strcmp(&arg[ft_strlen(arg) - 1], "/") != 0)
-				ft_strcat(arg, "/");
-			lists->filecount = directory_count(dip, argv[j], 1);
-			dip = opendir(argv[j]);
-			/*
-			** malloc memory for the 2D array (include extra + 1 for null at end)
-			*/
-			lists->dest = (char **)ft_memalloc(sizeof(char *) * lists->filecount + 1);
-			lists->timearray = (char **)ft_memalloc(sizeof(char *) * lists->filecount + 1);
-			if (dip == NULL)
-			{
-				ft_error(": No file or directory");
-			}
-			/*
-			** TODO: end split function here?
-			*/
-			ft_strcpy(temp, arg);
-			while ((dit = readdir(dip)) != NULL)
-			{	
-					if (lists->i > 0)
-						ft_strcpy(arg, temp);
-					ft_strcat(arg, dit->d_name);
-					lists->dest[lists->i] = ft_strdup(arg);
-					ft_bzero(arg, ft_strlen(arg));
-					lists->timearray[lists->i] = ft_strdup(ft_itoa(time_stat(lists->dest[lists->i])));
-					lists->i++;
-			}
+			ls_rat_helper(argv[j], lists, dip);
 			ft_switch_time(lists);
-			if (closedir(dip) == -1)
-				ft_error("closedir");
+			print_lists_back(lists);
 		}
 		j++;
 	}
-	print_lists_back(lists);
-	// lists->i = lists->filecount - 1;
-	// while (lists->i > -1)
-	// {
-	// 	printf("%s\n", lists->dest[lists->i]);
-	// 	lists->i--;
-	// }
 }
 
 /*

@@ -31,7 +31,7 @@ void	main_seven(/*int argc, */char **argv, t_lists *lists)
 	}
 }
 
-void	main_eight(int argc, char **argv, t_lists *lists)
+void	main_eight(char **argv, t_lists *lists)
 {
 	/*
 	** -rat
@@ -40,7 +40,7 @@ void	main_eight(int argc, char **argv, t_lists *lists)
 		lists->big_r_flag == 0 && lists->lflag == 0 && \
 		lists->aflag > 0)	
 	{	
-		ls_rat(argc, argv, lists);
+		ls_rat(argv, lists);
 		exit (0);
 	}
 	/*
