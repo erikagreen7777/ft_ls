@@ -21,7 +21,7 @@ void	the_start(int argc, char **argv, t_lists *lists)
 	main_eight(argv, lists);
 	main_nine(argv, lists);
 	main_ten(/*argc, */argv, lists);
-	main_eleven(argc, argv, lists);
+	main_eleven(argv, lists);
 	main_twelve(argv, lists);
 	main_thirteen(argc, argv, lists);
 	main_fourteen(argc, argv, lists);

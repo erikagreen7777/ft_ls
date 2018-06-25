@@ -151,7 +151,7 @@ void	main_ten(/*int argc, */char **argv, t_lists *lists)
 	}
 }
 
-void	main_eleven(int argc, char **argv, t_lists *lists)
+void	main_eleven(char **argv, t_lists *lists)
 {
 	/*
 	** -Rrl
@@ -179,7 +179,7 @@ void	main_eleven(int argc, char **argv, t_lists *lists)
 		lists->big_r_flag == 0 && lists->lflag > 0 && \
 		lists->aflag > 0)
 	{
-		ls_lrat(argc, argv, lists);
+		ls_lrat(argv, lists);
 		exit (0);
 	}
 }
