@@ -89,20 +89,6 @@ void 					ls_lta(int argc, char **argv, t_lists *lists)
 		else if (S_ISDIR(fileStat.st_mode) == 1)
 		{
 			lta_helper(lists, argv[j]);
-			// dip = opendir(argv[j]);
-			// ft_strcpy(arg, argv[j]);
-			// if (ft_strcmp(arg, "/dev") == 0)
-			// 	lists->flag = 1;
-			// if (ft_strcmp(&arg[ft_strlen(arg) - 1], "/") != 0)
-			// 	ft_strcat(arg, "/");
-			// if (closedir(dip) == -1)
-			// 	ft_error("closedir");
-			// lists->filecount = directory_count(dip, argv[j], 1);
-			// dip = opendir(argv[j]);
-			// read_helper_a(lists, 1, arg, dip);
-			// ft_switch_time(lists);
-			// if (closedir(dip) == -1)
-			// 	ft_error("closedir");
 		}
 		j++;
 	}
