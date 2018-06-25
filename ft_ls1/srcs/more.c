@@ -1,7 +1,5 @@
 #include "../ft_ls.h"
 
-
-
 /*
 ** ls -rt/ -tr
 */

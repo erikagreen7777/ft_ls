@@ -60,25 +60,18 @@ void			list_dirta(/*int argc, */char **argv, t_lists *lists)
 /*
 ** -lta
 */
-void 					ls_lta(int argc, char **argv, t_lists *lists)
+void 				ls_lta(char **argv, t_lists *lists)
 {
 	int				j;
-	// DIR				*dip;
 	struct stat 	fileStat;
-	// char			arg[WORD_MAX];
-	int 			size;
 
-	size = 0;
-	lists->i = 0;
-	j = 2;
-	lists->flag = 0;
-	if (argc == 2)
+
+	j = lists->argcount;
+	while (j < lists->newargc)
 	{
-		argv[j] = ".";
-		argc = 3;
-	}
-	while (j < argc)
-	{
+		if (j > lists->argcount && j < lists->newargc)
+			write(1, "\n", 1);
+		lists->i = 0;
 		if(lstat(argv[j], &fileStat) < 0) 
         	ft_error("ls -l: No such file or directory");
 		if (((fileStat.st_mode & S_IFMT) == S_IFREG) || S_ISLNK(fileStat.st_mode))
@@ -87,9 +80,9 @@ void 					ls_lta(int argc, char **argv, t_lists *lists)
 		{
 			lta_helper(lists, argv[j]);
 		}
+		ls_stat_helper(lists);
 		j++;
 	}
-	ls_stat_helper(lists);
 }
 /*
 ** -lt / -tl

@@ -76,7 +76,7 @@ void	main_eight(char **argv, t_lists *lists)
 	}
 }
 
-void	main_nine(int argc, char **argv, t_lists *lists)
+void	main_nine(char **argv, t_lists *lists)
 {
 	/*
 	** -tal
@@ -85,7 +85,7 @@ void	main_nine(int argc, char **argv, t_lists *lists)
 		lists->big_r_flag == 0 && lists->lflag > 0 && \
 		lists->aflag > 0)	
 	{
-		ls_lta(argc, argv, lists);
+		ls_lta(argv, lists);
 		exit (0);
 	}
 	/*
