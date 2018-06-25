@@ -183,9 +183,7 @@ void	main_five(int argc, char **argv, t_lists *lists)
 		while (++j < lists->newargc)
 		{		
 			if (j > lists->argcount && j < lists->newargc)
-			{
 				write(1, "\n", 1);
-			}
 			lists->i = 0;
 			Rt_helper(argv[lists->argcount], 0, lists);
 			list_dirbigrt(argv[lists->argcount], 0, lists);
@@ -203,16 +201,17 @@ void	main_six(/*int argc, */char **argv, t_lists *lists)
 		lists->big_r_flag > 0 && lists->lflag == 0 && \
 		lists->aflag == 0)			
 	{
-		// if (argc == 2)
-		// {
-		//     argv[2] = ".";
-		//     argc = 3;
-		// }
-		// printf("argv[%d]: %s\n", lists->argcount, argv[lists->argcount]);
-		// printf("new argcount: %d\nnew argc: %d\n", lists->argcount, argc);
+		int j;
+		j = lists->argcount - 1;
 		lists->i = 0;
-		Rr_helper(argv[lists->argcount], 0, lists);
-		list_dirbigrr(argv[lists->argcount], 0, lists);
+		while (++j < lists->newargc)
+		{		
+			if (j > lists->argcount && j < lists->newargc)
+				write(1, "\n", 1);
+			lists->i = 0;
+			Rr_helper(argv[j], 0, lists);
+			list_dirbigrr(argv[j], 0, lists);
+		}
 		exit (0);
 	}
 	/*

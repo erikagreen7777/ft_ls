@@ -27,6 +27,7 @@ int					Rr_helper(const char *str, int flag, t_lists *lists)
 	if (closedir(dip) == -1)
 		ft_error("closedir");
 	lex_sort(lists);
+	free_some_stuff(lists);
 	return (0);
 }
 void free_some_stuff(t_lists *lists)
