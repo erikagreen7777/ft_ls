@@ -1,6 +1,6 @@
 #include "../ft_ls.h"
 
-void	main_seven(int argc, char **argv, t_lists *lists)
+void	main_seven(/*int argc, */char **argv, t_lists *lists)
 {
 	/*
 	** -Rla
@@ -26,7 +26,7 @@ void	main_seven(int argc, char **argv, t_lists *lists)
 		lists->big_r_flag == 0 && lists->lflag > 0 && \
 		lists->aflag == 0)			
 	{
-		ls_lrt(argc, argv, lists);
+		ls_lrt(/*argc, */argv, lists);
 		exit (0);
 	}
 }

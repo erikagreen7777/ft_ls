@@ -131,23 +131,26 @@ void            ls_lra(int argc, char **argv, t_lists *lists)
 /*
 ** - rlt
 */
-void            ls_lrt(int argc, char **argv, t_lists *lists)
+void            ls_lrt(/*int argc, */char **argv, t_lists *lists)
 {
     int             j;
     struct stat     fileStat;
-    int             size;
+    // int             size;
 
-    size = 0;
-    lists->i = 0;
-    j = 2;
+    // size = 0;
+    // j = 2;
     lists->flag = 0;
-    if (argc == 2)
+    // if (argc == 2)
+    // {
+    //     argv[j] = ".";
+    //     argc = 3;
+    // }
+    j = lists->argcount;
+    while (j < lists->newargc)
     {
-        argv[j] = ".";
-        argc = 3;
-    }
-    while (j < argc)
-    {
+        if (j > lists->argcount && j < lists->newargc)
+            write(1, "\n", 1);
+        lists->i = 0;
         if(lstat(argv[j], &fileStat) < 0) 
             ft_error("ls -l: No such file or directory");
         if (((fileStat.st_mode & S_IFMT) == S_IFREG) || S_ISLNK(fileStat.st_mode))
@@ -169,10 +172,10 @@ void            ls_lrt(int argc, char **argv, t_lists *lists)
             // ft_switch_time(lists);
             // if (closedir(dip) == -1)
             //     ft_error("closedir");
+            back_helper(lists);
         }
         j++;
     }
-    back_helper(lists);
 }
 
 /*
