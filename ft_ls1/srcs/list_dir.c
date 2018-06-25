@@ -102,7 +102,7 @@ void	list_dirt(int argc, char **argv, t_lists *lists)
 		if (j > 2 && j < argc)
 		{
 			write(1, "\n", 1);
-			init_struct(&lists);
+			// init_struct(&lists);
 		}
 		lists->i = 0;
 		if(lstat(argv[j], &fileStat) < 0) 
@@ -110,8 +110,7 @@ void	list_dirt(int argc, char **argv, t_lists *lists)
 		if ((fileStat.st_mode & S_IFMT) == S_IFREG)
 			ls_stat(argv[j], lists);
 		lsr_helper(fileStat, arg, argv[j], lists);
-		free_struct(lists);
-
+		free_some_stuff(lists);
 	}
 }
 /*

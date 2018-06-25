@@ -41,7 +41,9 @@ void				read_helper_guts(t_lists *lists, char *arg, struct dirent *dit, char *te
 			lists->timearray[lists->i] = ft_strdup(lists->itoatemp);
 			free(lists->itoatemp);
 		}
+
 		lists->i++;
+
 	}
 }
 /*

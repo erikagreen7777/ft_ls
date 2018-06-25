@@ -29,7 +29,7 @@ int					Rr_helper(const char *str, int flag, t_lists *lists)
 	lex_sort(lists);
 	return (0);
 }
-static void free_some_stuff(t_lists *lists)
+void free_some_stuff(t_lists *lists)
 {
 	int i;
 	i = 0;
