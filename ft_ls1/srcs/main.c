@@ -21,6 +21,13 @@ void		init_struct(t_lists **lists)
 
 }
 
+static void	free_struct(t_lists *lists)
+{
+	ft_memdel((void*)&lists->dest);
+	ft_memdel((void*)&lists->timearray);
+	free(lists);
+}
+
 int main(int argc, char **argv)
 {
 	if (ft_strcmp(argv[0], "./ft_ls") == 0)
@@ -41,6 +48,7 @@ int main(int argc, char **argv)
 			lists->newargc = arg_parsing(argc, argv, lists);
 			the_start(argc, argv, lists);
 			list_dir(argc, argv);
+			free_struct(lists);
 		}
 		else
 			ft_error("main: ./ft_ls error");

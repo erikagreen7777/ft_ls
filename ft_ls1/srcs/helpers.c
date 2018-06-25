@@ -26,6 +26,7 @@ void				read_helper_guts(t_lists *lists, char *arg, struct dirent *dit, char *te
 		lists->dest[lists->i] = ft_strdup(arg);
 		ft_bzero(arg, ft_strlen(arg));
 		if (flag == 1)
+			// ft_strcpy(lists->timearray[lists->i], ft_itoa(time_stat(lists->dest[lists->i])));
 			lists->timearray[lists->i] = ft_strdup(ft_itoa(time_stat(lists->dest[lists->i])));
 		lists->i++;
 	}
@@ -83,4 +84,6 @@ void				print_lists(t_lists *lists)
 	lists->i = -1;
 	while (++lists->i < lists->filecount)
 		free(lists->dest[lists->i]);
+	//ft_memdel((void*)&lists->dest);
+
 }

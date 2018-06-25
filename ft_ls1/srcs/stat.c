@@ -78,6 +78,7 @@ void  free_dest(t_lists *lists)
     free(lists->dest[i]);
     i++;
   }
+  ft_memdel((void*)&lists->dest);
 }
 
 /*
