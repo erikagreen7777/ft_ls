@@ -157,14 +157,17 @@ void	main_five(int argc, char **argv, t_lists *lists)
 		lists->big_r_flag > 0 && lists->lflag == 0 && \
 		lists->aflag > 0)	
 	{
-		// if (argc == 2)
-		// {
-		//     argv[2] = ".";
-		//     argc = 3;
-		// }
+		int j;
+		j = lists->argcount - 1;
 		lists->i = 0;
-		R_first(argc, argv, 1, lists->argcount);
-		list_dirbigr(argv[lists->argcount], 1);
+		while (++j < lists->newargc)
+		{		
+			if (j > lists->argcount && j < lists->newargc)
+				write(1, "\n", 1);
+			lists->i = 0;
+			R_first(argc, argv, 1, lists->argcount);
+			list_dirbigr(argv[lists->argcount], 1);
+		}
 		exit (0);
 	}
 	/*
@@ -174,11 +177,6 @@ void	main_five(int argc, char **argv, t_lists *lists)
 		lists->big_r_flag > 0 && lists->lflag == 0 && \
 		lists->aflag == 0)		
 	{
-		// if (argc == 2)
-		// {
-		//     argv[2] = ".";
-		//     argc = 3;
-		// }
 		lists->i = 0;
 		Rt_helper(argv[lists->argcount], 0, lists);
 		list_dirbigrt(argv[lists->argcount], 0, lists);
