@@ -66,6 +66,19 @@ char *readlink_malloc (const char *filename)
       i++;
     }
 }
+/*
+** - free dest
+*/
+void  free_dest(t_lists *lists)
+{
+  int i;
+  i = 0;
+  while (i < lists->filecount)
+  {
+    free(lists->dest[i]);
+    i++;
+  }
+}
 
 /*
 ** - stat() for -l

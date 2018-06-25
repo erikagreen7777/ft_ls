@@ -69,7 +69,6 @@ int				everything_helper(const char *str, int flag, t_lists *lists)
 {
 	DIR			*dip;
 	char		arg[WORD_MAX];
-	lists->size = 0;
 	lists->i = 0;
 	ft_strcpy(arg, str);
 	if (ft_strcmp(arg, "/dev") == 0)
