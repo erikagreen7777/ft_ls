@@ -33,11 +33,6 @@ void			list_dirta(/*int argc, */char **argv, t_lists *lists)
 	char			arg[WORD_MAX];
 
 	j = lists->argcount;
-	// if (argc == 2)
-	// {
-	// 	argv[j] = ".";
-	// 	argc = 3;
-	// }
 	while (j < lists->newargc)
 	{
 		lists->i = 0;
@@ -58,11 +53,12 @@ void			list_dirta(/*int argc, */char **argv, t_lists *lists)
 			ft_switch_time(lists);
 			if (closedir(dip) == -1)
 				ft_error("closedir");
+			print_lists(lists);
 /* --------------------------------------------------> */
 		}
 		j++;
 	}
-	print_lists(lists);
+	// print_lists(lists);
 }
 /*
 ** -lta
@@ -131,10 +127,10 @@ void 					ls_lt(/*int argc, */char **argv, t_lists *lists)
 			ls_stat(argv[j], lists);
 		else if (S_ISDIR(fileStat.st_mode) == 1)
 			lt_helper(lists, argv[j]);
+		ft_switch_time(lists);
+		ls_stat_helper(lists);
 		j++;
 	}
-	ft_switch_time(lists);
-	ls_stat_helper(lists);
 }
 /*
 ** -rl
