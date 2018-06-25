@@ -87,7 +87,7 @@ void		    list_dirbigrrl(const char *name, int flag, t_lists *lists);
 void			list_dirlr(/*int argc, */char **argv, t_lists *lists);
 void			lex_sortrl(t_lists *lists);
 void			list_dirta(/*int argc, */char **argv, t_lists *lists);
-void			ls_lra(int argc, char **argv, t_lists *lists);
+void			ls_lra(char **argv, t_lists *lists);
 void			rlex_sortrl(t_lists *lists);
 void            ls_lrt(/*int argc, */char **argv, t_lists *lists);
 int  			rlt_helper(const char *str, int flag, t_lists *lists);

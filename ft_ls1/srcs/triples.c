@@ -85,61 +85,11 @@ void	list_dirbigrrl(const char *name, int flag, t_lists *lists)
 /*
 ** - rla
 */
-void            ls_lra(int argc, char **argv, t_lists *lists)
-{
-    int             j;
-    // DIR             *dip;
-    struct stat     fileStat;
-    // char            arg[WORD_MAX];
-
-    lists->size = 0;
-    lists->i = 0;
-    j = 2;
-    if (argc == 2)
-    {
-        argv[j] = ".";
-        argc = 3;
-    }
-    while (j < argc)
-    {
-/* -------------------------------------------------------> */
-        if(lstat(argv[j], &fileStat) < 0) 
-            ft_error("ls -l: No such file or directory");
-        if (((fileStat.st_mode & S_IFMT) == S_IFREG) || S_ISLNK(fileStat.st_mode))
-            ls_stat(argv[j], lists);        
-        else if (S_ISDIR(fileStat.st_mode) == 1)
-        {
-                rla_helper_helper(lists, argv[j]);
-
-        //     ft_strcpy(arg, argv[j]);
-        //     if (ft_strcmp(&arg[ft_strlen(arg) - 1], "/") != 0)
-        //         ft_strcat(arg, "/");
-        //     lists->filecount = directory_count(dip, argv[j], 1);
-        //     dip = opendir(argv[j]);
-        //     read_helper_a(lists, 0, arg, dip);
-        //     if (closedir(dip) == -1)
-        //         ft_error("closedir");
-        //     rlex_sortrl(lists);
-        }
-/* -------------------------------------------------------> */
-
-        j++;
-    }
-    back_helper(lists);
-}
-
-/*
-** - rlt
-*/
-void            ls_lrt(/*int argc, */char **argv, t_lists *lists)
+void            ls_lra(/*int argc, */char **argv, t_lists *lists)
 {
     int             j;
     struct stat     fileStat;
-    // int             size;
 
-    // size = 0;
-    // j = 2;
-    lists->flag = 0;
     // if (argc == 2)
     // {
     //     argv[j] = ".";
@@ -154,24 +104,50 @@ void            ls_lrt(/*int argc, */char **argv, t_lists *lists)
         if(lstat(argv[j], &fileStat) < 0) 
             ft_error("ls -l: No such file or directory");
         if (((fileStat.st_mode & S_IFMT) == S_IFREG) || S_ISLNK(fileStat.st_mode))
+            ls_stat(argv[j], lists);        
+        else if (S_ISDIR(fileStat.st_mode) == 1)
+        {
+            rla_helper_helper(lists, argv[j]);
+
+        //     ft_strcpy(arg, argv[j]);
+        //     if (ft_strcmp(&arg[ft_strlen(arg) - 1], "/") != 0)
+        //         ft_strcat(arg, "/");
+        //     lists->filecount = directory_count(dip, argv[j], 1);
+        //     dip = opendir(argv[j]);
+        //     read_helper_a(lists, 0, arg, dip);
+        //     if (closedir(dip) == -1)
+        //         ft_error("closedir");
+        //     rlex_sortrl(lists);
+            back_helper(lists);
+        }
+/* -------------------------------------------------------> */
+
+        j++;
+    }
+}
+
+/*
+** - rlt
+*/
+void            ls_lrt(/*int argc, */char **argv, t_lists *lists)
+{
+    int             j;
+    struct stat     fileStat;
+
+    lists->flag = 0;
+    j = lists->argcount;
+    while (j < lists->newargc)
+    {
+        if (j > lists->argcount && j < lists->newargc)
+            write(1, "\n", 1);
+        lists->i = 0;
+        if(lstat(argv[j], &fileStat) < 0) 
+            ft_error("ls -l: No such file or directory");
+        if (((fileStat.st_mode & S_IFMT) == S_IFREG) || S_ISLNK(fileStat.st_mode))
             ls_stat(argv[j], lists);
         else if (S_ISDIR(fileStat.st_mode) == 1)
         {
             rlt_helper_helper(lists, argv[j]);
-            // dip = opendir(argv[j]);
-            // ft_strcpy(arg, argv[j]);
-            // if (ft_strcmp(arg, "/dev") == 0)
-            //     lists->flag = 1;
-            // if (ft_strcmp(&arg[ft_strlen(arg) - 1], "/") != 0)
-            //     ft_strcat(arg, "/");
-            // if (closedir(dip) == -1)
-            //     ft_error("closedir");
-            // lists->filecount = directory_count(dip, argv[j], 0);
-            // dip = opendir(argv[j]);
-            // read_helper(lists, 1, arg, dip);
-            // ft_switch_time(lists);
-            // if (closedir(dip) == -1)
-            //     ft_error("closedir");
             back_helper(lists);
         }
         j++;
