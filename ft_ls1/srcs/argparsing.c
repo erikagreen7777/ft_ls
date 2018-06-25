@@ -41,19 +41,13 @@ int/*void*/	arg_parsing(int argc, char **argv, t_lists *lists)
 		}
 		lists->i++;
 	}
-	printf("argcount: %d\n", lists->argcount);
 	lists->argcount++;
 	lists->firstarg = lists->argcount;
-	printf("argcount++: %d\n", lists->argcount);
-	printf("argc: %d\n", argc);
-	// printf("argcount: %d\nargc: %d\n", lists->argcount, argc);
 	if (lists->argcount == argc)
 	{
 		// lists->argcount++;
 		argv[lists->argcount] = ".";
 		argc++;
 	}
-	// printf("argv[%d]: %s\n", lists->argcount, argv[lists->argcount]);
-	// printf("new argcount: %d\nnew argc: %d\n", lists->argcount, argc);
 	return (argc);
 }
