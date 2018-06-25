@@ -4,13 +4,21 @@
 */
 void				read_helper_guts_a(t_lists *lists, char *arg, struct dirent *dit, char *temp, int flag)
 {
+	char *temptwo;
+	temptwo = NULL;
+
 	if (lists->i > 0)
 		ft_strcpy(arg, temp);
 	ft_strcat(arg, dit->d_name);
 	lists->dest[lists->i] = ft_strdup(arg);
 	ft_bzero(arg, ft_strlen(arg));
 	if (flag == 1)
-		lists->timearray[lists->i] = ft_strdup(ft_itoa(time_stat(lists->dest[lists->i])));
+	{
+		lists->timearrayflag++;
+		temptwo = ft_itoa(time_stat(lists->dest[lists->i]));
+		lists->timearray[lists->i] = ft_strdup(temptwo);
+		free(temptwo);
+	}
 	lists->i++;
 }
 /*
@@ -29,6 +37,7 @@ void				read_helper_guts(t_lists *lists, char *arg, struct dirent *dit, char *te
 		ft_bzero(arg, ft_strlen(arg));
 		if (flag == 1)
 		{
+			lists->timearrayflag++;
 			temptwo = ft_itoa(time_stat(lists->dest[lists->i]));
 			lists->timearray[lists->i] = ft_strdup(temptwo);
 			free(temptwo);

@@ -38,7 +38,6 @@ void	main_two(int argc, char **argv, t_lists *lists)
 		lists->aflag == 0)
  	{
 		list_dirt(argc, argv, lists);
-		// free_struct(lists);
 		exit (0);
  	}
 	/*

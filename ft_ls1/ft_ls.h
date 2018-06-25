@@ -50,6 +50,7 @@ typedef struct	s_lists
 	int 		aflag;
 	int 		newargc;
 	int 		firstarg;
+	int 		timearrayflag;
 
 }				t_lists;
 
