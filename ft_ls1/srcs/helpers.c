@@ -18,6 +18,8 @@ void				read_helper_guts_a(t_lists *lists, char *arg, struct dirent *dit, char *
 */
 void				read_helper_guts(t_lists *lists, char *arg, struct dirent *dit, char *temp, int flag)
 {
+	char *temptwo;
+	temptwo = NULL;
 	if (dit->d_name[0] != '.')
 	{
 		if (lists->i > 0)
@@ -26,8 +28,14 @@ void				read_helper_guts(t_lists *lists, char *arg, struct dirent *dit, char *te
 		lists->dest[lists->i] = ft_strdup(arg);
 		ft_bzero(arg, ft_strlen(arg));
 		if (flag == 1)
-			// ft_strcpy(lists->timearray[lists->i], ft_itoa(time_stat(lists->dest[lists->i])));
-			lists->timearray[lists->i] = ft_strdup(ft_itoa(time_stat(lists->dest[lists->i])));
+		{
+			temptwo = ft_itoa(time_stat(lists->dest[lists->i]));
+			lists->timearray[lists->i] = ft_strdup(temptwo);
+			free(temptwo);
+			// lists->timearray[lists->i] = ft_strdup(ft_itoa(time_stat(lists->dest[lists->i])));
+
+		}
+
 		lists->i++;
 	}
 }
@@ -39,9 +47,9 @@ void				read_helper(t_lists *lists, int flag, char *arg, DIR *dip)
 	char			temp[WORD_MAX];
 	struct dirent	*dit;
 	
-	lists->dest = (char **)ft_memalloc(sizeof(char *) * lists->filecount  + 1);
+	lists->dest = (char **)ft_memalloc(sizeof(char *) * lists->filecount);
 	if (flag == 1)
-		lists->timearray = (char **)ft_memalloc(sizeof(char *) * lists->filecount + 1);
+		lists->timearray = (char **)ft_memalloc(sizeof(char *) * lists->filecount);
 	if (dip == NULL)
 	{
 		ft_error(": No file or directory");
@@ -51,6 +59,8 @@ void				read_helper(t_lists *lists, int flag, char *arg, DIR *dip)
 	{
 		read_helper_guts(lists, arg, dit, temp, flag);
 	}
+	// free(lists->dest);
+	// free(lists->timearray);
 }
 /*
 ** -read helper for -a
@@ -81,9 +91,10 @@ void				print_lists(t_lists *lists)
 	lists->i = -1;
 	while (++lists->i < lists->filecount)
 		ft_printf("%s\n", lists->dest[lists->i]);
-	lists->i = -1;
-	while (++lists->i < lists->filecount)
-		free(lists->dest[lists->i]);
+	// free_struct(lists);
+	// lists->i = -1;
+	// while (++lists->i < lists->filecount)
+	// 	free(lists->dest[lists->i]);
 	//ft_memdel((void*)&lists->dest);
 
 }

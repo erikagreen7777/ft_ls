@@ -21,10 +21,20 @@ void		init_struct(t_lists **lists)
 
 }
 
-static void	free_struct(t_lists *lists)
+void	free_struct(t_lists *lists)
 {
+	int i;
+	i = 0;
+	while (i < lists->filecount)
+	{
+		free(lists->timearray[i]);
+		free(lists->dest[i]);
+		i++;
+	}
 	ft_memdel((void*)&lists->dest);
 	ft_memdel((void*)&lists->timearray);
+	free(lists->dest);
+	free(lists->timearray);
 	free(lists);
 }
 
@@ -40,9 +50,9 @@ int main(int argc, char **argv)
 		if (argc == 1 || (argc == 2 && ft_strcmp(argv[1], ".") == 0))
 		{
 			list_dir(argc, argv);
-			return (0);
+			// return (0);
 		}
-		if (argc >= 2)
+		else if (argc >= 2)
 		{
 			init_struct(&lists);
 			lists->newargc = arg_parsing(argc, argv, lists);

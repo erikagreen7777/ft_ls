@@ -137,6 +137,8 @@ void	main_fourteen(char **argv, t_lists *lists);
 // void	main_fifteen(char **argv, t_lists *lists);
 void	the_start(int argc, char **argv, t_lists *lists);
 void	free_dest(t_lists *lists);
+void	free_struct(t_lists *lists);
+
 
 
 
