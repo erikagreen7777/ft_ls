@@ -35,11 +35,13 @@ void	free_struct(t_lists *lists)
 		i++;
 	}
 	if (lists->timearrayflag > 0)
+	{
 		free(lists->itoatemp);
-	ft_memdel((void*)&lists->dest);
+		free(lists->timearray);
+	}
 	ft_memdel((void*)&lists->timearray);
+	ft_memdel((void*)&lists->dest);
 	free(lists->dest);
-	free(lists->timearray);
 	free(lists);
 }
 

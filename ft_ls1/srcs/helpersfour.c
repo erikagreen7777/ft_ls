@@ -29,6 +29,20 @@ int					Rr_helper(const char *str, int flag, t_lists *lists)
 	lex_sort(lists);
 	return (0);
 }
+static void free_some_stuff(t_lists *lists)
+{
+	int i;
+	i = 0;
+	while (i < lists->filecount)
+	{
+		if (lists->timearrayflag > 0)
+			free(lists->timearray[i]);
+		free(lists->dest[i]);
+		i++;
+	}
+	free(lists->timearray);
+	free(lists->dest);
+}
 /*
 ** ls -Rt helper
 */
@@ -49,6 +63,7 @@ int				Rt_helper(const char *str, int flag, t_lists *lists)
 		ft_error("closedir");
 	ft_switch_time(lists);
 	print_lists(lists);
+	free_some_stuff(lists);
 	return (0);
 }
 /*
@@ -82,9 +97,8 @@ int					R_helper(const char *str, int flag)
 int					Rl_helper(const char *str, int flag, t_lists *lists)
 {
 	DIR				*dip;
-    // struct dirent   *dit;
 	char			arg[WORD_MAX];
-    // char            temp[WORD_MAX];
+
 	lists->i = 0;
 	lists->size = 0;
 	ft_strcpy(arg, str);
