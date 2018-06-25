@@ -23,8 +23,8 @@ void	the_start(int argc, char **argv, t_lists *lists)
 	main_ten(/*argc, */argv, lists);
 	main_eleven(argv, lists);
 	main_twelve(argv, lists);
-	main_thirteen(argc, argv, lists);
-	main_fourteen(argc, argv, lists);
+	main_thirteen(argv, lists);
+	main_fourteen(argv, lists);
 }
 
 

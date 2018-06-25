@@ -15,83 +15,126 @@ static void get_lengths(t_lists *lists)
 	/*
 	** allocate space for the temps for the swap
 	*/
-	lists->temp = (char *)malloc(lists->timeleni + 1);
-	lists->tempdest = (char *)malloc(lists->destleni + 1);
+	// lists->temp = (char *)malloc(lists->timeleni + 1);
+	// lists->tempdest = (char *)malloc(lists->destleni + 1);
 }
-		
+
+static void	switch_helper(t_lists *lists)
+{
+	get_lengths(lists);
+	lists->temp = ft_strdup(lists->timearray[lists->i]);
+	lists->tempdest = ft_strdup(lists->dest[lists->i]);
+	ft_bzero(lists->timearray[lists->i], lists->timeleni);
+	ft_bzero(lists->dest[lists->i], lists->destleni);
+	lists->timearray[lists->i] = ft_strdup(lists->timearray[lists->j]);
+	lists->dest[lists->i] = ft_strdup(lists->dest[lists->j]);
+	ft_bzero(lists->timearray[lists->j], lists->timelenj);
+	ft_bzero(lists->dest[lists->j], lists->destlenj);
+	lists->timearray[lists->j] = ft_strdup(lists->temp);
+	lists->dest[lists->j] = ft_strdup(lists->tempdest);
+	free(lists->temp);
+	free(lists->tempdest);
+}
+
+static void switch_equal_helper(t_lists *lists)
+{
+	/*
+	** if the time stamp is the same
+	*/
+	if (ft_strcmp(lists->dest[lists->i], lists->dest[lists->j]) > 0) /* add a flag here for ls -r stuff? */
+	{
+		get_lengths(lists);
+		lists->temp = ft_strdup(lists->timearray[lists->i]);
+		lists->tempdest = ft_strdup(lists->dest[lists->i]);
+		ft_bzero(lists->timearray[lists->i], lists->timeleni);
+		ft_bzero(lists->dest[lists->i], lists->destleni);
+		lists->timearray[lists->i] = ft_strdup(lists->timearray[lists->j]);
+		lists->dest[lists->i] = ft_strdup(lists->dest[lists->j]);
+		ft_bzero(lists->timearray[lists->j], lists->timelenj);
+		ft_bzero(lists->dest[lists->j], lists->destlenj);
+		lists->timearray[lists->j] = ft_strdup(lists->temp);
+		lists->dest[lists->j] = ft_strdup(lists->tempdest);
+		free(lists->temp);
+		free(lists->tempdest);
+	}
+}
 void	ft_switch_time(t_lists *lists)
 {
 	lists->i = -1;
-	// if (lists->filecount > 1)
-	// {
-		while (++lists->i < lists->filecount)
+	while (++lists->i < lists->filecount)
+	{
+		lists->j = lists->i + 1;
+		while (lists->j < lists->filecount)
 		{
-			lists->j = lists->i + 1;
-			while (lists->j < lists->filecount)
+			/*
+			** find the oldest time
+			*/
+			if (ft_atoi(lists->timearray[lists->i]) < ft_atoi(lists->timearray[lists->j]))
 			{
-				/*
-				** find the oldest time
-				*/
-				if (ft_atoi(lists->timearray[lists->i]) < ft_atoi(lists->timearray[lists->j]))
-				{
-					/*
-					** get length of four things to malloc
-					*/
-					get_lengths(lists);
-					/*
-					** put what we're going to switch into a temporary container
-					*/
-					lists->temp = ft_strdup(lists->timearray[lists->i]);
-					lists->tempdest = ft_strdup(lists->dest[lists->i]);
-					/*
-					** clear out the first "i"
-					*/
-					ft_bzero(lists->timearray[lists->i], lists->timeleni);
-					ft_bzero(lists->dest[lists->i], lists->destleni);
-					/*
-					** put j into i
-					*/
-					lists->timearray[lists->i] = ft_strdup(lists->timearray[lists->j]);
-					lists->dest[lists->i] = ft_strdup(lists->dest[lists->j]);
-					/*
-					** clear our j
-					*/
-					ft_bzero(lists->timearray[lists->j], lists->timelenj);
-					ft_bzero(lists->dest[lists->j], lists->destlenj);
-					/*
-					** put temp into j
-					*/
-					lists->timearray[lists->j] = ft_strdup(lists->temp);
-					lists->dest[lists->j] = ft_strdup(lists->tempdest);
-					/*
-					** free the temps
-					*/
-					free(lists->temp);
-					free(lists->tempdest);
-				}
-				else if (ft_atoi(lists->timearray[lists->i]) == ft_atoi(lists->timearray[lists->j]))
-				{
-					/*
-					** if the time stamp is the same
-					*/
-					if (ft_strcmp(lists->dest[lists->i], lists->dest[lists->j]) > 0) /* add a flag here for ls -r stuff? */
-					{
-						get_lengths(lists);
-						lists->temp = ft_strdup(lists->timearray[lists->i]);
-						lists->tempdest = ft_strdup(lists->dest[lists->i]);
-						ft_bzero(lists->timearray[lists->i], lists->timeleni);
-						ft_bzero(lists->dest[lists->i], lists->destleni);
-						lists->timearray[lists->i] = ft_strdup(lists->timearray[lists->j]);
-						lists->dest[lists->i] = ft_strdup(lists->dest[lists->j]);
-						ft_bzero(lists->timearray[lists->j], lists->timelenj);
-						ft_bzero(lists->dest[lists->j], lists->destlenj);
-						lists->timearray[lists->j] = ft_strdup(lists->temp);
-						lists->dest[lists->j] = ft_strdup(lists->tempdest);
-						free(lists->temp);
-						free(lists->tempdest);
-					}
-				}
-				lists->j++;
+				switch_helper(lists);
+				// /*
+				// ** get length of four things to malloc
+				// */
+				// get_lengths(lists);
+				// lists->temp = (char *)malloc(lists->timeleni + 1);
+				// lists->tempdest = (char *)malloc(lists->destleni + 1);
+				// /*
+				// ** put what we're going to switch into a temporary container
+				// */
+				// lists->temp = ft_strdup(lists->timearray[lists->i]);
+				// lists->tempdest = ft_strdup(lists->dest[lists->i]);
+				// /*
+				// ** clear out the first "i"
+				// */
+				// ft_bzero(lists->timearray[lists->i], lists->timeleni);
+				// ft_bzero(lists->dest[lists->i], lists->destleni);
+				// /*
+				// ** put j into i
+				// */
+				// lists->timearray[lists->i] = ft_strdup(lists->timearray[lists->j]);
+				// lists->dest[lists->i] = ft_strdup(lists->dest[lists->j]);
+				// /*
+				// ** clear our j
+				// */
+				// ft_bzero(lists->timearray[lists->j], lists->timelenj);
+				// ft_bzero(lists->dest[lists->j], lists->destlenj);
+				// /*
+				// ** put temp into j
+				// */
+				// lists->timearray[lists->j] = ft_strdup(lists->temp);
+				// lists->dest[lists->j] = ft_strdup(lists->tempdest);
+				// /*
+				// ** free the temps
+				// */
+				// free(lists->temp);
+				// free(lists->tempdest);
 			}
+			else if (ft_atoi(lists->timearray[lists->i]) == ft_atoi(lists->timearray[lists->j]))
+			{
+				switch_equal_helper(lists);
+				// /*
+				// ** if the time stamp is the same
+				// */
+				// if (ft_strcmp(lists->dest[lists->i], lists->dest[lists->j]) > 0) /* add a flag here for ls -r stuff? */
+				// {
+				// 	get_lengths(lists);
+				// 	lists->temp = (char *)malloc(lists->timeleni + 1);
+				// 	lists->tempdest = (char *)malloc(lists->destleni + 1);
+				// 	lists->temp = ft_strdup(lists->timearray[lists->i]);
+				// 	lists->tempdest = ft_strdup(lists->dest[lists->i]);
+				// 	ft_bzero(lists->timearray[lists->i], lists->timeleni);
+				// 	ft_bzero(lists->dest[lists->i], lists->destleni);
+				// 	lists->timearray[lists->i] = ft_strdup(lists->timearray[lists->j]);
+				// 	lists->dest[lists->i] = ft_strdup(lists->dest[lists->j]);
+				// 	ft_bzero(lists->timearray[lists->j], lists->timelenj);
+				// 	ft_bzero(lists->dest[lists->j], lists->destlenj);
+				// 	lists->timearray[lists->j] = ft_strdup(lists->temp);
+				// 	lists->dest[lists->j] = ft_strdup(lists->tempdest);
+				// 	free(lists->temp);
+				// 	free(lists->tempdest);
+				// }
+			}
+			lists->j++;
 		}
+	}
 }

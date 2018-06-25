@@ -132,9 +132,9 @@ void	main_nine(char **argv, t_lists *lists);
 void	main_ten(/*int argc, */char **argv, t_lists *lists);
 void	main_eleven(char **argv, t_lists *lists);
 void	main_twelve(char **argv, t_lists *lists);
-void	main_thirteen(int argc, char **argv, t_lists *lists);
-void	main_fourteen(int argc, char **argv, t_lists *lists);
-void	main_fifteen(int argc, char **argv, t_lists *lists);
+void	main_thirteen(char **argv, t_lists *lists);
+void	main_fourteen(char **argv, t_lists *lists);
+// void	main_fifteen(char **argv, t_lists *lists);
 void	the_start(int argc, char **argv, t_lists *lists);
 
 
