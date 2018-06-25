@@ -76,7 +76,7 @@ static void 	ls_rat_helper(char *str, t_lists *lists, DIR *dip)
 		ft_strcat(arg, dit->d_name);
 		lists->dest[lists->i] = ft_strdup(arg);
 		ft_bzero(arg, ft_strlen(arg));
-		lists->timearray[lists->i] = ft_strdup(ft_itoa(time_stat(lists->dest[lists->i])));
+		lists->timearray[lists->i] = ft_itoa(time_stat(lists->dest[lists->i]));
 		lists->i++;
 	}
 	if (closedir(dip) == -1)
@@ -109,6 +109,7 @@ void 					ls_rat(char **argv, t_lists *lists)
 			ft_switch_time(lists);
 			print_lists_back(lists);
 		}
+		free_some_stuff(lists);
 		j++;
 	}
 }

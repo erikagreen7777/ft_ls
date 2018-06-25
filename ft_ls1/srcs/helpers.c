@@ -4,8 +4,8 @@
 */
 void				read_helper_guts_a(t_lists *lists, char *arg, struct dirent *dit, char *temp, int flag)
 {
-	char *temptwo;
-	temptwo = NULL;
+	// char *temptwo;
+	// temptwo = NULL;
 
 	if (lists->i > 0)
 		ft_strcpy(arg, temp);
@@ -39,6 +39,7 @@ void				read_helper_guts(t_lists *lists, char *arg, struct dirent *dit, char *te
 			lists->timearrayflag++;
 			lists->itoatemp = ft_itoa(time_stat(lists->dest[lists->i]));
 			lists->timearray[lists->i] = ft_strdup(lists->itoatemp);
+			ft_bzero(lists->itoatemp, ft_strlen(lists->itoatemp));
 			free(lists->itoatemp);
 		}
 
@@ -69,8 +70,7 @@ void				read_helper(t_lists *lists, int flag, char *arg, DIR *dip)
 	{
 		read_helper_guts(lists, arg, dit, temp, flag);
 	}
-	// free(lists->dest);
-	// free(lists->timearray);
+
 }
 /*
 ** -read helper for -a
@@ -95,6 +95,7 @@ void				read_helper_a(t_lists *lists, int flag, char *arg, DIR *dip)
 	{
 		read_helper_guts_a(lists, arg, dit, temp, flag);
 	}
+
 }
 /*
 ** - print lists
@@ -104,10 +105,4 @@ void				print_lists(t_lists *lists)
 	lists->i = -1;
 	while (++lists->i < lists->filecount)
 		ft_printf("%s\n", lists->dest[lists->i]);
-	// free_struct(lists);
-	// lists->i = -1;
-	// while (++lists->i < lists->filecount)
-	// 	free(lists->dest[lists->i]);
-	//ft_memdel((void*)&lists->dest);
-
 }
