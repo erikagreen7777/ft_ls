@@ -17,6 +17,7 @@ void		init_struct(t_lists **lists)
 	(*lists)->i = 0;
 	(*lists)->j = 0;
 	(*lists)->newargc = 0;
+	(*lists)->firstarg = 0;
 
 }
 

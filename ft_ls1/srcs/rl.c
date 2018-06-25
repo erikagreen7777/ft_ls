@@ -118,17 +118,10 @@ void 					ls_lta(int argc, char **argv, t_lists *lists)
 void 					ls_lt(/*int argc, */char **argv, t_lists *lists)
 {
 	int				j;
-	// DIR				*dip;
 	struct stat 	fileStat;
-	// char			arg[WORD_MAX];
 
 	j = lists->argcount;
 	lists->flag = 0;
-	// if (argc == 2)
-	// {
-	// 	argv[j] = ".";
-	// 	argc = 3;
-	// }
 	while (j < lists->newargc)
 	{
 		lists->i = 0;
@@ -137,24 +130,7 @@ void 					ls_lt(/*int argc, */char **argv, t_lists *lists)
 		if (((fileStat.st_mode & S_IFMT) == S_IFREG) || S_ISLNK(fileStat.st_mode))
 			ls_stat(argv[j], lists);
 		else if (S_ISDIR(fileStat.st_mode) == 1)
-		{
 			lt_helper(lists, argv[j]);
-			/* ------------------------------------------------> */
-			// dip = opendir(argv[j]);
-			// ft_strcpy(arg, argv[j]);
-			// if (ft_strcmp(arg, "/dev") == 0)
-			// 	lists->flag = 1;
-			// if (ft_strcmp(&arg[ft_strlen(arg) - 1], "/") != 0)
-			// 	ft_strcat(arg, "/");
-			// if (closedir(dip) == -1)
-			// 	ft_error("closedir");
-			// lists->filecount = directory_count(dip, argv[j], 0);
-			// dip = opendir(argv[j]);
-			// read_helper(lists, 1, arg, dip);
-			// if (closedir(dip) == -1)
-			// 	ft_error("closedir");
-			/* ------------------------------------------------> */
-		}
 		j++;
 	}
 	ft_switch_time(lists);

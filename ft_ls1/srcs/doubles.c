@@ -86,7 +86,8 @@ void 	ls_la(/*int argc, */char **argv, t_lists *lists)
 {
 	int				j;
 	struct stat 	fileStat;
-	j = lists->argcount;
+	// j = lists->argcount;
+	j = lists->firstarg;
 	lists->flag = 0;
 	while (j < lists->newargc)
 	{
@@ -97,9 +98,10 @@ void 	ls_la(/*int argc, */char **argv, t_lists *lists)
 			ls_stat(argv[j], lists);
 		else if (S_ISDIR(fileStat.st_mode) == 1)
 			la_helper(argv[j], lists);
+		ls_stat_helper(lists);
 		j++;
 	}
-	ls_stat_helper(lists);
+	// ls_stat_helper(lists);
 }
 
 /*

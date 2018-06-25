@@ -49,6 +49,7 @@ typedef struct	s_lists
 	int 		lflag;
 	int 		aflag;
 	int 		newargc;
+	int 		firstarg;
 
 }				t_lists;
 
