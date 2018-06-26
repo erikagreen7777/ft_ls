@@ -79,11 +79,11 @@ void				read_helper(t_lists *lists, int flag, char *arg, DIR *dip)
 	char			temp[WORD_MAX];
 	struct dirent	*dit;
 	
-	lists->dest = (char **)ft_memalloc(sizeof(char *) * (lists->filecount + 1));
+	lists->dest = (char **)ft_memalloc(sizeof(char *) * lists->filecount + 1);
 	if (flag == 1)
 	{
 		lists->timearrayflag++;
-		lists->timearray = (char **)ft_memalloc(sizeof(char *) * (lists->filecount + 1));
+		lists->timearray = (char **)ft_memalloc(sizeof(char *) * lists->filecount + 1);
 	}
 	if (dip == NULL)
 	{

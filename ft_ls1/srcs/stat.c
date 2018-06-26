@@ -8,8 +8,8 @@ char    *extract_path(char *str)
     int             len;
     char            *newstr;
 
-    newstr = (char *)malloc(sizeof(char));
     len = ft_strlen(str) - ft_strlen(ft_strstr(str, "/"));
+    newstr = (char *)malloc(sizeof(char) * (len + 1));
     ft_strncpy(newstr, str, len);
     ft_printf("newstr: %s\n", newstr);
     return (newstr);
@@ -50,17 +50,17 @@ char *readlink_malloc (const char *filename)
 
   while (1)
     {
-      buffer = (char *)malloc(sizeof(char) * size);
+      buffer = (char *)malloc(sizeof(char) * (size + 1));
       int nchars = readlink(filename, buffer, size);
       if (nchars < 0)
         {
-          free (buffer);
+          free(buffer);
           return NULL;
         }
       if (nchars < size)
       {
         buffer[nchars] = '\0';
-        return (buffer);
+        return(buffer);
       }
       size *= 2;
       i++;

@@ -23,12 +23,14 @@ static void	switch_helper(t_lists *lists)
 	get_lengths(lists);
 	temp = ft_strdup(lists->timearray[lists->i]);
 	tempdest = ft_strdup(lists->dest[lists->i]);
-	ft_bzero(lists->timearray[lists->i], lists->timeleni);
-	ft_bzero(lists->dest[lists->i], lists->destleni);
+	// free(lists->timearray[lists->i]);
+	// free(lists->timearray[lists->j]);
+	ft_bzero(lists->timearray[lists->i], lists->timeleni + 1);
+	ft_bzero(lists->dest[lists->i], lists->destleni + 1);
 	ft_strcpy(lists->dest[lists->i], lists->dest[lists->j]);
 	ft_strcpy(lists->dest[lists->i], lists->dest[lists->j]);
-	ft_bzero(lists->timearray[lists->j], lists->timelenj);
-	ft_bzero(lists->dest[lists->j], lists->destlenj);
+	ft_bzero(lists->timearray[lists->j], lists->timelenj + 1);
+	ft_bzero(lists->dest[lists->j], lists->destlenj + 1);
 	ft_strcpy(lists->timearray[lists->i], temp);
 	ft_strcpy(lists->dest[lists->j], tempdest);
 	// ft_bzero(temp, ft_strlen(temp));
@@ -37,6 +39,7 @@ static void	switch_helper(t_lists *lists)
 	free(tempdest);
 
 }
+
 
 void	ft_switch_time(t_lists *lists)
 {

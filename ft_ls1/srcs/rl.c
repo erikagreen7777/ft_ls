@@ -117,7 +117,7 @@ void 					ls_lt(/*int argc, */char **argv, t_lists *lists)
 			lt_helper(lists, argv[j]);
 		ft_switch_time(lists);
 		ls_stat_helper(lists);
-		// free_struct(lists);
+		free_some_stuff(lists);
 		j++;
 	}
 }

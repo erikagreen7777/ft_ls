@@ -20,6 +20,7 @@ void	back_helper(t_lists *lists)
 	{
 		ls_stat(lists->dest[lists->i], lists);
 	}
+
 }
 /*
 ** -recursive lstat() helpers

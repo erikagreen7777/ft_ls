@@ -144,8 +144,8 @@ void 					ls_lrat(char **argv, t_lists *lists)
 				ft_strcat(arg, "/");
 			lists->filecount = directory_count(dip, argv[j], 1);
 			dip = opendir(argv[j]);
-			lists->dest = (char **)ft_memalloc(sizeof(char *) * lists->filecount + 1);
-			lists->timearray = (char **)ft_memalloc(sizeof(char *) * lists->filecount + 1);
+			lists->dest = (char **)ft_memalloc(sizeof(char *) * (lists->filecount + 1));
+			lists->timearray = (char **)ft_memalloc(sizeof(char *) * (lists->filecount + 1));
 			if (dip == NULL)
 			{
 				ft_error(": No file or directory");
@@ -166,6 +166,7 @@ void 					ls_lrat(char **argv, t_lists *lists)
 				ft_error("closedir");
 			ft_switch_time(lists);
 			back_helper(lists);
+			free_some_stuff(lists);
 		}
 		j++;
 	}

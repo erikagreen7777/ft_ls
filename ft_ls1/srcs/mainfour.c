@@ -39,7 +39,7 @@ void	main_twelve(char **argv, t_lists *lists)
 			// free_dest(lists);
 			everything(argv[j], 0, lists);
 		}
-		free_dest(lists);
+		// free_dest(lists);
 		exit(0);
 	}
 }

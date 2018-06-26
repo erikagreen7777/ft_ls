@@ -81,7 +81,7 @@ void    timeinfo(struct stat fileStat)
     char            *foo;
     char            year[5];
 
-    hourmin = (char *)malloc(sizeof(char));
+    hourmin = (char *)malloc(sizeof(char) * (5 + 1));
     foo = ctime(&(fileStat.st_mtime));
     timearray = ft_strsplit(foo, ' ');
     ft_strncpy(hourmin, timearray[3], 5);
