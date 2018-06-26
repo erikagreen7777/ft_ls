@@ -41,6 +41,7 @@ int   	Rrl_helper(const char *str, int flag, t_lists *lists)
         ft_error("closedir");
     lex_sortrl(lists);
     recursive_ls_stat_helper(lists);
+    free_some_stuff(lists);
     return (0);
 }
 /*
