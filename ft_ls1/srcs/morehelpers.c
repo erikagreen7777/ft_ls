@@ -72,8 +72,8 @@ void	rt_helper_helper(DIR *dip, t_lists *lists, char *arg, int flag)
         lists->filecount = directory_count(dip, arg, 0);
     else if (flag == 1)
         lists->filecount = directory_count(dip, arg, 1);
-    lists->dest = (char **)ft_memalloc(sizeof(char *) * (lists->filecount + 1));
-    lists->timearray = (char **)ft_memalloc(sizeof(char *) * (lists->filecount + 1));
+    lists->dest = (char **)ft_memalloc(sizeof(char *) * lists->filecount + 1);
+    lists->timearray = (char **)ft_memalloc(sizeof(char *) * lists->filecount + 1);
     lists->timearrayflag++;
     ft_strcpy(temp, arg);
     while ((dit = readdir(dip)) != NULL)
