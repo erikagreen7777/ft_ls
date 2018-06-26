@@ -60,6 +60,8 @@ int				rbigrt_helper(const char *str, int flag, t_lists *lists)
 		ft_error("closedir");
 	ft_switch_time(lists);
 	print_lists_back(lists);
+	free_some_stuff(lists);
+
 	return (0);
 }
 /*

@@ -6,8 +6,8 @@ void		init_struct(t_lists **lists)
 	(*lists)->timearray = NULL;
 	(*lists)->filecount = 0;
 	(*lists)->dest = NULL;
-	(*lists)->temp = NULL;
-	(*lists)->tempdest = NULL;
+	// (*lists)->temp = NULL;
+	// (*lists)->tempdest = NULL;
 	(*lists)->tflag = 0;
 	(*lists)->big_r_flag = 0;
 	(*lists)->rflag = 0;

@@ -33,8 +33,8 @@ typedef struct	s_lists
 	int 		i;
 	int 		j;
 	int 		k;
-	char		*temp;
-	char 		*tempdest;
+	// char		*temp;
+	// char 		*tempdest;
 	int 		timeleni;
 	int 		timelenj;
 	int 		destleni;
