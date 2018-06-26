@@ -140,6 +140,12 @@ void	the_start(int argc, char **argv, t_lists *lists);
 void	free_dest(t_lists *lists);
 void	free_struct(t_lists *lists);
 void free_some_stuff(t_lists *lists);
+void    rlt_rt_helper_helper(DIR *dip, t_lists *lists, char *arg, int flag);
+void				rlt_read_helper_guts(t_lists *lists, char *arg, struct dirent *dit, char *temp, int flag);
+
+
+
+
 
 
 

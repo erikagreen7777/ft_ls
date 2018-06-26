@@ -95,6 +95,7 @@ void            ls_lra(/*int argc, */char **argv, t_lists *lists)
     //     argv[j] = ".";
     //     argc = 3;
     // }
+    // lists->size = 0;
     j = lists->argcount;
     while (j < lists->newargc)
     {
@@ -135,6 +136,7 @@ void            ls_lrt(/*int argc, */char **argv, t_lists *lists)
     int             j;
     struct stat     fileStat;
 
+    // lists->size = 0;
     lists->flag = 0;
     j = lists->argcount;
     while (j < lists->newargc)

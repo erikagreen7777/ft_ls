@@ -22,12 +22,34 @@ void				read_helper_guts_a(t_lists *lists, char *arg, struct dirent *dit, char *
 	}
 	lists->i++;
 }
+void				rlt_read_helper_guts(t_lists *lists, char *arg, struct dirent *dit, char *temp, int flag)
+{
+	char 	*temptwo;
+
+	temptwo = NULL;
+	if (dit->d_name[0] != '.')
+	{
+		if (lists->i > 0)
+			ft_strcpy(arg, temp);
+		ft_strcat(arg, dit->d_name);
+		lists->dest[lists->i] = ft_strdup(arg);
+		ft_bzero(arg, ft_strlen(arg));
+		if (flag == 1)
+		{
+			lists->timearrayflag++;
+			temptwo = ft_itoa(time_stat(lists->dest[lists->i]));
+			lists->timearray[lists->i] = ft_strdup(temptwo);
+		}
+		lists->i++;
+	}
+}
 /*
 ** -normed extra read helper
 */
 void				read_helper_guts(t_lists *lists, char *arg, struct dirent *dit, char *temp, int flag)
 {
 	char 	*temptwo;
+
 	temptwo = NULL;
 
 	if (dit->d_name[0] != '.')
@@ -47,27 +69,8 @@ void				read_helper_guts(t_lists *lists, char *arg, struct dirent *dit, char *te
 		}
 		lists->i++;
 	}
-	// char 	*temptwo;
-	// temptwo = NULL;
-
-	// if (dit->d_name[0] != '.')
-	// {
-	// 	if (lists->i > 0)
-	// 		ft_strcpy(arg, temp);
-	// 	ft_strcat(arg, dit->d_name);
-	// 	lists->dest[lists->i] = ft_strdup(arg);
-	// 	ft_bzero(arg, ft_strlen(arg));
-	// 	if (flag == 1)
-	// 	{
-	// 		lists->timearrayflag++;
-	// 		temptwo = ft_itoa(time_stat(lists->dest[lists->i]));
-	// 		lists->timearray[lists->i] = ft_strdup(temptwo);
-	// 		ft_bzero(temptwo, ft_strlen(temptwo));
-	// 		free(temptwo);
-	// 	}
-	// 	lists->i++;
-	// }
 }
+
 /*
 ** -read helper for most of the functions
 */

@@ -97,7 +97,7 @@ int ls_stat(char *str,  t_lists *lists)
     if (S_ISLNK(fileStat.st_mode))
     {
         buf = readlink_malloc(str);
-        printf("%s -> %s\n", str, buf);
+        ft_printf("%s -> %s\n", str, buf);
     }
     else
         ft_printf("%s\n", str);

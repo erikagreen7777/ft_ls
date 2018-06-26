@@ -38,8 +38,27 @@ void 	rl_helper_helper(DIR *dip, t_lists *lists, char *arg, int flag)
             read_helper_guts_a(lists, arg, dit, temp, 0);
     }
 }
+void    rlt_rt_helper_helper(DIR *dip, t_lists *lists, char *arg, int flag)
+{
+    struct dirent   *dit;
+    char            temp[WORD_MAX];
 
-
+    if (flag == 0)
+        lists->filecount = directory_count(dip, arg, 0);
+    else if (flag == 1)
+        lists->filecount = directory_count(dip, arg, 1);
+    lists->dest = (char **)ft_memalloc(sizeof(char *) * (lists->filecount + 1));
+    lists->timearray = (char **)ft_memalloc(sizeof(char *) * (lists->filecount + 1));
+    lists->timearrayflag++;
+    ft_strcpy(temp, arg);
+    while ((dit = readdir(dip)) != NULL)
+    {
+        if (flag == 0)
+            rlt_read_helper_guts(lists, arg, dit, temp, 1);
+        else if (flag == 1)
+            read_helper_guts_a(lists, arg, dit, temp, 1);
+    }
+}
 
 /*
 ** - rt helpers helper

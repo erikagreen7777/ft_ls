@@ -8,6 +8,7 @@ int  rlt_helper(const char *str, int flag, t_lists *lists)
     DIR             *dip;
     char            arg[WORD_MAX];
 
+	// lists->size = 0;
     lists->i = 0;
     ft_strcpy(arg, str);
     if (ft_strcmp(&arg[ft_strlen(arg) - 1], "/") != 0)
@@ -15,11 +16,11 @@ int  rlt_helper(const char *str, int flag, t_lists *lists)
     dip = opendir(str);
     if (dip == NULL)
     	null_check(str);
-    rt_helper_helper(dip, lists, arg, flag);
+    rlt_rt_helper_helper(dip, lists, arg, flag);
     ft_switch_time(lists);
+    recursive_ls_stat_helper(lists);
     if (closedir(dip) == -1)
         ft_error("closedir");
-    recursive_ls_stat_helper(lists);
     free_some_stuff(lists);
     return (0);
 }

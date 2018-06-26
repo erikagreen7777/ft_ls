@@ -53,7 +53,9 @@ void	ft_switch_time(t_lists *lists)
 			else if (ft_atoi(lists->timearray[lists->i]) == ft_atoi(lists->timearray[lists->j]))
 			{
 				if (ft_strcmp(lists->dest[lists->i], lists->dest[lists->j]) > 0)
+				{
 					switch_helper(lists);
+				}
 			}
 			lists->j++;
 		}

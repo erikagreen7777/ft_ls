@@ -126,6 +126,7 @@ void 					ls_lrat(char **argv, t_lists *lists)
 	char			arg[WORD_MAX];
 	char  			temp[WORD_MAX];
 
+	// lists->size = 0;
     j = lists->argcount;
     while (j < lists->newargc)
     {
