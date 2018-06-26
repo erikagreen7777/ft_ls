@@ -1,0 +1,12 @@
+./ft_ls -a
+*******************
+no such file or directory
+
+
+
+./ft_ls -R
+************************
+error: no such file or directory
+
+**Check that symbolic link display is accurate**
+
