@@ -120,6 +120,7 @@ void            ls_lra(/*int argc, */char **argv, t_lists *lists)
         //     rlex_sortrl(lists);
             back_helper(lists);
         }
+        free_some_stuff(lists);
 /* -------------------------------------------------------> */
 
         j++;
