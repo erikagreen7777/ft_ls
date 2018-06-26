@@ -85,6 +85,7 @@ void 				ls_lta(char **argv, t_lists *lists)
 			lta_helper(lists, argv[j]);
 		}
 		ls_stat_helper(lists);
+		free_some_stuff(lists);
 		j++;
 	}
 }
