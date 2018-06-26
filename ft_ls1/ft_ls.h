@@ -51,7 +51,6 @@ typedef struct	s_lists
 	int 		newargc;
 	int 		firstarg;
 	int 		timearrayflag;
-	char 		*itoatemp;
 
 }				t_lists;
 

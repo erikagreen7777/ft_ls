@@ -4,8 +4,8 @@
 */
 void				read_helper_guts_a(t_lists *lists, char *arg, struct dirent *dit, char *temp, int flag)
 {
-	// char *temptwo;
-	// temptwo = NULL;
+	char 	*temptwo;
+	temptwo = NULL;
 
 	if (lists->i > 0)
 		ft_strcpy(arg, temp);
@@ -15,10 +15,10 @@ void				read_helper_guts_a(t_lists *lists, char *arg, struct dirent *dit, char *
 	if (flag == 1)
 	{
 		lists->timearrayflag++;
-		lists->itoatemp = ft_itoa(time_stat(lists->dest[lists->i]));
-		lists->timearray[lists->i] = ft_strdup(lists->itoatemp);
-		// lists->timearray[lists->i] = ft_strdup(ft_itoa(time_stat(lists->dest[lists->i])));
-		// free(lists->itoatemp);
+		temptwo = ft_itoa(time_stat(lists->dest[lists->i]));
+		lists->timearray[lists->i] = ft_strdup(temptwo);
+		ft_bzero(temptwo, ft_strlen(temptwo));
+		free(temptwo);	
 	}
 	lists->i++;
 }
@@ -27,6 +27,9 @@ void				read_helper_guts_a(t_lists *lists, char *arg, struct dirent *dit, char *
 */
 void				read_helper_guts(t_lists *lists, char *arg, struct dirent *dit, char *temp, int flag)
 {
+	char 	*temptwo;
+	temptwo = NULL;
+
 	if (dit->d_name[0] != '.')
 	{
 		if (lists->i > 0)
@@ -37,10 +40,10 @@ void				read_helper_guts(t_lists *lists, char *arg, struct dirent *dit, char *te
 		if (flag == 1)
 		{
 			lists->timearrayflag++;
-			lists->itoatemp = ft_itoa(time_stat(lists->dest[lists->i]));
-			lists->timearray[lists->i] = ft_strdup(lists->itoatemp);
-			ft_bzero(lists->itoatemp, ft_strlen(lists->itoatemp));
-			free(lists->itoatemp);
+			temptwo = ft_itoa(time_stat(lists->dest[lists->i]));
+			lists->timearray[lists->i] = ft_strdup(temptwo);
+			ft_bzero(temptwo, ft_strlen(temptwo));
+			free(temptwo);
 		}
 
 		lists->i++;

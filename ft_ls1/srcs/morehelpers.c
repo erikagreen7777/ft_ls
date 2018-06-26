@@ -137,7 +137,6 @@ void	rlt_helper_helper(t_lists *lists, char *str)
     ft_switch_time(lists);
     if (closedir(dip) == -1)
         ft_error("closedir");
-    free(lists->itoatemp);
 
 }
 
