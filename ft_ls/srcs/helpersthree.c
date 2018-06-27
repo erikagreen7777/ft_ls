@@ -17,10 +17,10 @@
 void	recursive_cat(char *path, const char *name, struct dirent *entry)
 {
     ft_strcpy(path, name);
-    if (ft_strcmp(name, "/") != 0)
-	    ft_strcat(path, "/");
+	ft_strcat(path, "/");
     ft_strcat(path, entry->d_name);
     ft_printf("\n%s: \n", path);
+    
 }
 
 void 	la_helper(char *str, t_lists *lists)
