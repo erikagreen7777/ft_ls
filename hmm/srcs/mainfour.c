@@ -120,3 +120,46 @@ void	main_fourteen(char **argv, t_lists *lists)
 		exit(0);
 	}
 }
+void	main_six(/*int argc, */char **argv, t_lists *lists)
+{
+	/*
+	** -Rr
+	*/
+	if (lists->rflag > 0 && lists->tflag == 0 && \
+		lists->big_r_flag > 0 && lists->lflag == 0 && \
+		lists->aflag == 0)			
+	{
+		int j;
+		j = lists->argcount - 1;
+		lists->i = 0;
+		while (++j < lists->newargc)
+		{		
+			if (j > lists->argcount && j < lists->newargc)
+				write(1, "\n", 1);
+			lists->i = 0;
+			Rr_helper(argv[j], 0, lists);
+			list_dirbigrr(argv[j], 0, lists);
+		}
+		exit (0);
+	}
+	/*
+	** -Rl
+	*/
+	if (lists->rflag == 0 && lists->tflag == 0 && \
+		lists->big_r_flag > 0 && lists->lflag > 0 && \
+		lists->aflag == 0)			
+	{
+		int j;
+		j = lists->argcount - 1;
+		lists->i = 0;
+		while (++j < lists->newargc)
+		{		
+			if (j > lists->argcount && j < lists->newargc)
+				write(1, "\n", 1);
+			lists->i = 0;
+			Rl_helper(argv[lists->argcount], 0, lists);
+			list_dirbigrl(argv[lists->argcount], 0, lists);
+		}
+		exit (0);
+	}
+}

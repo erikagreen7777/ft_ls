@@ -101,6 +101,33 @@ void    timeinfo(struct stat fileStat)
         ft_printf("%s %2s %s  ", timearray[1], timearray[2], hourmin);
     free_timearray(timearray, hourmin);
 }
-
+/*
+** - la
+*/
+void    ls_la(char **argv, t_lists *lists)
+{
+    int             j;
+    struct stat     fileStat;
+    j = lists->firstarg;
+    lists->flag = 0;
+    while (j < lists->newargc)
+    {       
+        if (j > lists->firstarg && j < lists->newargc)
+        {
+            init_struct(&lists);
+            write(1, "\n", 1);
+        }
+        lists->i = 0;
+        if(lstat(argv[j], &fileStat) < 0) 
+            ft_error("ls -l: No such file or directory");
+        if (((fileStat.st_mode & S_IFMT) == S_IFREG) || S_ISLNK(fileStat.st_mode))
+            ls_stat(argv[j], lists);
+        else if (S_ISDIR(fileStat.st_mode) == 1)
+            la_helper(argv[j], lists);
+        ls_stat_helper(lists);
+        free_struct(lists);
+        j++;
+    }
+}
 
 

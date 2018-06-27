@@ -47,3 +47,32 @@ void	ft_switch_time(t_lists *lists)
 		}
 	}
 }
+
+/*
+** -lta
+*/
+void 				ls_lta(char **argv, t_lists *lists)
+{
+	int				j;
+	struct stat 	fileStat;
+
+
+	j = lists->argcount;
+	while (j < lists->newargc)
+	{
+		if (j > lists->argcount && j < lists->newargc)
+			write(1, "\n", 1);
+		lists->i = 0;
+		if(lstat(argv[j], &fileStat) < 0) 
+        	ft_error("ls -l: No such file or directory");
+		if (((fileStat.st_mode & S_IFMT) == S_IFREG) || S_ISLNK(fileStat.st_mode))
+			ls_stat(argv[j], lists);
+		else if (S_ISDIR(fileStat.st_mode) == 1)
+		{
+			lta_helper(lists, argv[j]);
+		}
+		ls_stat_helper(lists);
+		free_some_stuff(lists);
+		j++;
+	}
+}

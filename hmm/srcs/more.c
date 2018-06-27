@@ -15,7 +15,7 @@
 /*
 ** ls -rt/ -tr
 */
-void 					ls_rt(/*int argc, */char **argv, t_lists *lists)
+void 					ls_rt(char **argv, t_lists *lists)
 {
 	int				j;
 	DIR				*dip;
@@ -140,7 +140,6 @@ void 					ls_lrat(char **argv, t_lists *lists)
 	char			arg[WORD_MAX];
 	char  			temp[WORD_MAX];
 
-	// lists->size = 0;
     j = lists->argcount;
     while (j < lists->newargc)
     {
@@ -161,21 +160,10 @@ void 					ls_lrat(char **argv, t_lists *lists)
 			lists->dest = (char **)ft_memalloc(sizeof(char *) * (lists->filecount + 1));
 		    lists->timearray = (int *)ft_memalloc(sizeof(int) * lists->filecount);
 			if (dip == NULL)
-			{
 				ft_error(": No file or directory");
-			}
 			ft_strcpy(temp, arg);
 			while ((dit = readdir(dip)) != NULL)
-			{	
 				read_helper_guts_a(lists, arg, dit, temp, 1);
-				// if (lists->i > 0)
-				// 	ft_strcpy(arg, temp);
-				// ft_strcat(arg, dit->d_name);
-				// lists->dest[lists->i] = ft_strdup(arg);
-				// ft_bzero(arg, ft_strlen(arg));
-				// lists->timearray[lists->i] = ft_strdup(ft_itoa(time_stat(lists->dest[lists->i])));
-				// lists->i++;
-			}
 			if (closedir(dip) == -1)
 				ft_error("closedir");
 			ft_switch_time(lists);
