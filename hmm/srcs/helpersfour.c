@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   helpersfour.c                        			  .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: egreen  <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2018/06/24 20:22:47 by egreen       #+#   ##    ##    #+#       */
+/*   Updated: 2018/06/26 20:18:23 by egreen      ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
+/* ************************************************************************** */
 #include "../ft_ls.h"
 /*
 ** - print lists backwards (for -r flags)
@@ -36,8 +48,6 @@ void free_some_stuff(t_lists *lists)
 	i = 0;
 	while (i < lists->filecount)
 	{
-		// if (lists->timearrayflag > 0)
-			// free(lists->timearray[i]);
 		free(lists->dest[i]);
 		i++;
 	}

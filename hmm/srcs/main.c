@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   main.c                             			  .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: egreen  <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2018/06/24 15:16:00 by egreen       #+#   ##    ##    #+#       */
+/*   Updated: 2018/06/26 20:18:23 by egreen      ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
+/* ************************************************************************** */
 #include "../ft_ls.h"
 
 void		init_struct(t_lists **lists)
@@ -6,8 +18,6 @@ void		init_struct(t_lists **lists)
 	(*lists)->timearray = NULL;
 	(*lists)->filecount = 0;
 	(*lists)->dest = NULL;
-	// (*lists)->temp = NULL;
-	// (*lists)->tempdest = NULL;
 	(*lists)->tflag = 0;
 	(*lists)->big_r_flag = 0;
 	(*lists)->rflag = 0;
@@ -20,7 +30,6 @@ void		init_struct(t_lists **lists)
 	(*lists)->firstarg = 0;
 	(*lists)->timearrayflag = 0;
 	(*lists)->size = 0;
-
 }
 
 void	free_struct(t_lists *lists)
@@ -29,8 +38,6 @@ void	free_struct(t_lists *lists)
 	i = 0;
 	while (i < lists->filecount)
 	{
-		// if (lists->timearrayflag > 0)
-		// 	free(lists->timearray[i]);
 		free(lists->dest[i]);
 		i++;
 	}
@@ -56,7 +63,6 @@ int main(int argc, char **argv)
 		if (argc == 1 || (argc == 2 && ft_strcmp(argv[1], ".") == 0))
 		{
 			list_dir(argc, argv);
-			// return (0);
 		}
 		else if (argc >= 2)
 		{

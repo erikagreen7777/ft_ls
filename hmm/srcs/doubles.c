@@ -1,5 +1,16 @@
+/* ************************************************************************** */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   doubles.c                             			  .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: egreen  <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2018/06/16 11:53:29 by egreen       #+#   ##    ##    #+#       */
+/*   Updated: 2018/06/26 20:18:23 by egreen      ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
+/* ************************************************************************** */
 #include "../ft_ls.h"
-
 /*
 ** -aother backwards helper
 */
@@ -20,7 +31,6 @@ void	back_helper(t_lists *lists)
 	{
 		ls_stat(lists->dest[lists->i], lists);
 	}
-
 }
 /*
 ** -recursive lstat() helpers
@@ -40,7 +50,6 @@ void 	recursive_ls_stat_helper(t_lists *lists)
     while (++lists->i < lists->filecount)
         ls_stat(lists->dest[lists->i], lists);
 }
-
 /*
 ** - recurstive lstat() helper for -r
 */
@@ -56,7 +65,6 @@ void 	r_recursive_ls_stat_helper(t_lists *lists)
     while (--lists->i > -1)
         ls_stat(lists->dest[lists->i], lists);
 }
-
 /*
 ** -lstat()_helper
 */
@@ -79,15 +87,13 @@ void	ls_stat_helper(t_lists *lists)
 	while (++lists->i < lists->filecount)
 		ls_stat(lists->dest[lists->i], lists);
 }
-
 /*
 ** - la
 */
-void 	ls_la(/*int argc, */char **argv, t_lists *lists)
+void 	ls_la(char **argv, t_lists *lists)
 {
 	int				j;
 	struct stat 	fileStat;
-	// j = lists->argcount;
 	j = lists->firstarg;
 	lists->flag = 0;
 	while (j < lists->newargc)
@@ -108,9 +114,7 @@ void 	ls_la(/*int argc, */char **argv, t_lists *lists)
 		free_struct(lists);
 		j++;
 	}
-	// ls_stat_helper(lists);
 }
-
 /*
 ** find out how many files are in a directory
 */
@@ -134,7 +138,6 @@ int		directory_count(DIR *dip, char *str, int flag)
 	}
 	if (closedir(dip) == -1)
 		ft_error("closedir");
-
 	return (filecount);
 }
 

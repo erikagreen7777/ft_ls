@@ -1,5 +1,16 @@
+/* ************************************************************************** */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   helpersthree.c                        			  .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: egreen  <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2018/06/23 19:07:26 by egreen       #+#   ##    ##    #+#       */
+/*   Updated: 2018/06/26 20:18:23 by egreen      ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
+/* ************************************************************************** */
 #include "../ft_ls.h"
-
 /*
 ** - recursive path cat/cpy. Because of Norm
 */
@@ -32,16 +43,16 @@ void 	la_helper(char *str, t_lists *lists)
 		ft_error("closedir");
 }
 
-int	argc_stuff(int argc, char **argv, t_lists *lists)
-{
-	lists->j = 1;
-	if (argc == 2)
-	{
-		argv[lists->j + 1] = ".";
-		argc = 3;
-	}
-	return (argc);
-}
+// int	argc_stuff(int argc, char **argv, t_lists *lists)
+// {
+// 	lists->j = 1;
+// 	if (argc == 2)
+// 	{
+// 		argv[lists->j + 1] = ".";
+// 		argc = 3;
+// 	}
+// 	return (argc);
+// }
 /*
 ** - Rrt helper
 */
@@ -62,7 +73,6 @@ int				rbigrt_helper(const char *str, int flag, t_lists *lists)
 	ft_switch_time(lists);
 	print_lists_back(lists);
 	free_some_stuff(lists);
-
 	return (0);
 }
 /*

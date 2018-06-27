@@ -1,5 +1,16 @@
+/* ************************************************************************** */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   list_dir.c                            			  .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: egreen  <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2018/06/06 13:21:09 by egreen       #+#   ##    ##    #+#       */
+/*   Updated: 2018/06/26 20:18:23 by egreen      ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
+/* ************************************************************************** */
 #include "../ft_ls.h"
-
 /*
 ** - ls -l helper
 */
@@ -25,7 +36,6 @@ static void ls_l_helper(struct stat fileStat, char *arg, char *str, t_lists *lis
 			ft_error("closedir");
 		ls_stat_helper(lists);
 	}
-
 }
 /*
 ** ls -l
@@ -81,14 +91,12 @@ static void		lsr_helper(struct stat fileStat, char *arg, char *str, t_lists *lis
 		print_lists(lists);
 	}
 }
-
 /*
 ** ls -t
 */
 void	list_dirt(int argc, char **argv, t_lists *lists)
 {
 	int				j;
-	// DIR				*dip;
 	struct stat 	fileStat;
 	char			arg[WORD_MAX];
 	j = 1;
@@ -100,10 +108,7 @@ void	list_dirt(int argc, char **argv, t_lists *lists)
 	while (++j < argc)
 	{
 		if (j > 2 && j < argc)
-		{
 			write(1, "\n", 1);
-			// init_struct(&lists);
-		}
 		lists->i = 0;
 		if(lstat(argv[j], &fileStat) < 0) 
         	ft_error("ls -t: No such file or directory");

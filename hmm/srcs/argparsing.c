@@ -1,5 +1,16 @@
+/* ************************************************************************** */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   argparsing.c                         			  .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: egreen  <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2018/06/24 11:58:00 by egreen       #+#   ##    ##    #+#       */
+/*   Updated: 2018/06/26 20:18:23 by egreen      ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
+/* ************************************************************************** */
 #include "../ft_ls.h"
-
 /*
 ** - flag parsing
 */
@@ -35,7 +46,6 @@ int/*void*/	arg_parsing(int argc, char **argv, t_lists *lists)
 	{
 		if (ft_strncmp(argv[lists->i], "-", 1) == 0)
 		{
-			// printf("argv[%d]: %s\n", lists->i, argv[lists->i]);
 			flag_parsing(argv[lists->i], lists);
 			lists->argcount++;
 		}
@@ -45,7 +55,6 @@ int/*void*/	arg_parsing(int argc, char **argv, t_lists *lists)
 	lists->firstarg = lists->argcount;
 	if (lists->argcount == argc)
 	{
-		// lists->argcount++;
 		argv[lists->argcount] = ".";
 		argc++;
 	}

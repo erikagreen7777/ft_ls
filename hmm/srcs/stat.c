@@ -1,19 +1,31 @@
+/* ************************************************************************** */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   stat.c                                           .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: egreen  <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2018/06/24 15:16:00 by egreen       #+#   ##    ##    #+#       */
+/*   Updated: 2018/06/26 20:18:23 by egreen      ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
+/* ************************************************************************** */
 #include "../ft_ls.h"
 
 /*
 ** - possibly extraneous function
 */
-char    *extract_path(char *str)
-{
-    int             len;
-    char            *newstr;
+// char    *extract_path(char *str)
+// {
+//     int             len;
+//     char            *newstr;
 
-    len = ft_strlen(str) - ft_strlen(ft_strstr(str, "/"));
-    newstr = (char *)malloc(sizeof(char) * (len + 1));
-    ft_strncpy(newstr, str, len);
-    ft_printf("newstr: %s\n", newstr);
-    return (newstr);
-}
+//     len = ft_strlen(str) - ft_strlen(ft_strstr(str, "/"));
+//     newstr = (char *)malloc(sizeof(char) * (len + 1));
+//     ft_strncpy(newstr, str, len);
+//     ft_printf("newstr: %s\n", newstr);
+//     return (newstr);
+// }
 
 int    add_stat(char *str)
 {
@@ -69,17 +81,17 @@ char *readlink_malloc (const char *filename)
 /*
 ** - free dest
 */
-void  free_dest(t_lists *lists)
-{
-  int i;
-  i = 0;
-  while (i < lists->filecount)
-  {
-    free(lists->dest[i]);
-    i++;
-  }
-  ft_memdel((void*)&lists->dest);
-}
+// void  free_dest(t_lists *lists)
+// {
+//   int i;
+//   i = 0;
+//   while (i < lists->filecount)
+//   {
+//     free(lists->dest[i]);
+//     i++;
+//   }
+//   ft_memdel((void*)&lists->dest);
+// }
 
 /*
 ** - stat() for -l

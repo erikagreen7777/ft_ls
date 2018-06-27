@@ -1,5 +1,16 @@
+/* ************************************************************************** */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   ls_stat_helpers.c                                .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: egreen  <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2018/06/23 13:27:00 by egreen       #+#   ##    ##    #+#       */
+/*   Updated: 2018/06/26 20:18:23 by egreen      ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
+/* ************************************************************************** */
 #include "../ft_ls.h"
-
 /*
 ** - print file permissions for ls -l
 */    
@@ -30,7 +41,6 @@ void    permissions(struct stat fileStat)
     ft_printf( (fileStat.st_mode & S_IXOTH) ? "x" : "-");
     ft_printf("\t");
 }
-
 /*
 ** - print userid, groupid, file size (or for /dev major/minor device numbers)
 */
@@ -53,7 +63,6 @@ void    guidstuff(struct stat fileStat, t_lists *lists)
     else
         ft_printf("%4ld, %4ld ", (long) major(fileStat.st_rdev), (long) minor(fileStat.st_rdev));
 }
-
 /*
 ** - free timearray and hourmin used in timeinfo
 */
@@ -68,7 +77,6 @@ static void free_timearray(char **timearray, char *hourmin)
     free(timearray);
     free(hourmin);
 }
-
 /*
 ** - if the date is more than 6 months in either direction, print month, date, year. 
 ** - else, print the month, date, and hour:min

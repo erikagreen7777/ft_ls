@@ -1,5 +1,16 @@
+/* ************************************************************************** */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   morehelpers.c                                    .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: egreen  <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2018/06/23 15:11:43 by egreen       #+#   ##    ##    #+#       */
+/*   Updated: 2018/06/26 20:18:23 by egreen      ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
+/* ************************************************************************** */
 #include "../ft_ls.h"
-
 /*
 ** checks that file/directory exists if dip == null
 */
@@ -54,7 +65,7 @@ void    rlt_rt_helper_helper(DIR *dip, t_lists *lists, char *arg, int flag)
     while ((dit = readdir(dip)) != NULL)
     {
         if (flag == 0)
-            rlt_read_helper_guts(lists, arg, dit, temp, 1);
+            read_helper_guts(lists, arg, dit, temp, 1);
         else if (flag == 1)
             read_helper_guts_a(lists, arg, dit, temp, 1);
     }

@@ -1,5 +1,16 @@
+/* ************************************************************************** */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   list_dir2.c                           			  .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: egreen  <marvin@le-101.fr>                 +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2018/06/09 15:07:40 by egreen       #+#   ##    ##    #+#       */
+/*   Updated: 2018/06/26 20:18:23 by egreen      ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
+/* ************************************************************************** */
 #include "../ft_ls.h"
-
 /*
 ** ls 
 */
@@ -7,36 +18,30 @@ void	list_dir(int argc, char **argv)
 {
 	DIR				*dip;
 	struct dirent	*dit;
-	struct stat 	fileStat;
+	// struct stat 	fileStat;
 	int				j;
-	j = 1;
+	j = 0;
 	if (argc == 1)
 	{
-		argv[j] = ".";
+		argv[j + 1] = ".";
 		argc = 2;
 	}
-	while (j < argc)
+	while (++j < argc)
 	{
 		if (j > 1 && j < argc)
 			write(1, "\n", 1);
 		dip = opendir(argv[j]);
 		if (dip == NULL)
-		{
-			/*
-			** TODO: create own function for this because it happens often?
-			*/
-	
-				if(stat(argv[j],&fileStat) < 0) 
-				{
-					ft_printf("./ft_ls: %s: No such file or directory\n", argv[j]);
-					exit (-1);
-				} 
-				printf("%s\n", argv[j]);
-				exit(0);
-			/*
-			** end function here?
-			*/
-		}
+			null_check(argv[j]);
+		// {
+		// 		if(stat(argv[j],&fileStat) < 0) 
+		// 		{
+		// 			ft_printf("./ft_ls: %s: No such file or directory\n", argv[j]);
+		// 			exit (-1);
+		// 		} 
+		// 		printf("%s\n", argv[j]);
+		// 		exit(0);
+		// }
 		while ((dit = readdir(dip)) != NULL)
 		{
 			if (dit->d_name[0] != '.')
@@ -44,7 +49,7 @@ void	list_dir(int argc, char **argv)
 		}
 		if (closedir(dip) == -1)
 			ft_error("closedir");
-		j++;
+		// j++;
 	}
 }
 
