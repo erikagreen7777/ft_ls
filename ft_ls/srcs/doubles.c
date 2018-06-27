@@ -98,7 +98,6 @@ int		directory_count(DIR *dip, char *str, int flag)
 	filecount = 0;
 
 	dip = opendir(str);
-
 	while ((dit = readdir(dip)) != NULL)
 	{
 		if (flag == 0)

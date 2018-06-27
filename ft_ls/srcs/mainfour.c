@@ -48,10 +48,8 @@ void	main_twelve(char **argv, t_lists *lists)
 			if (j > lists->argcount && j < lists->newargc)
 				write(1, "\n", 1);
 			everything_helper(argv[j], 0, lists);
-			// free_dest(lists);
 			everything(argv[j], 0, lists);
 		}
-		// free_dest(lists);
 		exit(0);
 	}
 }

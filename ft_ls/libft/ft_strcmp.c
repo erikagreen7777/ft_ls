@@ -28,18 +28,13 @@ int 	findthelength(const char *s1, const char *s2)
 
 int		ft_strcmp(const char *s1, const char *s2)
 {
-	// int len1;
-	// int len2;
 	int longer;
 	int i;
 	int diff;
 
 	diff = 9000;
 	i = -1;
-	// len1 = ft_strlen(s1);
-	// len2 = ft_strlen(s2);
 	longer = findthelength(s1, s2);
-
 	if (longer == 1 || longer == 0)
 	{
 		while (s1[++i])
@@ -47,7 +42,6 @@ int		ft_strcmp(const char *s1, const char *s2)
 			diff = s1[i] - s2[i];
 			if (diff != 0)
 				return (diff);
-			// i++;
 		}
 	}
 	else if (longer == 2)
@@ -57,7 +51,6 @@ int		ft_strcmp(const char *s1, const char *s2)
 			diff = s1[i] - s2[i];
 			if (diff != 0)
 				return (diff);
-			// i++;
 		}
 	}
 	return (0);

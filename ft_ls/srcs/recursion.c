@@ -14,43 +14,74 @@
 /*
 ** ls -R pre-helper
 */
-void    R_first(int argc, char **argv, int flag, int j)
+void    R_first(char *str, int flag)
 {
     DIR             *dip;
     struct dirent   *dit;
     struct stat     fileStat;
-    int             k;
-    k = j;
-    while (j < argc)
+
+    dip = opendir(str);
+    if (dip == NULL)
     {
-        if (j > k && j < argc)
-            write(1, "\n", 1);
-        dip = opendir(argv[j]);
-        if (dip == NULL)
+        if(stat(str,&fileStat) < 0) 
         {
-            if(stat(argv[j],&fileStat) < 0) 
-            {
-                ft_printf("./ft_ls: %s: No such file or directory\n", argv[j]);
-                exit (-1);
-            } 
-            printf("%s\n", argv[j]);
-            exit(0);
-        }
-        while ((dit = readdir(dip)) != NULL)
+            ft_printf("./ft_ls: %s: No such file or directory\n", str);
+            exit (-1);
+        } 
+        ft_printf("%s\n", str);
+        exit(0);
+    }
+    while ((dit = readdir(dip)) != NULL)
+    {
+        if (flag == 0)
         {
-            if (flag == 0)
-            {
-                if (dit->d_name[0] != '.')
-                    ft_printf("%s\n", dit->d_name);
-            }
-            else
+            if (dit->d_name[0] != '.')
                 ft_printf("%s\n", dit->d_name);
         }
-        if (closedir(dip) == -1)
-            ft_error("closedir");
-        j++;
+        else
+            ft_printf("%s\n", dit->d_name);
     }
+    if (closedir(dip) == -1)
+        ft_error("closedir");
 }
+
+// void    R_first(int argc, char **argv, int flag, int j)
+// {
+//     DIR             *dip;
+//     struct dirent   *dit;
+//     struct stat     fileStat;
+//     int             k;
+//     k = j;
+//     while (j < argc)
+//     {
+//         if (j > k && j < argc)
+//             write(1, "\n", 1);
+//         dip = opendir(argv[j]);
+//         if (dip == NULL)
+//         {
+//             if(stat(argv[j],&fileStat) < 0) 
+//             {
+//                 ft_printf("./ft_ls: %s: No such file or directory\n", argv[j]);
+//                 exit (-1);
+//             } 
+//             ft_printf("%s\n", argv[j]);
+//             exit(0);
+//         }
+//         while ((dit = readdir(dip)) != NULL)
+//         {
+//             if (flag == 0)
+//             {
+//                 if (dit->d_name[0] != '.')
+//                     ft_printf("%s\n", dit->d_name);
+//             }
+//             else
+//                 ft_printf("%s\n", dit->d_name);
+//         }
+//         if (closedir(dip) == -1)
+//             ft_error("closedir");
+//         j++;
+//     }
+// }
 
 
 /*

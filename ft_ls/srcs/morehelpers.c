@@ -23,7 +23,7 @@ void null_check(const char *str)
         ft_printf("./ft_ls: %s: No such file or directory\n", str);
         exit (-1);
     } 
-    printf("%s\n", str);
+    ft_printf("%s\n", str);
     exit (-1);
 }
 

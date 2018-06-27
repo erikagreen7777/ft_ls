@@ -25,14 +25,14 @@ void	the_start(int argc, char **argv, t_lists *lists)
 			exit (0);
 		}
 	main_two(argc, argv, lists);
-	main_three(/*argc, */argv, lists);
-	main_four(/*argc, */argv, lists);
-	main_five(argc, argv, lists);
-	main_six(/*argc, */argv, lists);
-	main_seven(/*argc, */argv, lists);
+	main_three(argv, lists);
+	main_four(argv, lists);
+	main_five(argv, lists);
+	main_six(argv, lists);
+	main_seven(argv, lists);
 	main_eight(argv, lists);
 	main_nine(argv, lists);
-	main_ten(/*argc, */argv, lists);
+	main_ten(argv, lists);
 	main_eleven(argv, lists);
 	main_twelve(argv, lists);
 	main_thirteen(argv, lists);
@@ -80,16 +80,32 @@ void	main_two(int argc, char **argv, t_lists *lists)
 		lists->big_r_flag > 0 && lists->lflag == 0 && \
 		lists->aflag == 0)	
 	{
-		if (argc == 2)
-		{
-		    argv[2] = ".";
-		    argc = 3;
-		}
+		int j;
+		j = lists->argcount - 1;
 		lists->i = 0;
-		R_first(argc, argv, 0, lists->argcount);
-		list_dirbigr(argv[2], 0);
+		while (++j < lists->newargc)
+		{		
+			if (j > lists->argcount && j < lists->newargc)
+				write(1, "\n", 1);
+			R_first(argv[lists->argcount], 0);
+			list_dirbigr(argv[lists->argcount], 0);
+		}
 		exit (0);
 	}
+	// else if (lists->rflag == 0 && lists->tflag == 0 && \
+	// 	lists->big_r_flag > 0 && lists->lflag == 0 && \
+	// 	lists->aflag == 0)	
+	// {
+	// 	if (argc == 2)
+	// 	{
+	// 	    argv[2] = ".";
+	// 	    argc = 3;
+	// 	}
+	// 	lists->i = 0;
+	// 	R_first(argc, argv, 0, lists->argcount);
+	// 	list_dirbigr(argv[2], 0);
+	// 	exit (0);
+	// }
 }
 
 void	main_three(/*int argc, */char **argv, t_lists *lists)
@@ -160,7 +176,7 @@ void	main_four(/*int argc, */char **argv, t_lists *lists)
 	}
 }
 
-void	main_five(int argc, char **argv, t_lists *lists)
+void	main_five(char **argv, t_lists *lists)
 {
 	/*
 	** -Ra
@@ -177,7 +193,7 @@ void	main_five(int argc, char **argv, t_lists *lists)
 			if (j > lists->argcount && j < lists->newargc)
 				write(1, "\n", 1);
 			lists->i = 0;
-			R_first(argc, argv, 1, lists->argcount);
+			R_first(argv[lists->argcount], 1);
 			list_dirbigr(argv[lists->argcount], 1);
 		}
 		exit (0);

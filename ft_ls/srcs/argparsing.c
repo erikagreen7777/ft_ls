@@ -38,7 +38,7 @@ static void flag_parsing(char *str, t_lists *lists)
 /*
 ** - argument parsing for flag and arc
 */
-int/*void*/	arg_parsing(int argc, char **argv, t_lists *lists)
+int		arg_parsing(int argc, char **argv, t_lists *lists)
 {
 	lists->argcount = 0;
 	lists->i = 0;
