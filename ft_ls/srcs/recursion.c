@@ -105,15 +105,9 @@ void list_dirbigr(const char *name, int flag)
                     continue;
                 recursive_cat(path, name, entry);
                 if (flag == 0)
-                {
-                    // R_helper(path, 0);
                     list_dirbigr(path, 0);
-                }
                 else
-                {
-                    // R_helper(path, 1);
                     list_dirbigr(path, 1);
-                }
         }
         else
             ft_printf("%s\n", entry->d_name);  
@@ -150,7 +144,9 @@ void   list_dirbigrt(const char *name, int flag, t_lists *lists)
                     Rt_helper(path, 1, lists);
                     list_dirbigrt(path, 1, lists);
                 }
-        }    
+        }
+        else
+            ft_printf("%s\n", entry->d_name);  
     }
     closedir(dir);
 }
